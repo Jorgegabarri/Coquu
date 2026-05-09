@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Términos de Uso — Coquu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green:       #3F5C4E;
+      --green-deep:  #2A3D33;
+      --green-soft:  #6F8A7C;
+      --paper:       #F8F1E4;
+      --paper-warm:  #FBF6EC;
+      --cream:       #F2D9A8;
+      --terracota:   #C97B5A;
+      --ink:         #2A3D33;
+      --ink-soft:    #4A5C53;
+      --line:        rgba(42, 61, 51, 0.14);
+      --maxw:        780px;
+      --pad-x:       clamp(24px, 6vw, 80px);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(14px);
+      background: rgba(248, 241, 228, 0.88);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      max-width: var(--maxw); margin: 0 auto;
+      padding: 0 var(--pad-x);
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none; color: var(--ink);
+    }
+    .nav-logo img { width: 30px; height: 30px; }
+    .nav-logo span {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 400; font-size: 18px;
+      letter-spacing: 0.28em; text-transform: uppercase;
+    }
+    .nav-back {
+      font-size: 13px; font-weight: 500;
+      color: var(--ink-soft); text-decoration: none;
+      transition: color .18s;
+    }
+    .nav-back:hover { color: var(--terracota); }
+    .hero {
+      padding: 120px var(--pad-x) 60px;
+      background: var(--green-deep);
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; color: var(--cream);
+      opacity: 0.6; margin-bottom: 20px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .hero h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 400; font-size: clamp(36px, 6vw, 56px);
+      color: var(--cream); line-height: 1.1;
+      letter-spacing: -0.01em; margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: 15px; color: rgba(242, 217, 168, 0.6);
+      max-width: 480px; margin: 0 auto; line-height: 1.6;
+    }
+    .content {
+      max-width: var(--maxw); margin: 0 auto;
+      padding: 64px var(--pad-x) 96px;
+    }
+    .last-updated {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--green-soft);
+      margin-bottom: 48px;
+      padding: 6px 14px;
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+    }
+    .last-updated::before {
+      content: ""; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--terracota);
+    }
+    h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 500; font-size: 26px;
+      color: var(--ink); line-height: 1.2;
+      margin: 48px 0 16px;
+      padding-top: 48px;
+      border-top: 1px solid var(--line);
+    }
+    h2:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+    p {
+      font-size: 15px; line-height: 1.75;
+      color: var(--ink-soft); margin-bottom: 16px;
+    }
+    ul {
+      margin: 12px 0 20px 0;
+      padding-left: 0; list-style: none;
+    }
+    ul li {
+      font-size: 15px; line-height: 1.75;
+      color: var(--ink-soft);
+      padding: 8px 0 8px 20px;
+      position: relative;
+      border-bottom: 1px solid var(--line);
+    }
+    ul li:last-child { border-bottom: none; }
+    ul li::before {
+      content: "";
+      position: absolute; left: 0; top: 18px;
+      width: 6px; height: 1px;
+      background: var(--terracota);
+    }
+    strong { color: var(--ink); font-weight: 600; }
+    a { color: var(--green); text-decoration: none; border-bottom: 1px solid var(--line); transition: color .18s, border-color .18s; }
+    a:hover { color: var(--terracota); border-color: var(--terracota); }
+    .highlight-box {
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--terracota);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+    .highlight-box p { margin: 0; font-size: 14px; }
+    footer {
+      background: var(--green-deep);
+      padding: 40px var(--pad-x);
+      text-align: center;
+    }
+    footer p { font-size: 12px; color: rgba(242, 217, 168, 0.4); margin: 0; }
+    footer a { color: rgba(242, 217, 168, 0.6); border-bottom: none; }
+    footer a:hover { color: var(--cream); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logo.png" alt="Coquu" />
+        <span>Coquu</span>
+      </a>
+      <a href="index.html" class="nav-back">← Volver</a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Documento legal</div>
+    <h1>Términos de Uso</h1>
+    <p>Las condiciones que rigen el uso de Coquu</p>
+  </div>
+
+  <div class="content">
+    <div class="last-updated">Última actualización: mayo de 2026</div>
+
+    <h2>1. Aceptación de los términos</h2>
+    <p>Al registrarte y usar Coquu, aceptas estos términos de uso en su totalidad. Si no estás de acuerdo con alguna parte, no debes usar la aplicación.</p>
+    <p>Estos términos constituyen un acuerdo legal entre tú y Jorge Gabarri, responsable de Coquu (<a href="mailto:hola@coquu.app">hola@coquu.app</a>).</p>
+
+    <h2>2. Descripción del servicio</h2>
+    <p>Coquu es una aplicación móvil que genera menús semanales personalizados mediante inteligencia artificial. El servicio incluye:</p>
+    <ul>
+      <li>Generación de menús semanales adaptados al perfil del usuario.</li>
+      <li>Recetas detalladas con ingredientes, pasos y temporizadores.</li>
+      <li>Lista de la compra automática basada en el menú generado.</li>
+      <li>Modo de cocina guiado (daily y batch cooking).</li>
+      <li>Regeneración individual de platos del menú.</li>
+    </ul>
+
+    <h2>3. Registro y cuenta</h2>
+    <p>Para usar Coquu necesitas crear una cuenta con una dirección de email válida. Eres responsable de:</p>
+    <ul>
+      <li>Mantener la confidencialidad de tu contraseña.</li>
+      <li>Toda la actividad que ocurra en tu cuenta.</li>
+      <li>Notificarnos inmediatamente si sospechas un acceso no autorizado.</li>
+    </ul>
+    <p>No puedes crear cuentas de forma automatizada ni usar la cuenta de otra persona sin su permiso.</p>
+
+    <h2>4. Planes y suscripciones</h2>
+    <p>Coquu ofrece los siguientes planes:</p>
+    <ul>
+      <li><strong>Plan Free:</strong> acceso gratuito con funcionalidades limitadas.</li>
+      <li><strong>Trial de 14 días:</strong> acceso completo a todas las funcionalidades Pro, sin coste y sin tarjeta de crédito.</li>
+      <li><strong>Plan Pro:</strong> acceso completo por 3,99€/mes o 29,99€/año.</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p>Los pagos se gestionan a través de App Store (Apple) y Google Play (Google). Las condiciones de facturación, renovación y cancelación están sujetas a las políticas de cada tienda.</p>
+    </div>
+
+    <p>Las suscripciones se renuevan automáticamente salvo que las canceles antes del fin del periodo de facturación. Puedes cancelar en cualquier momento desde los ajustes de tu cuenta en App Store o Google Play.</p>
+
+    <h2>5. Uso aceptable</h2>
+    <p>Te comprometes a usar Coquu de forma lícita y respetuosa. Está prohibido:</p>
+    <ul>
+      <li>Usar el servicio para fines ilegales o fraudulentos.</li>
+      <li>Intentar acceder a sistemas o datos de otros usuarios.</li>
+      <li>Realizar ingeniería inversa, descompilar o modificar la aplicación.</li>
+      <li>Usar herramientas automatizadas para acceder al servicio de forma masiva.</li>
+      <li>Revender o explotar comercialmente el servicio sin autorización.</li>
+    </ul>
+
+    <h2>6. Contenido generado por IA</h2>
+    <p>Los menús y recetas que genera Coquu son creados por inteligencia artificial y tienen carácter informativo. Ten en cuenta que:</p>
+    <ul>
+      <li>Los valores nutricionales son aproximados y no deben usarse como referencia médica.</li>
+      <li>Las recetas están diseñadas para cocineros domésticos de nivel medio.</li>
+      <li>Aunque el sistema valida las intolerancias automáticamente, <strong>siempre debes revisar los ingredientes</strong> si tienes alergias alimentarias graves.</li>
+      <li>Coquu no es un servicio de nutrición ni dietética profesional.</li>
+    </ul>
+
+    <div class="highlight-box">
+      <p>Si tienes condiciones médicas que requieren una dieta específica, consulta siempre con un profesional sanitario antes de seguir los menús generados por Coquu.</p>
+    </div>
+
+    <h2>7. Propiedad intelectual</h2>
+    <p>Coquu y todos sus elementos (diseño, código, marca, textos) son propiedad de Jorge Gabarri. Queda prohibida su reproducción o uso sin autorización expresa.</p>
+    <p>Los menús y recetas generados para ti son de tu uso personal. No puedes reproducirlos ni distribuirlos comercialmente.</p>
+
+    <h2>8. Disponibilidad del servicio</h2>
+    <p>Nos esforzamos por mantener Coquu disponible en todo momento, pero no garantizamos una disponibilidad del 100%. Podemos interrumpir el servicio temporalmente por mantenimiento, actualizaciones o causas fuera de nuestro control.</p>
+
+    <h2>9. Limitación de responsabilidad</h2>
+    <p>En la medida permitida por la ley aplicable, Jorge Gabarri no será responsable de daños indirectos, incidentales o consecuentes derivados del uso de Coquu, incluyendo pero no limitado a reacciones alérgicas derivadas del seguimiento de recetas generadas por la IA.</p>
+
+    <h2>10. Modificaciones del servicio y los términos</h2>
+    <p>Nos reservamos el derecho de modificar estos términos o el servicio en cualquier momento. Te notificaremos los cambios relevantes con al menos 14 días de antelación a través de la app o por email. El uso continuado del servicio tras la notificación implica la aceptación de los nuevos términos.</p>
+
+    <h2>11. Cancelación y terminación</h2>
+    <p>Puedes cancelar tu cuenta en cualquier momento contactando con nosotros en <a href="mailto:hola@coquu.app">hola@coquu.app</a>. Nos reservamos el derecho de suspender o cancelar cuentas que incumplan estos términos.</p>
+
+    <h2>12. Ley aplicable</h2>
+    <p>Estos términos se rigen por la legislación española. Para cualquier disputa, las partes se someten a los juzgados y tribunales de España.</p>
+
+    <h2>13. Contacto</h2>
+    <p>Para cualquier consulta sobre estos términos, contacta con nosotros en <a href="mailto:hola@coquu.app">hola@coquu.app</a>.</p>
+  </div>
+
+  <footer>
+    <p>© 2026 Coquu · <a href="index.html">Inicio</a> · <a href="privacy.html">Política de privacidad</a> · <a href="mailto:hola@coquu.app">hola@coquu.app</a></p>
+  </footer>
+
+</body>
+</html>
