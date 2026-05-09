@@ -2,1301 +2,546 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Coquu genera tu menú semanal personalizado con IA. Recetas adaptadas a tus intolerancias, electrodomésticos y modo de cocina." />
-  <meta name="theme-color" content="#3F5C4E" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Coquu genera tu menú semanal personalizado con IA. Recetas adaptadas a tus intolerancias, electrodomésticos y modo de cocina. Batch cooking o día a día."/>
+  <meta name="og:title" content="Coquu — Tu menú semanal, sin esfuerzo"/>
+  <meta name="og:description" content="Genera tu menú semanal con IA. Personalizado, variado y listo en menos de 2 minutos."/>
+  <meta name="theme-color" content="#2D5147"/>
   <title>Coquu — Tu menú semanal, sin esfuerzo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --green:        #3F5C4E;
-      --green-deep:   #2A3D33;
-      --green-soft:   #6F8A7C;
-      --cream:        #F2D9A8;
-      --cream-soft:   #F8E7C2;
-      --paper:        #F8F1E4;
-      --paper-warm:   #FBF6EC;
-      --paper-cool:   #F4ECDC;
-      --terracota:    #C97B5A;
-      --terracota-d:  #B05E3F;
-      --terracota-s:  #E2A88C;
-      --ink:          #2A3D33;
-      --ink-soft:     #4A5C53;
-      --line:         rgba(42, 61, 51, 0.14);
-      --line-strong:  rgba(42, 61, 51, 0.22);
-      --line-light:   rgba(245, 236, 216, 0.12);
-
-      --maxw: 1240px;
-      --pad-x: clamp(24px, 6vw, 80px);
+      --verde:       #2D5147;
+      --verde-dark:  #1A3330;
+      --crema:       #F5ECD8;
+      --crema-arena: #E8C99A;
+      --crema-borde: #D4C4A0;
+      --texto:       #1A3330;
+      --texto-medio: #4A7066;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     html { scroll-behavior: smooth; }
+
     body {
-      font-family: "DM Sans", system-ui, sans-serif;
-      background: var(--paper);
-      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      background: var(--crema);
+      color: var(--texto);
       overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-      font-feature-settings: "ss01", "cv11";
     }
-    img { max-width: 100%; display: block; }
 
-    .display { font-family: "Cormorant Garamond", "Cormorant", Georgia, serif; }
-    .mono { font-family: "JetBrains Mono", ui-monospace, monospace; letter-spacing: 0.18em; text-transform: uppercase; }
-    .italic { font-style: italic; color: var(--terracota); }
-
-    /* ─── NAV ──────────────────────────────────────── */
+    /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      backdrop-filter: blur(14px);
-      background: rgba(248, 241, 228, 0.78);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav-inner {
-      max-width: var(--maxw); margin: 0 auto;
-      padding: 0 var(--pad-x);
-      height: 70px;
+      background: rgba(245,236,216,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--crema-borde);
+      padding: 0 5%;
       display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
     }
     .nav-logo {
-      display: flex; align-items: center; gap: 12px;
-      text-decoration: none; color: var(--ink);
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
     }
-    .nav-logo .mark { width: 34px; height: 34px; }
-    .nav-logo .word {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 400; font-size: 20px;
-      letter-spacing: 0.32em; text-transform: uppercase;
+    .nav-logo img { width: 36px; height: 36px; }
+    .nav-logo span {
+      font-family: 'Lora', serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--verde);
+      letter-spacing: -0.3px;
     }
-    .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
     .nav-links a {
-      text-decoration: none;
-      font-size: 13px; font-weight: 500; color: var(--ink-soft);
-      transition: color .18s;
+      text-decoration: none; font-size: 14px; font-weight: 500;
+      color: var(--texto-medio);
+      transition: color .2s;
     }
-    .nav-links a:hover { color: var(--terracota); }
+    .nav-links a:hover { color: var(--verde); }
     .nav-cta {
-      font-family: "DM Sans", sans-serif;
-      font-size: 13px; font-weight: 500; letter-spacing: 0.02em;
-      padding: 10px 18px; border-radius: 999px;
-      background: var(--green-deep); color: var(--cream);
-      text-decoration: none;
-      transition: background .18s, transform .18s;
+      background: var(--verde); color: var(--crema-arena) !important;
+      padding: 8px 20px; border-radius: 8px;
+      font-weight: 600 !important;
+      transition: background .2s !important;
     }
-    .nav-cta:hover { background: var(--terracota); transform: translateY(-1px); }
+    .nav-cta:hover { background: var(--verde-dark) !important; color: var(--crema-arena) !important; }
 
-    /* ─── HERO ─────────────────────────────────────── */
+    /* ── HERO ── */
     .hero {
-      padding: 138px var(--pad-x) 100px;
+      background: var(--verde);
+      display: flex; align-items: center;
+      padding: 140px 5% 100px;
       position: relative;
-      background:
-        radial-gradient(ellipse 700px 500px at 90% 30%, rgba(201, 123, 90, 0.06), transparent 60%),
-        var(--paper);
-    }
-    .hero-inner {
-      max-width: var(--maxw); margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1.15fr 1fr;
-      gap: clamp(40px, 6vw, 96px);
-      align-items: center;
-    }
-    .hero-eyebrow {
-      display: inline-flex; align-items: center; gap: 12px;
-      font-size: 11px; color: var(--green);
-      margin-bottom: 28px;
-    }
-    .hero-eyebrow::before {
-      content: ""; width: 32px; height: 1px; background: var(--terracota);
-    }
-    .hero-eyebrow .dot {
-      width: 5px; height: 5px; border-radius: 50%;
-      background: var(--terracota); display: inline-block;
-    }
-    .hero h1 {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 400;
-      font-size: clamp(48px, 7.4vw, 96px);
-      line-height: 0.98;
-      letter-spacing: -0.02em;
-      color: var(--ink);
-      margin-bottom: 28px;
-      text-wrap: balance;
-    }
-    .hero h1 em { font-style: italic; color: var(--terracota); font-weight: 400; }
-    .hero h1 .ampersand {
-      font-style: italic; color: var(--terracota);
-      font-weight: 300;
-    }
-    .hero p.lede {
-      font-size: 18px; line-height: 1.55;
-      color: var(--ink-soft);
-      max-width: 460px;
-      margin-bottom: 40px;
-      font-weight: 400;
-    }
-    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 10px;
-      padding: 16px 26px; border-radius: 999px;
-      font-size: 14px; font-weight: 500; letter-spacing: 0.01em;
-      text-decoration: none; cursor: pointer;
-      transition: background .18s, color .18s, transform .18s, box-shadow .18s, border-color .18s;
-      border: 1px solid transparent;
-    }
-    .btn-primary { background: var(--green-deep); color: var(--cream); }
-    .btn-primary:hover { background: var(--terracota); transform: translateY(-2px); box-shadow: 0 12px 28px rgba(201, 123, 90, 0.25); }
-    .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line-strong); }
-    .btn-ghost:hover { border-color: var(--ink); transform: translateY(-2px); }
-    .btn .arr { transition: transform .2s; }
-    .btn:hover .arr { transform: translateX(3px); }
-
-    .hero-stores {
-      display: flex; gap: 22px; align-items: center;
-      margin-top: 22px;
-      font-size: 12px; color: var(--ink-soft);
-    }
-    .hero-stores .store-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      color: var(--ink-soft); text-decoration: none;
-      transition: color .18s;
-    }
-    .hero-stores .store-badge:hover { color: var(--terracota); }
-    .hero-stores .store-badge .icn { width: 16px; height: 16px; opacity: 0.7; }
-
-    .hero-meta {
-      display: flex; gap: 28px; align-items: center;
-      margin-top: 56px;
-      padding-top: 28px;
-      border-top: 1px solid var(--line);
-    }
-    .hero-meta .stat .v {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 28px; font-weight: 400;
-      color: var(--ink);
-      line-height: 1;
-    }
-    .hero-meta .stat .v em { font-style: italic; color: var(--terracota); }
-    .hero-meta .stat .k {
-      font-size: 11px; color: var(--green-soft);
-      margin-top: 6px;
-    }
-
-    /* HERO RIGHT — phone mockup with schematic UI */
-    .hero-right {
-      position: relative;
-      display: flex; align-items: center; justify-content: center;
-      min-height: 580px;
-    }
-    .hero-tag {
-      position: absolute;
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-weight: 400;
-      color: var(--terracota);
-      font-size: 22px;
-    }
-    .hero-tag.t1 { top: 40px; left: -12px; }
-    .hero-tag.t2 { bottom: 60px; right: 0px; }
-    .hero-tag .arr-curve { display: inline-block; }
-
-    .phone {
-      width: 305px; height: 620px;
-      background: #0e1714;
-      border-radius: 46px; padding: 7px;
-      box-shadow:
-        0 40px 80px -20px rgba(26, 51, 48, 0.35),
-        0 8px 16px rgba(26, 51, 48, 0.12);
-      position: relative;
-    }
-    .phone::before {
-      content: ""; position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
-      width: 96px; height: 26px; background: #0e1714; border-radius: 999px;
-      z-index: 4;
-    }
-    .phone-screen {
-      width: 100%; height: 100%; border-radius: 40px;
-      background: var(--paper);
-      overflow: hidden; position: relative;
-    }
-    .statusbar {
-      height: 44px; padding: 14px 26px 0;
-      display: flex; justify-content: space-between; align-items: center;
-      font-size: 11px; font-weight: 600; color: var(--ink);
-    }
-    .statusbar-icons { display: flex; gap: 4px; align-items: center; }
-    .sb-bat {
-      width: 22px; height: 11px; border: 1px solid var(--ink); border-radius: 3px;
-      position: relative; padding: 1px;
-    }
-    .sb-bat::after {
-      content: ""; position: absolute; right: -3px; top: 3px; width: 2px; height: 5px;
-      background: var(--ink); border-radius: 0 1px 1px 0;
-    }
-    .sb-bat-fill { width: 70%; height: 100%; background: var(--ink); border-radius: 1px; }
-
-    /* Schematic app: Menú semanal */
-    .app-menu { padding: 20px 22px 0; height: calc(100% - 44px); display: flex; flex-direction: column; }
-    .app-menu-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
-    .app-menu-head .greet {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 22px; font-weight: 400; color: var(--ink);
-      line-height: 1.1;
-    }
-    .app-menu-head .greet em { font-style: italic; color: var(--terracota); }
-    .app-menu-head .week {
-      font-size: 10px; color: var(--green-soft);
-      margin-top: 4px;
-    }
-    .app-avatar {
-      width: 36px; height: 36px; border-radius: 50%;
-      background: var(--terracota-s);
-      display: flex; align-items: center; justify-content: center;
-      font-family: "Cormorant Garamond", serif; font-size: 16px; color: var(--green-deep);
-      font-weight: 500;
-    }
-
-    .app-tabs {
-      display: flex; gap: 6px; padding: 4px; margin-bottom: 18px;
-      background: var(--paper-cool); border-radius: 999px;
-    }
-    .app-tab {
-      flex: 1; padding: 8px 0; text-align: center;
-      font-size: 11px; font-weight: 500; color: var(--ink-soft);
-      border-radius: 999px;
-    }
-    .app-tab.active { background: var(--green-deep); color: var(--cream); font-weight: 600; }
-
-    .app-day-nav {
-      display: flex; gap: 6px; margin-bottom: 16px; overflow: hidden;
-    }
-    .app-day {
-      flex: 1; padding: 8px 0; text-align: center;
-      border-radius: 10px; background: var(--paper-warm);
-      border: 1px solid var(--line);
-      display: flex; flex-direction: column; align-items: center; gap: 2px;
-    }
-    .app-day .d {
-      font-size: 9px; font-weight: 600; color: var(--green-soft);
-      text-transform: uppercase; letter-spacing: 0.08em;
-    }
-    .app-day .n { font-family: "Cormorant Garamond", serif; font-size: 16px; color: var(--ink); }
-    .app-day.active { background: var(--terracota); border-color: var(--terracota); }
-    .app-day.active .d { color: var(--cream-soft); }
-    .app-day.active .n { color: var(--cream); }
-
-    .meal-card {
-      background: var(--paper-warm);
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 14px;
-      margin-bottom: 10px;
-      display: flex; gap: 12px; align-items: center;
-    }
-    .meal-card .meal-img {
-      width: 56px; height: 56px; border-radius: 10px;
-      background: linear-gradient(135deg, var(--terracota-s), var(--terracota));
-      flex-shrink: 0; position: relative; overflow: hidden;
-    }
-    .meal-card .meal-img.veg { background: linear-gradient(135deg, var(--green-soft), var(--green)); }
-    .meal-card .meal-img.fish { background: linear-gradient(135deg, var(--cream), #d8b986); }
-    .meal-card .meal-img::after {
-      content: ""; position: absolute; inset: 0;
-      background: repeating-linear-gradient(45deg, rgba(255,255,255,0.1) 0 4px, transparent 4px 8px);
-    }
-    .meal-card .meal-info { flex: 1; min-width: 0; }
-    .meal-card .meal-eyebrow {
-      font-family: "JetBrains Mono", monospace; font-size: 8px;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--green-soft); margin-bottom: 4px;
-    }
-    .meal-card .meal-title {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 14px; font-weight: 500; color: var(--ink);
-      line-height: 1.2;
-    }
-    .meal-card .meal-meta {
-      display: flex; gap: 10px; margin-top: 4px;
-      font-size: 9px; color: var(--green-soft);
-    }
-    .meal-card .meal-meta .pill {
-      padding: 2px 6px; background: var(--paper); border-radius: 4px;
-    }
-
-    /* Floating CTA */
-    .app-fab {
-      position: absolute; bottom: 28px; left: 22px; right: 22px;
-      background: var(--green-deep); color: var(--cream);
-      border-radius: 999px;
-      padding: 13px 16px;
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: 12px; font-weight: 500;
-      box-shadow: 0 8px 20px rgba(42, 61, 51, 0.25);
-    }
-    .app-fab .icn-circle {
-      width: 24px; height: 24px; border-radius: 50%;
-      background: var(--terracota); display: flex; align-items: center; justify-content: center;
-      font-size: 14px; line-height: 1;
-    }
-
-    /* ─── SECTION CHROME ──────────────────────────── */
-    section.s {
-      padding: clamp(80px, 12vw, 140px) var(--pad-x);
-      position: relative;
-    }
-    .s-inner { max-width: var(--maxw); margin: 0 auto; }
-    .s-eyebrow {
-      display: inline-flex; align-items: center; gap: 12px;
-      font-size: 11px; margin-bottom: 18px;
-    }
-    .s-eyebrow::before {
-      content: ""; width: 28px; height: 1px; background: currentColor; opacity: 0.5;
-    }
-    .s-title {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 400;
-      font-size: clamp(36px, 5.4vw, 64px);
-      line-height: 1.04;
-      letter-spacing: -0.015em;
-      text-wrap: balance;
-      max-width: 18ch;
-    }
-    .s-title em { font-style: italic; color: var(--terracota); font-weight: 400; }
-    .s-sub {
-      font-size: 17px; line-height: 1.55;
-      max-width: 520px; margin-top: 18px;
-      font-weight: 400;
-    }
-    .s-head {
-      display: grid; grid-template-columns: 1.4fr 1fr;
-      gap: 40px; align-items: end;
-      margin-bottom: 72px;
-    }
-    .s-meta-mono {
-      font-size: 11px; color: var(--green-soft);
-      align-self: end; text-align: right;
-    }
-
-    /* ─── CÓMO FUNCIONA ───────────────────────────── */
-    .como {
-      background: var(--green-deep); color: var(--cream);
-    }
-    .como .s-eyebrow { color: var(--terracota-s); }
-    .como .s-title { color: var(--cream); }
-    .como .s-sub { color: rgba(245, 236, 216, 0.62); }
-    .como .s-meta-mono { color: rgba(245, 236, 216, 0.4); }
-    .steps {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
-      border-top: 1px solid var(--line-light);
-    }
-    .step {
-      padding: 44px 36px 48px;
-      border-right: 1px solid var(--line-light);
-      position: relative;
-      transition: background .25s;
-    }
-    .step:last-child { border-right: none; }
-    .step:hover { background: rgba(255, 255, 255, 0.03); }
-    .step-top {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 36px;
-    }
-    .step-num {
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic;
-      font-size: 36px; font-weight: 400;
-      color: var(--terracota);
-      line-height: 1;
-    }
-    .step-icon {
-      width: 32px; height: 32px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--cream); opacity: 0.55;
-    }
-    .step h3 {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 26px; font-weight: 400;
-      color: var(--cream); line-height: 1.15;
-      margin-bottom: 14px; letter-spacing: -0.01em;
-      text-wrap: balance;
-    }
-    .step p {
-      font-size: 14px; line-height: 1.65;
-      color: rgba(245, 236, 216, 0.55);
-      max-width: 32ch;
-    }
-    .step-tag {
-      margin-top: 22px;
-      font-size: 10px;
-      color: var(--terracota-s); opacity: 0.7;
-    }
-
-    /* ─── FEATURES ────────────────────────────────── */
-    .features { background: var(--paper-warm); }
-    .features .s-eyebrow { color: var(--green); }
-    .features .s-title { color: var(--ink); }
-    .features .s-sub { color: var(--ink-soft); }
-    .features .s-meta-mono { color: var(--green-soft); }
-    .feat-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--line);
-      border: 1px solid var(--line);
-      border-radius: 22px;
       overflow: hidden;
     }
-    .feat {
-      background: var(--paper);
-      padding: 38px 32px 36px;
-      transition: background .2s;
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(26,51,48,0.4) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1100px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(45,81,71,0.08); border: 1px solid rgba(45,81,71,0.15);
+      color: var(--verde); border-radius: 20px;
+      padding: 5px 14px; font-size: 13px; font-weight: 600;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-family: 'Lora', serif;
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 700; line-height: 1.15;
+      color: var(--crema);
+      margin-bottom: 20px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      color: var(--crema-arena);
+    }
+    .hero p {
+      font-size: 18px; line-height: 1.7;
+      color: rgba(245,236,216,0.75);
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--crema-arena); color: var(--verde-dark);
+      padding: 14px 28px; border-radius: 10px;
+      font-size: 15px; font-weight: 600;
+      text-decoration: none;
+      transition: background .2s, transform .15s;
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--crema); transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: transparent; color: var(--crema);
+      padding: 14px 28px; border-radius: 10px;
+      font-size: 15px; font-weight: 600;
+      text-decoration: none;
+      border: 1.5px solid rgba(245,236,216,0.4);
+      transition: background .2s, transform .15s;
+    }
+    .btn-secondary:hover { background: rgba(245,236,216,0.08); transform: translateY(-1px); }
+    .hero-note {
+      margin-top: 16px; font-size: 13px; color: rgba(245,236,216,0.5);
+    }
+    .hero-visual {
+      display: flex; justify-content: center; align-items: center;
+    }
+    .screenshot-placeholder {
+      width: 260px; height: 520px;
+      background: rgba(26,51,48,0.5);
+      border-radius: 36px;
+      border: 2px dashed rgba(232,201,154,0.3);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px;
+      color: rgba(232,201,154,0.4);
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.5px; text-align: center;
+      padding: 24px;
+    }
+
+    /* ── SECTIONS COMMON ── */
+    section { padding: 96px 5%; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+      color: var(--verde); text-transform: uppercase; margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Lora', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700; color: var(--verde-dark);
+      line-height: 1.2; margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 17px; color: var(--texto-medio); line-height: 1.7;
+      max-width: 560px;
+    }
+
+    /* ── CÓMO FUNCIONA ── */
+    .como-funciona { background: var(--verde-dark); }
+    .como-funciona .section-label { color: var(--crema-arena); }
+    .como-funciona .section-title { color: var(--crema); }
+    .como-funciona .section-sub { color: rgba(245,236,216,0.7); }
+    .steps {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+      margin-top: 56px;
+    }
+    .step-card {
+      position: relative;
+      padding: 36px 28px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      transition: transform .2s;
+    }
+    .step-card:hover { transform: translateY(-4px); }
+    .step-number {
+      font-family: 'Lora', serif;
+      font-size: 48px; font-weight: 700;
+      color: var(--crema-arena); opacity: 0.3;
+      line-height: 1; margin-bottom: 20px;
+    }
+    .step-icon { font-size: 32px; margin-bottom: 16px; }
+    .step-title {
+      font-size: 18px; font-weight: 700;
+      color: var(--crema); margin-bottom: 10px;
+    }
+    .step-desc { font-size: 14px; color: rgba(245,236,216,0.65); line-height: 1.7; }
+
+    /* ── FEATURES ── */
+    .features { background: var(--crema); }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      margin-top: 56px;
+    }
+    .feature-card {
+      background: white; border-radius: 16px;
+      border: 1px solid var(--crema-borde);
+      padding: 28px 24px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(45,81,71,0.1);
+    }
+    .feature-icon { font-size: 28px; margin-bottom: 14px; }
+    .feature-title { font-size: 16px; font-weight: 700; color: var(--verde-dark); margin-bottom: 8px; }
+    .feature-desc { font-size: 14px; color: var(--texto-medio); line-height: 1.7; }
+
+    /* ── PLANES ── */
+    .planes { background: white; }
+    .planes-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+      max-width: 780px; margin: 56px auto 0;
+    }
+    .plan-card {
+      border-radius: 20px; padding: 36px 32px;
+      border: 1.5px solid var(--crema-borde);
       position: relative;
     }
-    .feat:hover { background: var(--paper-warm); }
-    .feat-top {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      margin-bottom: 28px;
+    .plan-card.featured {
+      background: var(--verde-dark);
+      border-color: var(--verde-dark);
     }
-    .feat-num {
-      font-size: 11px; color: var(--green-soft);
+    .plan-badge {
+      position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+      background: var(--crema-arena); color: var(--verde-dark);
+      font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+      padding: 4px 14px; border-radius: 20px;
     }
-    .feat-icon {
-      width: 38px; height: 38px;
-      border-radius: 50%;
-      background: var(--paper-warm);
-      border: 1px solid var(--line);
+    .plan-name {
+      font-family: 'Lora', serif;
+      font-size: 22px; font-weight: 700;
+      color: var(--verde-dark); margin-bottom: 4px;
+    }
+    .plan-card.featured .plan-name { color: var(--crema); }
+    .plan-price {
+      font-size: 36px; font-weight: 700;
+      color: var(--verde); margin: 16px 0 4px;
+    }
+    .plan-card.featured .plan-price { color: var(--crema-arena); }
+    .plan-period { font-size: 13px; color: var(--texto-medio); margin-bottom: 28px; }
+    .plan-card.featured .plan-period { color: rgba(245,236,216,0.6); }
+    .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .plan-features li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; color: var(--texto-medio); line-height: 1.5;
+    }
+    .plan-card.featured .plan-features li { color: rgba(245,236,216,0.8); }
+    .plan-check { color: var(--verde); font-weight: 700; flex-shrink: 0; }
+    .plan-card.featured .plan-check { color: var(--crema-arena); }
+    .plan-cta {
+      display: block; text-align: center;
+      margin-top: 28px; padding: 13px;
+      border-radius: 10px; font-size: 15px; font-weight: 600;
+      text-decoration: none;
+      background: var(--crema); color: var(--verde);
+      transition: background .2s;
+    }
+    .plan-card.featured .plan-cta {
+      background: var(--crema-arena); color: var(--verde-dark);
+    }
+    .plan-cta:hover { opacity: 0.9; }
+
+    /* ── SCREENSHOTS ── */
+    .screenshots { background: var(--crema); }
+    .screenshots-grid {
+      display: flex; gap: 20px; justify-content: center;
+      margin-top: 56px; flex-wrap: wrap;
+    }
+    .screenshot-item { text-align: center; }
+    .screenshot-phone {
+      width: 160px; height: 320px;
+      background: var(--verde-dark);
+      border-radius: 24px;
+      border: 6px solid #0f2220;
+      box-shadow: 0 20px 48px rgba(26,51,48,0.25);
       display: flex; align-items: center; justify-content: center;
-      color: var(--terracota);
-      transition: background .2s, color .2s, border-color .2s;
+      margin: 0 auto 12px;
+      color: rgba(232,201,154,0.3);
+      font-size: 11px; font-weight: 600; letter-spacing: 0.5px;
+      text-align: center; padding: 20px;
     }
-    .feat:hover .feat-icon {
-      background: var(--terracota); color: var(--cream); border-color: var(--terracota);
-    }
-    .feat h3 {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 24px; font-weight: 400;
-      color: var(--ink); line-height: 1.18;
-      margin-bottom: 12px; letter-spacing: -0.01em;
-    }
-    .feat h3 em { font-style: italic; color: var(--terracota); }
-    .feat p {
-      font-size: 14px; line-height: 1.65;
-      color: var(--ink-soft);
+    .screenshot-label {
+      font-size: 13px; color: var(--texto-medio); font-weight: 500;
     }
 
-    /* ─── SCREENSHOTS ─────────────────────────────── */
-    .screens { background: var(--paper); }
-    .screens .s-eyebrow { color: var(--terracota); }
-    .screens .s-title { color: var(--ink); }
-    .screens .s-sub { color: var(--ink-soft); }
-    .screens-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: 28px;
-    }
-    .ss-item { display: flex; flex-direction: column; }
-    .ss-phone-wrap {
-      aspect-ratio: 9 / 19;
-      background: #0e1714;
-      border-radius: 32px; padding: 6px;
-      box-shadow: 0 24px 50px -12px rgba(26, 51, 48, 0.28);
-      margin-bottom: 18px;
-      position: relative;
-    }
-    .ss-phone-wrap::before {
-      content: ""; position: absolute; top: 12px; left: 50%; transform: translateX(-50%);
-      width: 64px; height: 18px; background: #0e1714; border-radius: 999px; z-index: 4;
-    }
-    .ss-phone {
-      width: 100%; height: 100%; border-radius: 26px;
-      overflow: hidden; background: var(--paper); position: relative;
-    }
-    .ss-statusbar {
-      height: 30px; padding: 8px 14px 0;
-      display: flex; justify-content: space-between;
-      font-size: 8px; font-weight: 600; color: var(--ink);
-    }
-    .ss-content { padding: 4px 12px 12px; height: calc(100% - 30px); display: flex; flex-direction: column; gap: 6px; overflow: hidden; }
-    .ss-head {
-      display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 4px;
-    }
-    .ss-title-d {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 14px; font-weight: 500; color: var(--ink);
-      letter-spacing: -0.005em;
-    }
-    .ss-title-d em { font-style: italic; color: var(--terracota); }
-    .ss-mono-tag {
-      font-family: "JetBrains Mono", monospace; font-size: 6px;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--green-soft);
-    }
-
-    .ss-row {
-      background: var(--paper-warm); border: 1px solid var(--line);
-      border-radius: 8px; padding: 6px 8px;
-      display: flex; align-items: center; gap: 6px;
-      font-size: 7px; color: var(--ink-soft);
-    }
-    .ss-row .swatch {
-      width: 18px; height: 18px; border-radius: 4px; flex-shrink: 0;
-      background: linear-gradient(135deg, var(--terracota-s), var(--terracota));
-    }
-    .ss-row .swatch.veg { background: linear-gradient(135deg, var(--green-soft), var(--green)); }
-    .ss-row .swatch.fish { background: linear-gradient(135deg, var(--cream), #d8b986); }
-    .ss-row .swatch.bread { background: linear-gradient(135deg, #d8b986, #b8915c); }
-    .ss-row .info { flex: 1; min-width: 0; }
-    .ss-row .info .t { font-family: "Cormorant Garamond", serif; font-size: 8px; color: var(--ink); font-weight: 500; }
-    .ss-row .info .m { font-size: 6px; color: var(--green-soft); margin-top: 1px; }
-    .ss-row .check {
-      width: 12px; height: 12px; border-radius: 3px; border: 1px solid var(--line);
-      flex-shrink: 0;
-    }
-    .ss-row .check.on { background: var(--terracota); border-color: var(--terracota); }
-
-    /* Screenshot 2 — receta */
-    .ss-receta-img {
-      aspect-ratio: 4/3;
-      border-radius: 8px;
-      background: linear-gradient(135deg, var(--terracota-s), var(--terracota));
-      position: relative; overflow: hidden;
-      margin-bottom: 4px;
-    }
-    .ss-receta-img::after {
-      content: ""; position: absolute; inset: 0;
-      background: repeating-linear-gradient(35deg, rgba(255,255,255,0.08) 0 6px, transparent 6px 12px);
-    }
-    .ss-receta-img .timer {
-      position: absolute; top: 6px; right: 6px;
-      background: rgba(14, 23, 20, 0.88); color: var(--cream);
-      font-family: "JetBrains Mono", monospace; font-size: 6px;
-      padding: 3px 6px; border-radius: 999px;
-      letter-spacing: 0.08em;
-    }
-    .ss-step {
-      display: flex; gap: 6px; align-items: flex-start;
-      padding: 4px 0; border-bottom: 1px dashed var(--line);
-      font-size: 7px; color: var(--ink-soft); line-height: 1.4;
-    }
-    .ss-step:last-child { border-bottom: none; }
-    .ss-step .num {
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic; font-size: 10px; color: var(--terracota);
-      flex-shrink: 0; line-height: 1;
-    }
-
-    /* Screenshot 3 — batch timeline */
-    .ss-timeline {
-      flex: 1; position: relative;
-      padding-left: 18px;
-    }
-    .ss-timeline::before {
-      content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px;
-      width: 1px; background: var(--line);
-    }
-    .ss-tl-item {
-      position: relative; margin-bottom: 8px;
-    }
-    .ss-tl-item::before {
-      content: ""; position: absolute; left: -15px; top: 4px;
-      width: 7px; height: 7px; border-radius: 50%;
-      background: var(--paper); border: 1px solid var(--green-soft);
-    }
-    .ss-tl-item.active::before { background: var(--terracota); border-color: var(--terracota); }
-    .ss-tl-item .time {
-      font-family: "JetBrains Mono", monospace; font-size: 6px;
-      color: var(--green-soft); letter-spacing: 0.08em;
-    }
-    .ss-tl-item .t {
-      font-family: "Cormorant Garamond", serif; font-size: 9px;
-      color: var(--ink); margin-top: 1px;
-    }
-    .ss-tl-item .t em { font-style: italic; color: var(--terracota); }
-
-    /* Screenshot 4 — lista de la compra */
-    .ss-cat {
-      font-family: "JetBrains Mono", monospace; font-size: 6px;
-      letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--green-soft); margin-top: 4px; margin-bottom: 2px;
-    }
-
-    .ss-label {
-      text-align: center;
-      font-size: 13px; color: var(--ink-soft);
-      font-weight: 500;
-    }
-    .ss-label em {
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic; color: var(--terracota);
-    }
-
-    /* ─── PRIVACIDAD ──────────────────────────────── */
-    .priv {
-      background: var(--green); color: var(--cream);
-      position: relative;
-    }
-    .priv .s-eyebrow { color: var(--terracota-s); }
-    .priv .s-title { color: var(--cream); }
-    .priv .s-sub { color: rgba(245, 236, 216, 0.7); }
-    .priv .s-meta-mono { color: rgba(245, 236, 216, 0.45); }
+    /* ── PRIVACIDAD ── */
+    .privacidad { background: var(--verde); }
+    .privacidad .section-label { color: rgba(232,201,154,0.7); }
+    .privacidad .section-title { color: var(--crema); }
+    .privacidad .section-sub { color: rgba(245,236,216,0.7); }
     .trust-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: var(--line-light);
-      border: 1px solid var(--line-light);
-      border-radius: 22px; overflow: hidden;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+      margin-top: 48px;
     }
-    .trust {
-      background: rgba(255, 255, 255, 0.025);
-      padding: 38px 32px 36px;
-      transition: background .2s;
+    .trust-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 28px 24px;
     }
-    .trust:hover { background: rgba(255, 255, 255, 0.05); }
-    .trust-rule {
-      width: 28px; height: 1px;
-      background: var(--terracota); opacity: 0.9;
-      margin-bottom: 26px;
-    }
-    .trust h3 {
-      font-family: "Cormorant Garamond", serif;
-      font-size: 24px; font-weight: 400;
-      color: var(--cream); line-height: 1.18;
-      margin-bottom: 12px; letter-spacing: -0.01em;
-    }
-    .trust h3 em { font-style: italic; color: var(--terracota-s); }
-    .trust p {
-      font-size: 14px; line-height: 1.65;
-      color: rgba(245, 236, 216, 0.6);
-    }
+    .trust-icon { font-size: 28px; margin-bottom: 12px; }
+    .trust-title { font-size: 16px; font-weight: 700; color: var(--crema); margin-bottom: 8px; }
+    .trust-desc { font-size: 14px; color: rgba(245,236,216,0.65); line-height: 1.7; }
 
-    /* ─── CTA strip ──────────────────────────────── */
-    .cta-strip {
-      background: var(--paper);
-      padding: clamp(80px, 10vw, 120px) var(--pad-x);
-      text-align: center;
-      border-top: 1px solid var(--line);
-    }
-    .cta-strip-inner { max-width: 760px; margin: 0 auto; }
-    .cta-strip h2 {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 400;
-      font-size: clamp(40px, 6vw, 76px);
-      line-height: 1.02; letter-spacing: -0.02em;
-      color: var(--ink);
-      text-wrap: balance;
-      margin-bottom: 22px;
-    }
-    .cta-strip h2 em { font-style: italic; color: var(--terracota); }
-    .cta-strip p {
-      font-size: 17px; color: var(--ink-soft); line-height: 1.55;
-      max-width: 520px; margin: 0 auto 36px;
-    }
-    .cta-strip .btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
-
-    /* ─── FOOTER ──────────────────────────────────── */
+    /* ── FOOTER ── */
     footer {
-      background: var(--green-deep); color: var(--cream);
-      padding: 80px var(--pad-x) 36px;
+      background: var(--verde-dark);
+      padding: 48px 5% 32px;
     }
-    .foot-inner {
-      max-width: var(--maxw); margin: 0 auto;
-      display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr;
-      gap: 40px;
-      padding-bottom: 60px;
-      border-bottom: 1px solid var(--line-light);
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 24px;
     }
-    .foot-brand .foot-logo {
-      display: flex; align-items: center; gap: 12px;
-      text-decoration: none; color: var(--cream);
-      margin-bottom: 22px;
+    .footer-logo {
+      display: flex; align-items: center; gap: 10px;
+      text-decoration: none;
     }
-    .foot-brand .foot-logo .word {
-      font-family: "Cormorant Garamond", serif;
-      font-weight: 400; font-size: 22px;
-      letter-spacing: 0.32em; text-transform: uppercase;
-      color: var(--cream);
+    .footer-logo img { width: 32px; height: 32px; }
+    .footer-logo span {
+      font-family: 'Lora', serif;
+      font-size: 18px; font-weight: 700;
+      color: var(--crema-arena);
     }
-    .foot-brand .foot-mark { width: 36px; height: 36px; }
-    .foot-tag {
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic; font-size: 18px;
-      color: var(--terracota-s);
-      max-width: 240px;
-      line-height: 1.35;
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a {
+      font-size: 13px; color: rgba(245,236,216,0.5);
+      text-decoration: none; transition: color .2s;
     }
-    .foot-col h4 {
-      font-size: 11px; color: rgba(245, 236, 216, 0.45);
-      margin-bottom: 18px;
-    }
-    .foot-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .foot-col a {
-      font-size: 14px; color: rgba(245, 236, 216, 0.78);
-      text-decoration: none; transition: color .18s;
-    }
-    .foot-col a:hover { color: var(--terracota); }
-    .foot-bottom {
-      max-width: var(--maxw); margin: 28px auto 0;
-      display: flex; justify-content: space-between; align-items: center;
-      gap: 20px; flex-wrap: wrap;
-      font-size: 12px; color: rgba(245, 236, 216, 0.42);
-    }
-    .foot-bottom .copy-italic {
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic; font-size: 14px;
-      color: rgba(245, 236, 216, 0.55);
+    .footer-links a:hover { color: var(--crema-arena); }
+    .footer-copy {
+      width: 100%; text-align: center;
+      font-size: 12px; color: rgba(245,236,216,0.3);
+      margin-top: 24px; padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.06);
     }
 
-    /* ─── ANIM ─────────────────────────────────────── */
+    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
+      from { opacity: 0; transform: translateY(24px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .fade { animation: fadeUp .8s cubic-bezier(.22,.68,0,1.05) both; }
-    .d1 { animation-delay: .05s; } .d2 { animation-delay: .12s; }
-    .d3 { animation-delay: .2s; } .d4 { animation-delay: .28s; }
-    .d5 { animation-delay: .36s; } .d6 { animation-delay: .44s; }
+    .fade-up { animation: fadeUp .6s ease both; }
+    .fade-up-1 { animation-delay: .1s; }
+    .fade-up-2 { animation-delay: .2s; }
+    .fade-up-3 { animation-delay: .3s; }
+    .fade-up-4 { animation-delay: .4s; }
 
-    /* ─── RESPONSIVE ──────────────────────────────── */
-    @media (max-width: 980px) {
-      .hero-inner { grid-template-columns: 1fr; }
-      .hero-right { min-height: 500px; }
-      .s-head { grid-template-columns: 1fr; gap: 18px; }
-      .s-meta-mono { text-align: left; }
-      .steps, .feat-grid, .trust-grid, .screens-grid { grid-template-columns: 1fr 1fr; }
-      .step { border-right: none; border-bottom: 1px solid var(--line-light); }
-      .step:nth-last-child(-n+1) { border-bottom: none; }
-      .foot-inner { grid-template-columns: 1fr 1fr; }
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 48px; }
+      .hero-visual { order: -1; }
+      .phone-mockup { width: 200px; height: 400px; }
+      .steps { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .planes-grid { grid-template-columns: 1fr; max-width: 400px; }
+      .trust-grid { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
-    @media (max-width: 600px) {
-      .steps, .feat-grid, .trust-grid, .screens-grid { grid-template-columns: 1fr; }
-      .step { border-right: none; border-bottom: 1px solid var(--line-light); }
-      .foot-inner { grid-template-columns: 1fr; }
-      .hero-meta { flex-wrap: wrap; gap: 18px; }
+    @media (max-width: 480px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .screenshots-grid { gap: 12px; }
+      .screenshot-phone { width: 130px; height: 260px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ─── NAV ──────────────────────────────────── -->
+  <!-- NAV -->
   <nav>
-    <div class="nav-inner">
-      <a href="#top" class="nav-logo">
-        <svg class="mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="0" y="0" width="100" height="100" fill="#3F5C4E" rx="20"></rect>
-          <circle cx="50" cy="50" r="49" fill="#F2D9A8"></circle>
-          <path d="m81.8 14.5h-47.7c-0.4 0-0.9 0.5-0.9 0.9v68.8c0 0.5 0.4 0.9 0.9 0.9h47.7c0.5 0 0.9-0.4 0.9-0.8v-68.8c0-0.5-0.5-1-0.9-1zm-43.7 68.9h-3.2v-67.2h3.2v67.2zm42.8 0h-41.1v-67.2h41.1v67.2z" fill="#2A3D33"/>
-          <path d="m29.9 53.2c0-19.1-2.6-36.6-9.9-38.6-0.6-0.1-1.2 0.3-1.2 0.9v41.8h-0.8c-0.5 0-0.9 0.4-0.9 0.9v22c0 3 1.9 4.8 4.3 4.8 2.2 0 4.4-1.6 4.4-4.8v-22c0-0.4-0.4-0.9-0.9-0.9h-0.6v-3.2h4.6c0.7 0 1.1-0.4 1.1-0.9h-0.1zm-5.7 5.7v21.5c0 2-1.4 3-2.8 3-1.2 0-2.6-0.6-2.6-3v-21.5h5.4zm3.7-6.5h-4.3c-0.4 0-1.1 0.4-1.1 1v3.9h-2v-40.4c4.4 2.8 7.7 14.3 7.7 35.5h-0.3z" fill="#2A3D33"/>
-          <path d="m49.3 51.6v15.1c0 1.2 0.8 2.6 2.3 2.5h17.9c1.6 0.1 2.2-1.1 2.2-2.4v-16.8c2.5-0.6 5.9-2.6 5.9-7.2-0.1-3.6-3.1-7.4-8.6-7.3-2.3-4.9-7.2-6.4-11.1-5.1-1.9 0.6-3.5 2-4.5 3.8-5-0.8-10.2 2.9-10.3 8.9 0.1 3.7 2.1 6.8 5.6 8l0.6 0.5zm2.1-15.1c2.5-0.1 4.5 0.9 5.9 2.9 0.6 0.8 1.8 0.3 1.4-0.8-0.8-1.2-2-2.5-3.6-3.2 1-1.5 2.8-3.5 6.1-3.8 2.9 0 5.4 1.8 6.4 4.5 0.3 1 0.8 1.3 1.8 1 3.3-0.5 6.5 2 6.5 5 0.2 2.5-1.8 5.5-5 6.3-0.5 0-0.9 0.5-0.9 0.8v17.5c0 0.4-0.3 0.7-0.8 0.7h-18.1c-0.2 0-0.7-0.2-0.7-0.7v-15.3c0-0.9-0.5-1.3-1.1-1.4-2.4-0.8-4.5-3.1-4.5-6.5-0.1-3.5 3.1-6.8 6.6-7z" fill="#2A3D33"/>
-        </svg>
-        <span class="word">Coquu</span>
-      </a>
-      <ul class="nav-links">
-        <li><a href="#como">Cómo funciona</a></li>
-        <li><a href="#features">Qué incluye</a></li>
-        <li><a href="#screens">La app</a></li>
-        <li><a href="#priv">Manifiesto</a></li>
-      </ul>
-      <a href="#cta" class="nav-cta">Empezar</a>
-    </div>
+    <a href="#" class="nav-logo">
+      <img src="images/logo.png" alt="Coquu" />
+      <span>Coquu</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#como-funciona">Cómo funciona</a></li>
+      <li><a href="#features">Qué incluye</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
   </nav>
 
-  <!-- ─── HERO ─────────────────────────────────── -->
+  <!-- HERO -->
   <section class="hero" id="top">
     <div class="hero-inner">
-      <div class="hero-left">
-        <div class="hero-eyebrow mono fade d1">
-          <span class="dot"></span>
-          <span>Planificación con IA · v.2026</span>
-        </div>
-        <h1 class="fade d2">
-          Tu menú semanal,<br>
-          <em>sin esfuerzo.</em>
-        </h1>
-        <p class="lede fade d3">
-          Coquu compone siete días de comidas hechas a tu medida — adaptadas a tu dieta,
-          tus electrodomésticos y tu manera de cocinar. Sin recetarios infinitos, sin decidir cada noche.
+      <div>
+        <h1 class="fade-up fade-up-2">Tu menú semanal,<br><em>sin esfuerzo</em></h1>
+        <p class="fade-up fade-up-3">
+          Genera menús adaptados a ti y a tu cocina en un click.
+          Olvidate de estar pensando que comer. Lo hacemos por ti.
         </p>
-        <div class="hero-ctas fade d4">
-          <a href="#cta" class="btn btn-primary">Empezar gratis <span class="arr">→</span></a>
-          <a href="#screens" class="btn btn-ghost">Ver la app</a>
-        </div>
-        <div class="hero-stores fade d5">
-          <a href="#" class="store-badge">
-            <svg class="icn" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 12.04c-.03-3.05 2.49-4.51 2.6-4.59-1.42-2.07-3.62-2.36-4.41-2.39-1.87-.19-3.66 1.1-4.61 1.1-.95 0-2.42-1.07-3.99-1.04-2.05.03-3.96 1.19-5.01 3.03-2.16 3.74-.55 9.27 1.54 12.31 1.05 1.49 2.27 3.16 3.85 3.1 1.55-.06 2.13-1 4-1 1.87 0 2.4 1 4.04.97 1.67-.03 2.72-1.51 3.74-3 1.18-1.72 1.66-3.39 1.69-3.48-.04-.02-3.21-1.23-3.24-4.91zM14.45 4.42c.85-1.04 1.43-2.48 1.27-3.92-1.23.05-2.71.82-3.59 1.85-.79.91-1.49 2.39-1.3 3.79 1.37.11 2.77-.7 3.62-1.72z"/></svg>
-            App Store
+        <div class="hero-btns fade-up fade-up-4">
+          <a href="#" class="btn-primary">Descarga en App Store
           </a>
-          <a href="#" class="store-badge">
-            <svg class="icn" viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 1.92c-.34.36-.54.91-.54 1.62v16.92c0 .71.2 1.26.54 1.62l.09.07L13.4 12.1v-.2L3.27 1.85zm10.61 11.61L17.13 12l-3.34-1.53.06-.05L17.43 8.7l-3.6-2.07-9.43 9.43zM4.84 22.18c.37.39.99.43 1.69.05l11.21-6.39-3.59-3.31zm0-20.36L14.07 7.5l3.59-3.31L6.53 1.78c-.7-.4-1.32-.36-1.69.04z"/></svg>
-            Google Play
+          <a href="#" class="btn-primary">Descarga en Google Play
           </a>
-          <span style="opacity: 0.55; font-size: 11px;" class="mono">próximamente</span>
-        </div>
-
-        <div class="hero-meta fade d6">
-          <div class="stat">
-            <div class="v"><em>3</em> min</div>
-            <div class="k mono">Tiempo de generación</div>
-          </div>
-          <div class="stat">
-            <div class="v"><em>7</em> días</div>
-            <div class="k mono">De menú a tu medida</div>
-          </div>
-          <div class="stat">
-            <div class="v"><em>0</em> dudas</div>
-            <div class="k mono">Sobre qué cenar</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Right: phone with schematic UI -->
-      <div class="hero-right fade d3">
-        <span class="hero-tag t1">listo en <em style="color: var(--terracota); font-style: italic;">3 min</em></span>
-        <span class="hero-tag t2">sin pensar &nbsp;✺</span>
-        <div class="phone">
-          <div class="phone-screen">
-            <div class="statusbar">
-              <span>9:41</span>
-              <div class="statusbar-icons">
-                <span class="sb-bat"><span class="sb-bat-fill"></span></span>
-              </div>
-            </div>
-            <div class="app-menu">
-              <div class="app-menu-head">
-                <div>
-                  <div class="greet">Hola, <em>Lucía</em></div>
-                  <div class="week mono">Sem · 19 — 25 may</div>
-                </div>
-                <div class="app-avatar">L</div>
-              </div>
-              <div class="app-tabs">
-                <div class="app-tab active">Menú</div>
-                <div class="app-tab">Compra</div>
-                <div class="app-tab">Recetas</div>
-              </div>
-              <div class="app-day-nav">
-                <div class="app-day"><span class="d">L</span><span class="n">19</span></div>
-                <div class="app-day active"><span class="d">M</span><span class="n">20</span></div>
-                <div class="app-day"><span class="d">X</span><span class="n">21</span></div>
-                <div class="app-day"><span class="d">J</span><span class="n">22</span></div>
-                <div class="app-day"><span class="d">V</span><span class="n">23</span></div>
-              </div>
-
-              <div class="meal-card">
-                <div class="meal-img veg"></div>
-                <div class="meal-info">
-                  <div class="meal-eyebrow">Comida · 25 min</div>
-                  <div class="meal-title">Crema de calabacín y menta</div>
-                  <div class="meal-meta">
-                    <span class="pill">veg</span><span class="pill">batch</span><span>4 pers</span>
-                  </div>
-                </div>
-              </div>
-              <div class="meal-card">
-                <div class="meal-img"></div>
-                <div class="meal-info">
-                  <div class="meal-eyebrow">Cena · 15 min</div>
-                  <div class="meal-title">Pollo al limón con cuscús</div>
-                  <div class="meal-meta">
-                    <span class="pill">ninja</span><span>4 pers</span>
-                  </div>
-                </div>
-              </div>
-              <div class="meal-card">
-                <div class="meal-img fish"></div>
-                <div class="meal-info">
-                  <div class="meal-eyebrow">Snack</div>
-                  <div class="meal-title">Hummus de remolacha</div>
-                  <div class="meal-meta">
-                    <span class="pill">batch</span><span>congelable</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="app-fab">
-              <span>Regenerar el día</span>
-              <span class="icn-circle">↻</span>
-            </div>
-          </div>
+      <div class="hero-visual fade-up fade-up-3">
+        <div class="screenshot-placeholder">
+          CAPTURA DE PANTALLA<br>proximamente
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ─── CÓMO FUNCIONA ────────────────────────── -->
-  <section class="s como" id="como">
-    <div class="s-inner">
-      <div class="s-head">
-        <div>
-          <div class="s-eyebrow mono">Cómo funciona &nbsp;·&nbsp; 01—03</div>
-          <h2 class="s-title">Tu menú listo<br>en <em>tres pasos.</em></h2>
-        </div>
-        <div class="s-meta-mono mono">
-          Pensado &amp; cocinado en España<br>
-          <span style="opacity: 0.55;">Madrid · 2026</span>
-        </div>
-      </div>
-      <p class="s-sub" style="margin-bottom: 32px;">
-        Una vez configurado, generar la semana es un gesto. Sin formularios eternos, sin elegir entre 400 recetas que no te pegan.
-      </p>
-
+  <!-- CÓMO FUNCIONA -->
+  <section class="como-funciona" id="como-funciona">
+    <div class="section-inner">
+      <div class="section-label">Cómo funciona</div>
+      <h2 class="section-title">Tu menú listo en 3 pasos</h2>
+      <p class="section-sub">Platos deliciosos y sencillos. Adaptados a ti.</p>
       <div class="steps">
-        <div class="step">
-          <div class="step-top">
-            <div class="step-num">i.</div>
-            <svg class="step-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M22 11h-6"/><path d="M19 8v6"/>
-            </svg>
-          </div>
-          <h3>Cuéntale tu cocina<br>una sola vez.</h3>
-          <p>Dieta, intolerancias, electrodomésticos, número de comensales, alimentos que no te gustan. Coquu lo recuerda para siempre.</p>
-          <div class="step-tag mono">~ 4 min · setup inicial</div>
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-title">Dinos tus gustos y preferencias</div>
+          <div class="step-desc">Dieta, intolerancias, electrodomésticos que tienes en casa y cuánto tiempo quieres dedicar. Solo una vez.</div>
         </div>
-
-        <div class="step">
-          <div class="step-top">
-            <div class="step-num">ii.</div>
-            <svg class="step-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><path d="M2 12h4"/><path d="M18 12h4"/><path d="m4.93 19.07 2.83-2.83"/><path d="m16.24 7.76 2.83-2.83"/>
-            </svg>
-          </div>
-          <h3>Genera tu semana<br>en <em>3 minutos.</em></h3>
-          <p>Siete días de recetas variadas, equilibradas y exactas para tu perfil. Si un plato no te convence, lo regeneras — solo ese, sin tocar el resto.</p>
-          <div class="step-tag mono">~ 3 min · IA · cada lunes</div>
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-title">Generamos tu menú con IA</div>
+          <div class="step-desc">En menos de 3 minutos tienes 7 días de recetas variadas, equilibradas y adaptadas exactamente a tu perfil.</div>
         </div>
-
-        <div class="step">
-          <div class="step-top">
-            <div class="step-num">iii.</div>
-            <svg class="step-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M2 12h2l3 9 4-18 3 9h8"/>
-            </svg>
-          </div>
-          <h3>Cocina<br>como te apetezca.</h3>
-          <p>Daily o batch cooking. Lista de la compra automática. Temporizadores integrados. Modos para tu Thermomix, Ninja o Instant Pot.</p>
-          <div class="step-tag mono">2 modos · 12 electrodomésticos</div>
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-title">Elige como cocinar</div>
+          <div class="step-desc">Modo daily o batch cooking. Lista de la compra automática. Recetas con temporizadores integrados.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ─── FEATURES ─────────────────────────────── -->
-  <section class="s features" id="features">
-    <div class="s-inner">
-      <div class="s-head">
-        <div>
-          <div class="s-eyebrow mono">Qué incluye &nbsp;·&nbsp; 06 piezas</div>
-          <h2 class="s-title">Todo lo que necesitas<br>para <em>comer bien</em>.</h2>
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-inner">
+      <div class="section-label">Qué incluye</div>
+      <h2 class="section-title">Todo lo que necesitas para comer bien</h2>
+      <p class="section-sub">Sin complicaciones. Sin buscar recetas. Sin improvisar.</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-title">Personalización real</div>
+          <div class="feature-desc">Dieta, intolerancias, alimentos que no te gustan y número de comensales. El menú es tuyo, no de una base de datos.</div>
         </div>
-        <div class="s-meta-mono mono">
-          Ningún módulo aislado.<br>
-          <span style="opacity: 0.55;">Una experiencia, seis vértebras.</span>
+        <div class="feature-card">
+          <div class="feature-title">Batch cooking</div>
+          <div class="feature-desc">Cocina toda la semana en una sesión. Timeline guiado con el orden óptimo y tiempos de conservación.</div>
         </div>
-      </div>
-
-      <div class="feat-grid">
-        <div class="feat">
-          <div class="feat-top">
-            <div class="feat-num mono">01</div>
-            <div class="feat-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3"/></svg>
-            </div>
-          </div>
-          <h3>Personalización <em>real.</em></h3>
-          <p>Dieta, intolerancias, alergias, alimentos que no te gustan, número de comensales. El menú es tuyo — no de una base de datos.</p>
+        <div class="feature-card">
+          <div class="feature-title">Tus electrodomésticos</div>
+          <div class="feature-desc">Thermomix, Ninja, Instant Pot... Coquu adapta las recetas a tu modelo exacto, no de forma genérica.</div>
         </div>
-
-        <div class="feat">
-          <div class="feat-top">
-            <div class="feat-num mono">02</div>
-            <div class="feat-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-          </div>
-          <h3>Batch cooking guiado.</h3>
-          <p>Cocina toda la semana en una sesión. Timeline con el orden óptimo, tiempos de conservación y trucos de batch.</p>
+        <div class="feature-card">
+          <div class="feature-title">Cambia lo que no te guste</div>
+          <div class="feature-desc">¿Un plato no te convence? Regeneralo con una indicación y tendrás una alternativa al instante.</div>
         </div>
-
-        <div class="feat">
-          <div class="feat-top">
-            <div class="feat-num mono">03</div>
-            <div class="feat-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-            </div>
-          </div>
-          <h3>Tus electrodomésticos.</h3>
-          <p>Thermomix, Ninja, Instant Pot, Mambo, freidora de aire. Coquu adapta cada paso a tu modelo exacto, no de forma genérica.</p>
+        <div class="feature-card">
+          <div class="feature-title">Lista de la compra</div>
+          <div class="feature-desc">Generada automáticamente a partir del menú, organizada por categorías. Marca lo que ya tienes en casa.</div>
         </div>
-
-        <div class="feat">
-          <div class="feat-top">
-            <div class="feat-num mono">04</div>
-            <div class="feat-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.4 0 4.6.95 6.2 2.5"/><polyline points="21 4 21 10 15 10"/></svg>
-            </div>
-          </div>
-          <h3>Cambia lo que no te <em>encaje.</em></h3>
-          <p>¿Un plato no te convence? Regéneralo con una indicación —"sin lácteos", "más rápido", "menos picante"— y obtienes la alternativa.</p>
-        </div>
-
-        <div class="feat">
-          <div class="feat-top">
-            <div class="feat-num mono">05</div>
-            <div class="feat-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h14l-1.5 11h-11z"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
-            </div>
-          </div>
-          <h3>Lista de la compra automática.</h3>
-          <p>Generada desde el menú, organizada por categorías de supermercado. Marca lo que ya tienes, suma lo extra a mano.</p>
-        </div>
-
-        <div class="feat">
-          <div class="feat-top">
-            <div class="feat-num mono">06</div>
-            <div class="feat-icon">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.3 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.2 1.5 4 3 5.5l7 7Z"/></svg>
-            </div>
-          </div>
-          <h3>Tus recetas favoritas.</h3>
-          <p>Guarda las que más te gustan con notas personales. Pídele a Coquu que las incluya — o las evite — la próxima semana.</p>
+        <div class="feature-card">
+          <div class="feature-title">Recetas favoritas</div>
+          <div class="feature-desc">Guarda los platos que más te gustan con notas personales y pídele a Coquu que los incluya la próxima semana.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ─── SCREENSHOTS ───────────────────────────── -->
-  <section class="s screens" id="screens">
-    <div class="s-inner">
-      <div class="s-head">
-        <div>
-          <div class="s-eyebrow mono">La app · cuatro pantallas</div>
-          <h2 class="s-title">Diseñada para<br>la <em>cocina de verdad.</em></h2>
+  <!-- SCREENSHOTS -->
+  <section class="screenshots" id="screenshots">
+    <div class="section-inner">
+      <div class="section-label" style="text-align:center">La app en acción</div>
+      <h2 class="section-title" style="text-align:center">Diseñada para la cocina de verdad</h2>
+      <div class="screenshots-grid">
+        <div class="screenshot-item">
+          <div class="screenshot-phone">SCREENSHOT<br>Menú semanal</div>
+          <div class="screenshot-label">Tu semana de un vistazo</div>
         </div>
-        <p class="s-sub">Cada pantalla resuelve un momento concreto del día: planear, cocinar, comprar, repetir.</p>
-      </div>
-
-      <div class="screens-grid">
-
-        <!-- 1. Menú semanal -->
-        <div class="ss-item">
-          <div class="ss-phone-wrap">
-            <div class="ss-phone">
-              <div class="ss-statusbar"><span>9:41</span><span>·</span></div>
-              <div class="ss-content">
-                <div class="ss-head">
-                  <div class="ss-title-d"><em>Mi</em> semana</div>
-                  <div class="ss-mono-tag">19—25</div>
-                </div>
-                <div class="ss-mono-tag">Lunes</div>
-                <div class="ss-row">
-                  <div class="swatch veg"></div>
-                  <div class="info"><div class="t">Crema de calabacín</div><div class="m">25 min · veg</div></div>
-                </div>
-                <div class="ss-row">
-                  <div class="swatch"></div>
-                  <div class="info"><div class="t">Pollo al limón</div><div class="m">15 min · ninja</div></div>
-                </div>
-                <div class="ss-mono-tag">Martes</div>
-                <div class="ss-row">
-                  <div class="swatch fish"></div>
-                  <div class="info"><div class="t">Salmón &amp; quinoa</div><div class="m">20 min · airfryer</div></div>
-                </div>
-                <div class="ss-row">
-                  <div class="swatch veg"></div>
-                  <div class="info"><div class="t">Salteado de tofu</div><div class="m">18 min · veg</div></div>
-                </div>
-                <div class="ss-mono-tag">Miércoles</div>
-                <div class="ss-row">
-                  <div class="swatch bread"></div>
-                  <div class="info"><div class="t">Tostadas de aguacate</div><div class="m">8 min · rápido</div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="ss-label"><em>Tu semana</em> de un vistazo</div>
+        <div class="screenshot-item">
+          <div class="screenshot-phone">SCREENSHOT<br>Receta detalle</div>
+          <div class="screenshot-label">Recetas paso a paso</div>
         </div>
-
-        <!-- 2. Receta -->
-        <div class="ss-item">
-          <div class="ss-phone-wrap">
-            <div class="ss-phone">
-              <div class="ss-statusbar"><span>9:41</span><span>·</span></div>
-              <div class="ss-content">
-                <div class="ss-head">
-                  <div class="ss-title-d">Pollo al <em>limón</em></div>
-                  <div class="ss-mono-tag">♡</div>
-                </div>
-                <div class="ss-receta-img"><span class="timer">15:00</span></div>
-                <div class="ss-mono-tag">Pasos · 04</div>
-                <div class="ss-step"><span class="num">i</span><span>Marina el pollo con limón, ajo y aceite 10 min.</span></div>
-                <div class="ss-step"><span class="num">ii</span><span>Calienta la <em style="color: var(--terracota); font-style: italic; font-family: serif;">Ninja Foodi</em> en modo sear.</span></div>
-                <div class="ss-step"><span class="num">iii</span><span>Cocina 8 min, dale la vuelta y termina 4 min.</span></div>
-                <div class="ss-step"><span class="num">iv</span><span>Sirve sobre cuscús con perejil fresco.</span></div>
-              </div>
-            </div>
-          </div>
-          <div class="ss-label">Recetas <em>paso a paso</em></div>
+        <div class="screenshot-item">
+          <div class="screenshot-phone">SCREENSHOT<br>Batch cooking</div>
+          <div class="screenshot-label">Timeline de sesión</div>
         </div>
-
-        <!-- 3. Batch -->
-        <div class="ss-item">
-          <div class="ss-phone-wrap">
-            <div class="ss-phone">
-              <div class="ss-statusbar"><span>9:41</span><span>·</span></div>
-              <div class="ss-content">
-                <div class="ss-head">
-                  <div class="ss-title-d"><em>Domingo</em> · batch</div>
-                  <div class="ss-mono-tag">2h 40</div>
-                </div>
-                <div class="ss-mono-tag" style="margin-top:6px;">Timeline</div>
-                <div class="ss-timeline">
-                  <div class="ss-tl-item active">
-                    <div class="time">11:00 — horno on</div>
-                    <div class="t">Asa <em>verduras</em> de la semana</div>
-                  </div>
-                  <div class="ss-tl-item active">
-                    <div class="time">11:25 — paralelo</div>
-                    <div class="t">Cuece quinoa &amp; lentejas</div>
-                  </div>
-                  <div class="ss-tl-item">
-                    <div class="time">12:10 — sartén</div>
-                    <div class="t">Marca pollo y guarda</div>
-                  </div>
-                  <div class="ss-tl-item">
-                    <div class="time">12:40 — frío</div>
-                    <div class="t">Reparte en táper</div>
-                  </div>
-                  <div class="ss-tl-item">
-                    <div class="time">13:30 — listo</div>
-                    <div class="t"><em>Toda la semana</em> resuelta</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="ss-label">Timeline de <em>batch cooking</em></div>
-        </div>
-
-        <!-- 4. Lista -->
-        <div class="ss-item">
-          <div class="ss-phone-wrap">
-            <div class="ss-phone">
-              <div class="ss-statusbar"><span>9:41</span><span>·</span></div>
-              <div class="ss-content">
-                <div class="ss-head">
-                  <div class="ss-title-d">Lista <em>compra</em></div>
-                  <div class="ss-mono-tag">23 art.</div>
-                </div>
-                <div class="ss-cat">Frescos · 08</div>
-                <div class="ss-row"><div class="check on"></div><div class="info"><div class="t">Calabacín · 2 ud</div></div></div>
-                <div class="ss-row"><div class="check on"></div><div class="info"><div class="t">Pollo · 600 g</div></div></div>
-                <div class="ss-row"><div class="check"></div><div class="info"><div class="t">Limón · 3 ud</div></div></div>
-                <div class="ss-row"><div class="check"></div><div class="info"><div class="t">Salmón · 500 g</div></div></div>
-                <div class="ss-cat">Despensa · 06</div>
-                <div class="ss-row"><div class="check on"></div><div class="info"><div class="t">Quinoa · 250 g</div></div></div>
-                <div class="ss-row"><div class="check"></div><div class="info"><div class="t">Cuscús · 250 g</div></div></div>
-                <div class="ss-row"><div class="check"></div><div class="info"><div class="t">Aceite oliva</div></div></div>
-              </div>
-            </div>
-          </div>
-          <div class="ss-label">Lista <em>automática</em>, por categorías</div>
+        <div class="screenshot-item">
+          <div class="screenshot-phone">SCREENSHOT<br>Lista compra</div>
+          <div class="screenshot-label">Lista automática</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ─── PRIVACIDAD ───────────────────────────── -->
-  <section class="s priv" id="priv">
-    <div class="s-inner">
-      <div class="s-head">
-        <div>
-          <div class="s-eyebrow mono">Manifiesto · Privacidad</div>
-          <h2 class="s-title">Una app hecha<br>con <em>respeto.</em></h2>
-        </div>
-        <p class="s-sub">Sin publicidad, sin vender tus datos, sin letra pequeña. Tres líneas rojas que no negociamos.</p>
-      </div>
-
+  <!-- PRIVACIDAD -->
+  <section class="privacidad">
+    <div class="section-inner">
+      <div class="section-label">Privacidad y confianza</div>
+      <h2 class="section-title">Una app hecha con respeto</h2>
+      <p class="section-sub">Sin publicidad, sin vender tus datos, sin letra pequeña.</p>
       <div class="trust-grid">
-        <div class="trust">
-          <div class="trust-rule"></div>
-          <h3>Sin publicidad,<br>nunca.</h3>
-          <p>Coquu no muestra anuncios ni acepta marcas patrocinando recetas. Lo que ves es lo que te conviene — no lo que se ha pagado para que veas.</p>
+        <div class="trust-card">
+          <div class="trust-title">Sin publicidad</div>
+          <div class="trust-desc">Coquu no muestra anuncios ni permite que terceros paguen por aparecer en tus menús.</div>
         </div>
-        <div class="trust">
-          <div class="trust-rule"></div>
-          <h3>Tus datos<br>son <em>tuyos.</em></h3>
-          <p>Solo usamos lo necesario para componer tu menú. No vendemos, no compartimos, no entrenamos modelos externos con tus preferencias.</p>
+        <div class="trust-card">
+          <div class="trust-title">Tus datos son tuyos</div>
+          <div class="trust-desc">Solo usamos los datos necesarios para generar tu menú. No los vendemos ni los compartimos.</div>
         </div>
-        <div class="trust">
-          <div class="trust-rule"></div>
-          <h3>Hecho en España,<br>independiente.</h3>
-          <p>Proyecto sin inversores externos, pensado para la cocina española de verdad. Si nos escribes, te respondemos nosotros.</p>
+        <div class="trust-card">
+          <div class="trust-title">Hecho en España</div>
+          <div class="trust-desc">Proyecto independiente, sin inversores externos. Pensado para la cocina española de verdad.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ─── CTA ──────────────────────────────────── -->
-  <section class="cta-strip" id="cta">
-    <div class="cta-strip-inner">
-      <div class="mono" style="color: var(--terracota); margin-bottom: 26px;">— prueba gratuita · 14 días</div>
-      <h2>Empieza esta semana —<br><em>cocina mejor la próxima.</em></h2>
-      <p>Configura tu perfil, genera tu primer menú, decide si Coquu es para ti. Si no, lo cancelas en un toque.</p>
-      <div class="btn-row">
-        <a href="#" class="btn btn-primary">Empezar gratis <span class="arr">→</span></a>
-        <a href="#" class="btn btn-ghost">Hablar con nosotros</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ─── FOOTER ───────────────────────────────── -->
+  <!-- FOOTER -->
   <footer id="contacto">
-    <div class="foot-inner">
-      <div class="foot-brand">
-        <a href="#top" class="foot-logo">
-          <svg class="foot-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect x="0" y="0" width="100" height="100" fill="#3F5C4E" rx="20"></rect>
-            <circle cx="50" cy="50" r="49" fill="#F2D9A8"/>
-            <path d="m81.8 14.5h-47.7c-0.4 0-0.9 0.5-0.9 0.9v68.8c0 0.5 0.4 0.9 0.9 0.9h47.7c0.5 0 0.9-0.4 0.9-0.8v-68.8c0-0.5-0.5-1-0.9-1zm-43.7 68.9h-3.2v-67.2h3.2v67.2zm42.8 0h-41.1v-67.2h41.1v67.2z" fill="#2A3D33"/>
-            <path d="m29.9 53.2c0-19.1-2.6-36.6-9.9-38.6-0.6-0.1-1.2 0.3-1.2 0.9v41.8h-0.8c-0.5 0-0.9 0.4-0.9 0.9v22c0 3 1.9 4.8 4.3 4.8 2.2 0 4.4-1.6 4.4-4.8v-22c0-0.4-0.4-0.9-0.9-0.9h-0.6v-3.2h4.6c0.7 0 1.1-0.4 1.1-0.9h-0.1zm-5.7 5.7v21.5c0 2-1.4 3-2.8 3-1.2 0-2.6-0.6-2.6-3v-21.5h5.4z" fill="#2A3D33"/>
-            <path d="m49.3 51.6v15.1c0 1.2 0.8 2.6 2.3 2.5h17.9c1.6 0.1 2.2-1.1 2.2-2.4v-16.8c2.5-0.6 5.9-2.6 5.9-7.2-0.1-3.6-3.1-7.4-8.6-7.3-2.3-4.9-7.2-6.4-11.1-5.1-1.9 0.6-3.5 2-4.5 3.8-5-0.8-10.2 2.9-10.3 8.9 0.1 3.7 2.1 6.8 5.6 8l0.6 0.5z" fill="#2A3D33"/>
-          </svg>
-          <span class="word">Coquu</span>
-        </a>
-        <p class="foot-tag">Tu menú semanal,<br>sin esfuerzo.</p>
-      </div>
-      <div class="foot-col">
-        <h4 class="mono">Producto</h4>
-        <ul>
-          <li><a href="#como">Cómo funciona</a></li>
-          <li><a href="#features">Qué incluye</a></li>
-          <li><a href="#screens">La app</a></li>
-        </ul>
-      </div>
-      <div class="foot-col">
-        <h4 class="mono">Coquu</h4>
-        <ul>
-          <li><a href="#priv">Manifiesto</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="/cdn-cgi/l/email-protection#0e6661626f4e6d617f7b7b206f7e7e"><span class="__cf_email__" data-cfemail="a3cbcccfc2e3c0ccd2d6d68dc2d3d3">[email&#160;protected]</span></a></li>
-        </ul>
-      </div>
-      <div class="foot-col">
-        <h4 class="mono">Legal</h4>
-        <ul>
-          <li><a href="#">Privacidad</a></li>
-          <li><a href="#">Términos</a></li>
-          <li><a href="#">Cookies</a></li>
-        </ul>
-      </div>
+    <div class="footer-inner">
+      <a href="#" class="footer-logo">
+        <img src="images/logo.png" alt="Coquu" />
+        <span>Coquu</span>
+      </a>
+      <ul class="footer-links">
+        <li><a href="privacy.html">Privacidad</a></li>
+        <li><a href="terms.html">Términos</a></li>
+        <li><a href="mailto:hola@coquu.app">hola@coquu.app</a></li>
+      </ul>
     </div>
-    <div class="foot-bottom">
-      <span class="copy-italic">© 2026 Coquu — pensado y cocinado en España.</span>
-      <span class="mono">v.2026 · build 03</span>
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 Coquu · Hecho con ❤️ y mucha hambre · España</p>
     </div>
   </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+</body>
 </html>
