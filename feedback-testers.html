@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedback Beta — Coquu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green:       #3F5C4E;
+      --green-deep:  #2A3D33;
+      --green-soft:  #6F8A7C;
+      --paper:       #F8F1E4;
+      --paper-warm:  #FBF6EC;
+      --cream:       #F2D9A8;
+      --terracota:   #C97B5A;
+      --ink:         #2A3D33;
+      --ink-soft:    #4A5C53;
+      --line:        rgba(42,61,51,0.13);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    .header {
+      background: var(--green-deep);
+      padding: 56px 48px 48px;
+    }
+    .header-eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--terracota); margin-bottom: 16px;
+    }
+    .header h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 42px; font-weight: 400;
+      color: var(--cream); line-height: 1.08;
+      margin-bottom: 12px;
+    }
+    .header h1 em { font-style: italic; color: var(--terracota); }
+    .header p {
+      font-size: 14px; color: rgba(242,217,168,0.55);
+      max-width: 480px; line-height: 1.6;
+    }
+
+    .form-wrap {
+      max-width: 720px; margin: 0 auto;
+      padding: 56px 48px 96px;
+    }
+
+    /* SECTIONS */
+    .form-section {
+      margin-bottom: 52px;
+    }
+    .section-tag {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--terracota); margin-bottom: 6px;
+    }
+    .section-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 26px; font-weight: 400; color: var(--ink);
+      margin-bottom: 24px; padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .section-title em { font-style: italic; color: var(--terracota); }
+
+    /* FIELDS */
+    .field { margin-bottom: 24px; }
+    .field label {
+      display: block;
+      font-size: 13px; font-weight: 500; color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .field .hint {
+      font-size: 12px; color: var(--ink-soft);
+      margin-bottom: 8px; line-height: 1.5;
+    }
+    .field input[type="text"],
+    .field input[type="email"],
+    .field textarea,
+    .field select {
+      width: 100%;
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px; color: var(--ink);
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color .18s;
+      appearance: none;
+    }
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      border-color: var(--green);
+    }
+    .field textarea {
+      resize: vertical; min-height: 100px; line-height: 1.6;
+    }
+    .field textarea.tall { min-height: 140px; }
+
+    /* RATING */
+    .rating-group {
+      display: flex; gap: 8px;
+    }
+    .rating-btn {
+      flex: 1;
+      padding: 12px 6px;
+      border: 1.5px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      text-align: center;
+      cursor: pointer;
+      font-size: 13px; color: var(--ink-soft);
+      font-weight: 500;
+      transition: all .18s;
+    }
+    .rating-btn:hover { border-color: var(--green); color: var(--green); }
+    .rating-btn.selected {
+      border-color: var(--terracota);
+      background: var(--terracota);
+      color: white;
+    }
+    .rating-labels {
+      display: flex; justify-content: space-between;
+      font-size: 11px; color: var(--ink-soft);
+      margin-top: 6px;
+    }
+
+    /* NPS */
+    .nps-group {
+      display: flex; gap: 6px;
+    }
+    .nps-btn {
+      flex: 1;
+      padding: 10px 4px;
+      border: 1.5px solid var(--line);
+      border-radius: 6px;
+      background: white;
+      text-align: center;
+      cursor: pointer;
+      font-size: 12px; color: var(--ink-soft);
+      font-weight: 500;
+      transition: all .18s;
+    }
+    .nps-btn:hover { border-color: var(--green); color: var(--green); }
+    .nps-btn.selected {
+      border-color: var(--terracota);
+      background: var(--terracota);
+      color: white;
+    }
+
+    /* CHECKBOX OPTIONS */
+    .check-group {
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .check-option {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      transition: all .18s;
+    }
+    .check-option:hover { border-color: var(--green); }
+    .check-option.selected { border-color: var(--terracota); background: rgba(201,123,90,0.05); }
+    .check-option input { display: none; }
+    .check-box {
+      width: 18px; height: 18px; flex-shrink: 0;
+      border: 1.5px solid var(--line); border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .18s;
+    }
+    .check-option.selected .check-box {
+      background: var(--terracota); border-color: var(--terracota);
+    }
+    .check-option.selected .check-box::after {
+      content: "✓"; color: white; font-size: 11px; font-weight: 700;
+    }
+    .check-label { font-size: 13px; color: var(--ink); }
+
+    /* SUBMIT */
+    .submit-wrap {
+      margin-top: 48px; padding-top: 32px;
+      border-top: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .submit-note {
+      font-size: 12px; color: var(--ink-soft); line-height: 1.5;
+    }
+    .btn-submit {
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px; font-weight: 600;
+      padding: 14px 32px; border-radius: 999px;
+      background: var(--green-deep); color: var(--cream);
+      border: none; cursor: pointer;
+      transition: background .18s, transform .18s;
+    }
+    .btn-submit:hover { background: var(--terracota); transform: translateY(-1px); }
+
+    /* SUCCESS */
+    .success-msg {
+      display: none;
+      text-align: center; padding: 48px 24px;
+    }
+    .success-msg.visible { display: block; }
+    .success-icon {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic; font-size: 64px;
+      color: var(--terracota); margin-bottom: 16px;
+    }
+    .success-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 32px; font-weight: 400; color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .success-sub { font-size: 15px; color: var(--ink-soft); }
+
+    @media (max-width: 640px) {
+      .header { padding: 36px 24px; }
+      .form-wrap { padding: 36px 24px 80px; }
+      .header h1 { font-size: 32px; }
+      .nps-group { flex-wrap: wrap; }
+      .nps-btn { min-width: calc(20% - 6px); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">Coquu · Beta · Formulario de feedback</div>
+  <h1>Cuéntanos tu <em>experiencia.</em></h1>
+  <p>Tu opinión es lo más valioso que puedes darnos en esta fase. No hay respuestas correctas — solo queremos saber cómo ha ido de verdad.</p>
+</div>
+
+<div class="form-wrap">
+  <form id="feedbackForm" action="https://formspree.io/f/mgodpnpz" method="POST" onsubmit="handleSubmit(event)">
+
+    <!-- 1. DATOS BÁSICOS -->
+    <div class="form-section">
+      <div class="section-tag">01</div>
+      <div class="section-title">Sobre <em>ti</em></div>
+
+      <div class="field">
+        <label>Nombre (opcional)</label>
+        <input type="text" name="nombre" placeholder="Como quieras que te llamemos" />
+      </div>
+
+      <div class="field">
+        <label>¿Con qué frecuencia cocinas en casa?</label>
+        <select name="frecuencia_cocina">
+          <option value="">Selecciona una opción</option>
+          <option value="todos_dias">Todos los días</option>
+          <option value="4_5_semana">4-5 veces por semana</option>
+          <option value="2_3_semana">2-3 veces por semana</option>
+          <option value="ocasionalmente">Ocasionalmente</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>¿Cuál es tu mayor reto en la cocina del día a día?</label>
+        <div class="check-group">
+          <div class="check-option" onclick="toggleCheck(this)">
+            <input type="checkbox" name="reto" value="que_cocinar" />
+            <div class="check-box"></div>
+            <span class="check-label">No saber qué cocinar</span>
+          </div>
+          <div class="check-option" onclick="toggleCheck(this)">
+            <input type="checkbox" name="reto" value="tiempo" />
+            <div class="check-box"></div>
+            <span class="check-label">Falta de tiempo</span>
+          </div>
+          <div class="check-option" onclick="toggleCheck(this)">
+            <input type="checkbox" name="reto" value="variedad" />
+            <div class="check-box"></div>
+            <span class="check-label">Siempre los mismos platos</span>
+          </div>
+          <div class="check-option" onclick="toggleCheck(this)">
+            <input type="checkbox" name="reto" value="restricciones" />
+            <div class="check-box"></div>
+            <span class="check-label">Restricciones dietéticas o intolerancias</span>
+          </div>
+          <div class="check-option" onclick="toggleCheck(this)">
+            <input type="checkbox" name="reto" value="compra" />
+            <div class="check-box"></div>
+            <span class="check-label">Organizar la compra</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. EXPERIENCIA GENERAL -->
+    <div class="form-section">
+      <div class="section-tag">02</div>
+      <div class="section-title">Experiencia <em>general</em></div>
+
+      <div class="field">
+        <label>¿Cómo valorarías Coquu en general?</label>
+        <div class="rating-group">
+          <div class="rating-btn" onclick="selectRating(this,'rating_general','1')">1</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_general','2')">2</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_general','3')">3</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_general','4')">4</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_general','5')">5</div>
+        </div>
+        <div class="rating-labels"><span>Muy mala</span><span>Excelente</span></div>
+        <input type="hidden" name="rating_general" id="rating_general" />
+      </div>
+
+      <div class="field">
+        <label>¿El onboarding fue fácil de completar?</label>
+        <div class="rating-group">
+          <div class="rating-btn" onclick="selectRating(this,'rating_onboarding','1')">1</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_onboarding','2')">2</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_onboarding','3')">3</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_onboarding','4')">4</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_onboarding','5')">5</div>
+        </div>
+        <div class="rating-labels"><span>Muy confuso</span><span>Muy fácil</span></div>
+        <input type="hidden" name="rating_onboarding" id="rating_onboarding" />
+      </div>
+
+      <div class="field">
+        <label>¿Cómo fue la espera durante la generación del menú?</label>
+        <div class="rating-group">
+          <div class="rating-btn" onclick="selectRating(this,'rating_espera','1')">1</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_espera','2')">2</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_espera','3')">3</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_espera','4')">4</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_espera','5')">5</div>
+        </div>
+        <div class="rating-labels"><span>Muy larga / desesperante</span><span>Totalmente aceptable</span></div>
+        <input type="hidden" name="rating_espera" id="rating_espera" />
+      </div>
+
+      <div class="field">
+        <label>¿Qué te pareció la calidad de los menús generados?</label>
+        <div class="rating-group">
+          <div class="rating-btn" onclick="selectRating(this,'rating_menus','1')">1</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_menus','2')">2</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_menus','3')">3</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_menus','4')">4</div>
+          <div class="rating-btn" onclick="selectRating(this,'rating_menus','5')">5</div>
+        </div>
+        <div class="rating-labels"><span>Platos genéricos / no adaptados</span><span>Muy personalizados</span></div>
+        <input type="hidden" name="rating_menus" id="rating_menus" />
+      </div>
+    </div>
+
+    <!-- 3. FUNCIONALIDADES -->
+    <div class="form-section">
+      <div class="section-tag">03</div>
+      <div class="section-title">Funcionalidades <em>usadas</em></div>
+
+      <div class="field">
+        <label>¿Qué funcionalidades has probado?</label>
+        <div class="check-group">
+          <div class="check-option" onclick="toggleCheck(this)">
+            <input type="checkbox" name="features" value="daily" />
+            <div class="check-box"></div>
+            <span class="check-label">Modo daily (cocina cada día)</span>
+          </div>
+          <div class="check-option" onclick="toggleCheck(this)">
+            <input type="checkbox" name="features" value="batch" />
+            <div class="check-box"></div>
+            <span class="check-label">Modo batch cooking</span>
+          </div>
+          <div class="check-option" onclick="toggleCheck(this)">
+            <input type="checkbox" name="features" value="regeneracion" />
+            <div class="check-box"></div>
+            <span class="check-label">Regeneración de platos</span>
+          </div>
+          <div class="check-option" onclick="toggleCheck(this)">
+            <input type="checkbox" name="features" value="lista_compra" />
+            <div class="check-box"></div>
+            <span class="check-label">Lista de la compra</span>
+          </div>
+          <div class="check-option" onclick="toggleCheck(this)">
+            <input type="checkbox" name="features" value="modo_cocina" />
+            <div class="check-box"></div>
+            <span class="check-label">Modo cocina (paso a paso)</span>
+          </div>
+          <div class="check-option" onclick="toggleCheck(this)">
+            <input type="checkbox" name="features" value="favoritos" />
+            <div class="check-box"></div>
+            <span class="check-label">Recetas favoritas</span>
+          </div>
+          <div class="check-option" onclick="toggleCheck(this)">
+            <input type="checkbox" name="features" value="electrodomesticos" />
+            <div class="check-box"></div>
+            <span class="check-label">Electrodomésticos con modelo exacto</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>¿Cuál es la funcionalidad que más te ha gustado?</label>
+        <textarea name="feature_favorita" placeholder="Cuéntanos qué feature te ha parecido más útil o diferencial..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>¿Hay alguna funcionalidad que te parezca confusa o mejorable?</label>
+        <textarea name="feature_mejorable" placeholder="Describe qué no quedó claro o qué cambiarías..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>¿Echaste en falta alguna funcionalidad que esperabas encontrar?</label>
+        <textarea name="feature_faltante" placeholder="Qué esperabas y no encontraste..."></textarea>
+      </div>
+    </div>
+
+    <!-- 4. MENÚS Y RECETAS -->
+    <div class="form-section">
+      <div class="section-tag">04</div>
+      <div class="section-title">Menús y <em>recetas</em></div>
+
+      <div class="field">
+        <label>¿Los menús respetaron tus intolerancias y preferencias?</label>
+        <select name="intolerancias_respetadas">
+          <option value="">Selecciona una opción</option>
+          <option value="siempre">Sí, siempre</option>
+          <option value="casi_siempre">Casi siempre</option>
+          <option value="a_veces">A veces no</option>
+          <option value="no">No, hubo errores</option>
+          <option value="no_tengo">No tengo intolerancias</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>¿Llegaste a cocinar alguno de los platos?</label>
+        <select name="cocinaste">
+          <option value="">Selecciona una opción</option>
+          <option value="varios">Sí, varios platos</option>
+          <option value="uno">Sí, uno</option>
+          <option value="no_pero_iba">No, pero tenía intención</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Si cocinaste algún plato, ¿cómo fue la experiencia?</label>
+        <textarea name="experiencia_cocina" placeholder="¿Los pasos eran claros? ¿Las cantidades eran correctas? ¿El plato salió bien?..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>¿Qué tipo de platos te gustaría ver más?</label>
+        <textarea name="tipos_platos" placeholder="Más recetas rápidas, más internacionales, más vegetarianas, más de temporada..."></textarea>
+      </div>
+    </div>
+
+    <!-- 5. BUGS Y PROBLEMAS -->
+    <div class="form-section">
+      <div class="section-tag">05</div>
+      <div class="section-title">Bugs y <em>problemas</em></div>
+
+      <div class="field">
+        <label>¿Encontraste algún error o comportamiento inesperado?</label>
+        <select name="hubo_bugs">
+          <option value="">Selecciona una opción</option>
+          <option value="no">No, todo funcionó bien</option>
+          <option value="menor">Sí, algún detalle menor</option>
+          <option value="importante">Sí, algo importante</option>
+          <option value="critico">Sí, algo que impedía usar la app</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>Describe los errores o problemas encontrados</label>
+        <div class="hint">Incluye: qué estabas haciendo, qué pasó y en qué pantalla. Cuanto más detalle, mejor.</div>
+        <textarea class="tall" name="descripcion_bugs" placeholder="Describe aquí cualquier error o comportamiento inesperado..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>¿En qué dispositivo usaste la app?</label>
+        <select name="dispositivo">
+          <option value="">Selecciona una opción</option>
+          <option value="iphone">iPhone</option>
+          <option value="android">Android</option>
+          <option value="ambos">Ambos</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- 6. VALORACIÓN FINAL -->
+    <div class="form-section">
+      <div class="section-tag">06</div>
+      <div class="section-title">Valoración <em>final</em></div>
+
+      <div class="field">
+        <label>¿Recomendarías Coquu a alguien que cocina habitualmente?</label>
+        <div class="hint">0 = No la recomendaría en absoluto · 10 = La recomendaría sin dudarlo</div>
+        <div class="nps-group">
+          <div class="nps-btn" onclick="selectRating(this,'nps','0')">0</div>
+          <div class="nps-btn" onclick="selectRating(this,'nps','1')">1</div>
+          <div class="nps-btn" onclick="selectRating(this,'nps','2')">2</div>
+          <div class="nps-btn" onclick="selectRating(this,'nps','3')">3</div>
+          <div class="nps-btn" onclick="selectRating(this,'nps','4')">4</div>
+          <div class="nps-btn" onclick="selectRating(this,'nps','5')">5</div>
+          <div class="nps-btn" onclick="selectRating(this,'nps','6')">6</div>
+          <div class="nps-btn" onclick="selectRating(this,'nps','7')">7</div>
+          <div class="nps-btn" onclick="selectRating(this,'nps','8')">8</div>
+          <div class="nps-btn" onclick="selectRating(this,'nps','9')">9</div>
+          <div class="nps-btn" onclick="selectRating(this,'nps','10')">10</div>
+        </div>
+        <input type="hidden" name="nps" id="nps" />
+      </div>
+
+      <div class="field">
+        <label>¿Pagarías por Coquu si costara 3,99€/mes?</label>
+        <select name="pagaria">
+          <option value="">Selecciona una opción</option>
+          <option value="si_ya">Sí, ya lo haría ahora</option>
+          <option value="si_mejoras">Sí, con algunas mejoras</option>
+          <option value="quiza">Quizás, depende</option>
+          <option value="no">No, me parece caro</option>
+          <option value="no_necesito">No, no lo usaría regularmente</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>¿Qué es lo que más te ha sorprendido (para bien o para mal)?</label>
+        <textarea name="sorpresa" placeholder="Lo que no esperabas encontrar..."></textarea>
+      </div>
+
+      <div class="field">
+        <label>¿Qué cambiarías o añadirías si pudieras?</label>
+        <textarea class="tall" name="cambios" placeholder="Tu lista de deseos para Coquu. Sin filtros."></textarea>
+      </div>
+
+      <div class="field">
+        <label>¿Algo más que quieras contarnos?</label>
+        <textarea name="otros" placeholder="Cualquier cosa que no hayamos preguntado..."></textarea>
+      </div>
+    </div>
+
+    <div class="submit-wrap">
+      <p class="submit-note">Tus respuestas son confidenciales y solo las verá el equipo de Coquu. Gracias por tu tiempo.</p>
+      <button type="submit" class="btn-submit">Enviar feedback →</button>
+    </div>
+
+  </form>
+
+  <div class="success-msg" id="successMsg">
+    <div class="success-icon">✺</div>
+    <div class="success-title">Gracias por tu feedback</div>
+    <p class="success-sub">Tu opinión nos ayuda a hacer Coquu mejor. Nos ponemos a trabajar en ello.</p>
+  </div>
+</div>
+
+<script>
+  function selectRating(btn, name, value) {
+    const group = btn.closest('.rating-group, .nps-group');
+    group.querySelectorAll('.rating-btn, .nps-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    document.getElementById(name).value = value;
+  }
+
+  function toggleCheck(el) {
+    el.classList.toggle('selected');
+    const input = el.querySelector('input');
+    input.checked = !input.checked;
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const form = document.getElementById('feedbackForm');
+    const formData = new FormData(form);
+
+    // Add checkbox values manually
+    const checkboxGroups = {};
+    form.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+      if (!checkboxGroups[cb.name]) checkboxGroups[cb.name] = [];
+      checkboxGroups[cb.name].push(cb.value);
+    });
+    Object.entries(checkboxGroups).forEach(([key, values]) => {
+      formData.set(key, values.join(', '));
+    });
+
+    const btn = form.querySelector('.btn-submit');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch('https://formspree.io/f/mgodpnpz', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        form.style.display = 'none';
+        document.getElementById('successMsg').classList.add('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        btn.textContent = 'Error al enviar. Inténtalo de nuevo.';
+        btn.disabled = false;
+      }
+    } catch (err) {
+      btn.textContent = 'Error al enviar. Inténtalo de nuevo.';
+      btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
