@@ -5,21 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Términos de Uso — Coquu</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --green:       #3F5C4E;
-      --green-deep:  #2A3D33;
-      --green-soft:  #6F8A7C;
-      --paper:       #F8F1E4;
-      --paper-warm:  #FBF6EC;
-      --cream:       #F2D9A8;
-      --terracota:   #C97B5A;
-      --ink:         #2A3D33;
-      --ink-soft:    #4A5C53;
-      --line:        rgba(42, 61, 51, 0.14);
-      --maxw:        780px;
-      --pad-x:       clamp(24px, 6vw, 80px);
+      --green:        #3F5C4E;
+      --green-deep:   #2A3D33;
+      --green-soft:   #6F8A7C;
+      --paper:        #F8F1E4;
+      --paper-warm:   #FBF6EC;
+      --cream:        #F2D9A8;
+      --terracota:    #C97B5A;
+      --ink:          #2A3D33;
+      --ink-soft:     #4A5C53;
+      --line:         rgba(42, 61, 51, 0.14);
+      --maxw:         780px;
+      --pad-x:        clamp(24px, 6vw, 80px);
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -33,31 +33,26 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       backdrop-filter: blur(14px);
-      background: rgba(248, 241, 228, 0.88);
+      background: rgba(248, 241, 228, 0.78);
       border-bottom: 1px solid var(--line);
     }
     .nav-inner {
-      max-width: var(--maxw); margin: 0 auto;
+      max-width: var(--maxw);
+      margin: 0 auto;
       padding: 0 var(--pad-x);
-      height: 64px;
-      display: flex; align-items: center; justify-content: space-between;
+      height: 70px;
+      display: flex; align-items: center;
     }
     .nav-logo {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; gap: 12px;
       text-decoration: none; color: var(--ink);
     }
-    .nav-logo img { width: 30px; height: 30px; }
-    .nav-logo span {
+    .nav-logo .mark { width: 44px; height: 44px; border-radius: 10px; overflow: hidden; }
+    .nav-logo .word {
       font-family: "Cormorant Garamond", serif;
-      font-weight: 400; font-size: 18px;
-      letter-spacing: 0.28em; text-transform: uppercase;
+      font-weight: 400; font-size: 20px;
+      letter-spacing: 0.32em; text-transform: uppercase;
     }
-    .nav-back {
-      font-size: 13px; font-weight: 500;
-      color: var(--ink-soft); text-decoration: none;
-      transition: color .18s;
-    }
-    .nav-back:hover { color: var(--terracota); }
     .hero {
       padding: 120px var(--pad-x) 60px;
       background: var(--green-deep);
@@ -154,10 +149,15 @@
   <nav>
     <div class="nav-inner">
       <a href="index.html" class="nav-logo">
-        <img src="images/logo.png" alt="Coquu" />
-        <span>Coquu</span>
+        <svg class="mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="0" y="0" width="100" height="100" fill="#3F5C4E" rx="20"></rect>
+          <circle cx="50" cy="50" r="49" fill="#F2D9A8"/>
+          <path d="m81.8 14.5h-47.7c-0.4 0-0.9 0.5-0.9 0.9v68.8c0 0.5 0.4 0.9 0.9 0.9h47.7c0.5 0 0.9-0.4 0.9-0.8v-68.8c0-0.5-0.5-1-0.9-1zm-43.7 68.9h-3.2v-67.2h3.2v67.2zm42.8 0h-41.1v-67.2h41.1v67.2z" fill="#2A3D33"/>
+          <path d="m29.9 53.2c0-19.1-2.6-36.6-9.9-38.6-0.6-0.1-1.2 0.3-1.2 0.9v41.8h-0.8c-0.5 0-0.9 0.4-0.9 0.9v22c0 3 1.9 4.8 4.3 4.8 2.2 0 4.4-1.6 4.4-4.8v-22c0-0.4-0.4-0.9-0.9-0.9h-0.6v-3.2h4.6c0.7 0 1.1-0.4 1.1-0.9h-0.1zm-5.7 5.7v21.5c0 2-1.4 3-2.8 3-1.2 0-2.6-0.6-2.6-3v-21.5h5.4zm3.7-6.5h-4.3c-0.4 0-1.1 0.4-1.1 1v3.9h-2v-40.4c4.4 2.8 7.7 14.3 7.7 35.5h-0.3z" fill="#2A3D33"/>
+          <path d="m49.3 51.6v15.1c0 1.2 0.8 2.6 2.3 2.5h17.9c1.6 0.1 2.2-1.1 2.2-2.4v-16.8c2.5-0.6 5.9-2.6 5.9-7.2-0.1-3.6-3.1-7.4-8.6-7.3-2.3-4.9-7.2-6.4-11.1-5.1-1.9 0.6-3.5 2-4.5 3.8-5-0.8-10.2 2.9-10.3 8.9 0.1 3.7 2.1 6.8 5.6 8l0.6 0.5zm2.1-15.1c2.5-0.1 4.5 0.9 5.9 2.9 0.6 0.8 1.8 0.3 1.4-0.8-0.8-1.2-2-2.5-3.6-3.2 1-1.5 2.8-3.5 6.1-3.8 2.9 0 5.4 1.8 6.4 4.5 0.3 1 0.8 1.3 1.8 1 3.3-0.5 6.5 2 6.5 5 0.2 2.5-1.8 5.5-5 6.3-0.5 0-0.9 0.5-0.9 0.8v17.5c0 0.4-0.3 0.7-0.8 0.7h-18.1c-0.2 0-0.7-0.2-0.7-0.7v-15.3c0-0.9-0.5-1.3-1.1-1.4-2.4-0.8-4.5-3.1-4.5-6.5-0.1-3.5 3.1-6.8 6.6-7z" fill="#2A3D33"/>
+        </svg>
+        <span class="word">Coquu</span>
       </a>
-      <a href="index.html" class="nav-back">← Volver</a>
     </div>
   </nav>
 
@@ -172,7 +172,7 @@
 
     <h2>1. Aceptación de los términos</h2>
     <p>Al registrarte y usar Coquu, aceptas estos términos de uso en su totalidad. Si no estás de acuerdo con alguna parte, no debes usar la aplicación.</p>
-    <p>Estos términos constituyen un acuerdo legal entre tú y Jorge Gabarri, responsable de Coquu (<a href="mailto:hola@coquu.app">hola@coquu.app</a>).</p>
+    <p>Estos términos constituyen un acuerdo legal entre tú y Jorge Gabarri, responsable de Coquu (<a href="mailto:soporte@coquu.app">soporte@coquu.app</a>).</p>
 
     <h2>2. Descripción del servicio</h2>
     <p>Coquu es una aplicación móvil que genera menús semanales personalizados mediante inteligencia artificial. El servicio incluye:</p>
@@ -244,17 +244,17 @@
     <p>Nos reservamos el derecho de modificar estos términos o el servicio en cualquier momento. Te notificaremos los cambios relevantes con al menos 14 días de antelación a través de la app o por email. El uso continuado del servicio tras la notificación implica la aceptación de los nuevos términos.</p>
 
     <h2>11. Cancelación y terminación</h2>
-    <p>Puedes cancelar tu cuenta en cualquier momento contactando con nosotros en <a href="mailto:hola@coquu.app">hola@coquu.app</a>. Nos reservamos el derecho de suspender o cancelar cuentas que incumplan estos términos.</p>
+    <p>Puedes cancelar tu cuenta en cualquier momento contactando con nosotros en <a href="mailto:soporte@coquu.app">soporte@coquu.app</a>. Nos reservamos el derecho de suspender o cancelar cuentas que incumplan estos términos.</p>
 
     <h2>12. Ley aplicable</h2>
     <p>Estos términos se rigen por la legislación española. Para cualquier disputa, las partes se someten a los juzgados y tribunales de España.</p>
 
     <h2>13. Contacto</h2>
-    <p>Para cualquier consulta sobre estos términos, contacta con nosotros en <a href="mailto:hola@coquu.app">hola@coquu.app</a>.</p>
+    <p>Para cualquier consulta sobre estos términos, contacta con nosotros en <a href="mailto:soporte@coquu.app">soporte@coquu.app</a>.</p>
   </div>
 
   <footer>
-    <p>© 2026 Coquu · <a href="index.html">Inicio</a> · <a href="privacy.html">Política de privacidad</a> · <a href="mailto:hola@coquu.app">hola@coquu.app</a></p>
+    <p>© 2026 Coquu · <a href="index.html">Inicio</a> · <a href="privacy.html">Política de privacidad</a> · <a href="mailto:soporte@coquu.app">soporte@coquu.app</a></p>
   </footer>
 
 </body>
