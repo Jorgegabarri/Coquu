@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Abriendo Coquu…</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;1,500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #F8F1E4;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+  }
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 500;
+    color: #2A3D33;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+  .message {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 20px;
+    color: #4a5a52;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  .sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(31,46,38,0.4);
+    text-align: center;
+  }
+  .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #C97B5A;
+    margin-right: 8px;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.2); }
+  }
+</style>
+</head>
+<body>
+<div class="logo">Coquu</div>
+<p class="message"><span class="dot"></span>Abriendo la app…</p>
+<p class="sub">Serás redirigido automáticamente</p>
+
+<script>
+  // Extraer todos los parámetros de la URL (query string y hash)
+  function getParams() {
+    const params = {};
+    // Query string
+    const query = window.location.search.slice(1);
+    query.split('&').forEach(function(pair) {
+      const parts = pair.split('=');
+      if (parts[0]) params[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
+    });
+    // Hash fragment
+    const hash = window.location.hash.slice(1);
+    hash.split('&').forEach(function(pair) {
+      const parts = pair.split('=');
+      if (parts[0]) params[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
+    });
+    return params;
+  }
+
+  var params = getParams();
+
+  // Construir la URL del deep link con todos los parámetros
+  var deepLink = 'coquu://auth/callback';
+  var paramStr = Object.keys(params).map(function(k) {
+    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
+  }).join('&');
+  if (paramStr) deepLink += '?' + paramStr;
+
+  // Redirigir a la app
+  window.location.href = deepLink;
+</script>
+</body>
+</html>
