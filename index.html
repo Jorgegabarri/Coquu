@@ -774,6 +774,271 @@
       .foot-inner { grid-template-columns: 1fr; }
       .hero-meta { flex-wrap: wrap; gap: 18px; }
     }
+
+    /* ─── WAITLIST FORM ────────────────────────── */
+    .waitlist-form {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .waitlist-input {
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+      background: var(--paper-warm);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 15px 22px;
+      outline: none;
+      transition: border-color .18s, box-shadow .18s;
+      min-width: 220px;
+      flex: 1;
+    }
+    .waitlist-input::placeholder { color: var(--ink-soft); opacity: 0.6; }
+    .waitlist-input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(63, 92, 78, 0.12);
+    }
+    .waitlist-btn {
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--cream);
+      background: var(--green-deep);
+      border: none;
+      border-radius: 999px;
+      padding: 15px 26px;
+      cursor: pointer;
+      transition: background .18s, transform .18s;
+      white-space: nowrap;
+    }
+    .waitlist-btn:hover { background: var(--terracota); transform: translateY(-2px); }
+    .waitlist-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .waitlist-confirm {
+      font-size: 14px;
+      color: var(--green);
+      font-weight: 500;
+      min-height: 20px;
+      width: 100%;
+      margin-top: 4px;
+    }
+    .cta-strip .waitlist-form { justify-content: center; max-width: 520px; margin: 0 auto; }
+    .cta-strip .waitlist-confirm { text-align: center; }
+    @media (max-width: 600px) {
+      .waitlist-form { flex-direction: column; align-items: stretch; }
+      .waitlist-input { min-width: unset; width: 100%; }
+      .waitlist-btn { width: 100%; text-align: center; }
+    }
+
+    /* ─── APPLIANCES ────────────────────────────── */
+    .appliances { background: var(--paper-cool); }
+    .appliances-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 96px);
+      align-items: center;
+    }
+    .appliances-sub {
+      font-size: 17px; line-height: 1.6;
+      color: var(--ink-soft);
+      margin-top: 18px;
+      max-width: 400px;
+    }
+    .appliances-list {
+      display: flex; flex-wrap: wrap; gap: 12px;
+      justify-content: flex-start;
+    }
+    .appliance-pill {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 20px; font-weight: 400;
+      color: var(--ink);
+      background: var(--paper);
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 12px 24px;
+      transition: background .18s, border-color .18s, color .18s;
+    }
+    .appliance-pill:hover {
+      background: var(--green-deep);
+      border-color: var(--green-deep);
+      color: var(--cream);
+    }
+    @media (max-width: 980px) {
+      .appliances-inner { grid-template-columns: 1fr; }
+    }
+
+    /* ─── FAQ ──────────────────────────────────── */
+    .faq { background: var(--paper-warm); }
+    .faq .s-eyebrow { color: var(--green); }
+    .faq .s-title { color: var(--ink); }
+    .faq-list {
+      max-width: 720px;
+      border-top: 1px solid var(--line);
+    }
+    .faq-item { border-bottom: 1px solid var(--line); }
+    .faq-q {
+      width: 100%;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 22px 0;
+      background: none; border: none; cursor: pointer;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 20px; font-weight: 400;
+      color: var(--ink); text-align: left;
+      gap: 16px;
+      transition: color .18s;
+    }
+    .faq-q:hover { color: var(--terracota); }
+    .faq-icon {
+      font-family: "DM Sans", sans-serif;
+      font-size: 22px; font-weight: 300;
+      color: var(--ink-soft); flex-shrink: 0;
+      transition: transform .2s;
+    }
+    .faq-q[aria-expanded="true"] .faq-icon { transform: rotate(45deg); color: var(--terracota); }
+    .faq-a {
+      display: none;
+      padding-bottom: 20px;
+    }
+    .faq-a.open { display: block; }
+    .faq-a p {
+      font-size: 16px; line-height: 1.65;
+      color: var(--ink-soft);
+      max-width: 600px;
+    }
+
+    /* ─── HERO PHONE REAL ──────────────────────── */
+    .hero-phone-wrap {
+      position: relative;
+      width: 305px;
+      margin: 0 auto;
+      background: #0e1714;
+      border-radius: 46px;
+      padding: 8px;
+      box-shadow:
+        0 40px 80px -20px rgba(26, 51, 48, 0.35),
+        0 8px 16px rgba(26, 51, 48, 0.12);
+    }
+    .hero-phone-wrap::before {
+      content: "";
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 22px;
+      background: #0e1714;
+      border-radius: 999px;
+      z-index: 4;
+    }
+    .hero-phone-img {
+      width: 100%;
+      display: block;
+      border-radius: 40px;
+    }
+    @media (max-width: 980px) {
+      .hero-phone-wrap { width: 260px; }
+    }
+
+    /* ─── SCREENS REAL ─────────────────────────── */
+    .ss-real-wrap {
+      position: relative;
+      margin-bottom: 18px;
+      background: #0e1714;
+      border-radius: 36px;
+      padding: 8px;
+      box-shadow:
+        0 40px 80px -20px rgba(26, 51, 48, 0.32),
+        0 8px 16px rgba(26, 51, 48, 0.10);
+    }
+    .ss-real-wrap::before {
+      content: "";
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 16px;
+      background: #0e1714;
+      border-radius: 999px;
+      z-index: 4;
+    }
+    .ss-real-img {
+      width: 100%;
+      display: block;
+      border-radius: 28px;
+      object-fit: contain;
+      object-position: top;
+    }
+
+    /* ─── COOKIE BANNER ────────────────────────── */
+    .cookie-banner {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 200;
+      width: calc(100% - 48px);
+      max-width: 680px;
+      background: var(--green-deep);
+      border-radius: 16px;
+      padding: 18px 22px;
+      box-shadow: 0 8px 32px rgba(26, 51, 48, 0.28);
+      transition: opacity .3s, transform .3s;
+    }
+    .cookie-banner.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(-50%) translateY(12px);
+    }
+    .cookie-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .cookie-text {
+      font-size: 13px;
+      line-height: 1.55;
+      color: rgba(242, 217, 168, 0.75);
+      flex: 1;
+    }
+    .cookie-link {
+      color: var(--cream);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+      margin-left: 6px;
+      transition: color .18s;
+    }
+    .cookie-link:hover { color: var(--terracota-s); }
+    .cookie-btn {
+      font-family: "DM Sans", sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--green-deep);
+      background: var(--cream);
+      border: none;
+      border-radius: 999px;
+      padding: 10px 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .18s;
+      flex-shrink: 0;
+    }
+    .cookie-btn:hover { background: var(--cream-soft); }
+    @media (max-width: 600px) {
+      .cookie-inner { flex-direction: column; align-items: flex-start; }
+      .cookie-btn { width: 100%; text-align: center; }
+    }
+
+    /* ─── HERO FREE NOTE ───────────────────────── */
+    .hero-free-note {
+      font-size: 10px;
+      color: var(--green-soft);
+      margin-top: 14px;
+      letter-spacing: 0.14em;
+    }
   </style>
 </head>
 <body>
@@ -797,7 +1062,7 @@
         <li><a href="#screens">La app</a></li>
         <li><a href="#priv">Manifiesto</a></li>
       </ul>
-      <a href="#cta" class="nav-cta">Empezar</a>
+      <a href="#waitlist" class="nav-cta">Empezar</a>
     </div>
   </nav>
 
@@ -807,7 +1072,7 @@
       <div class="hero-left">
         <div class="hero-eyebrow mono fade d1">
           <span class="dot"></span>
-          <span>Planificador de menús con IA</span>
+          <span>Planificación con IA · v.2026</span>
         </div>
         <h1 class="fade d2">
           Tu menú semanal,<br>
@@ -817,9 +1082,14 @@
           Coquu compone siete días de comidas hechas a tu medida — adaptadas a tu dieta,
           tus electrodomésticos y tu manera de cocinar. Sin recetarios infinitos, sin decidir cada noche.
         </p>
-        <div class="hero-ctas fade d4">
-          <a href="#cta" class="btn btn-primary">Empezar gratis <span class="arr">→</span></a>
-          <a href="#screens" class="btn btn-ghost">Ver la app</a>
+        <div class="hero-ctas fade d4" id="waitlist">
+          <form class="waitlist-form" id="waitlist-form-hero">
+            <input type="email" name="email" placeholder="tu@email.com" required autocomplete="email" class="waitlist-input" />
+            <input type="hidden" name="source" value="hero" />
+            <input type="hidden" name="_subject" value="Nueva lista de espera — Coquu" />
+            <button type="submit" class="waitlist-btn">Apuntarme a la lista</button>
+          </form>
+          <p class="waitlist-confirm" id="waitlist-confirm-hero" aria-live="polite"></p>
         </div>
         <div class="hero-stores fade d5">
           <a href="#" class="store-badge">
@@ -832,6 +1102,7 @@
           </a>
           <span style="opacity: 0.55; font-size: 11px;" class="mono">próximamente</span>
         </div>
+        <p class="hero-free-note mono fade d5">Pruébalo gratis · sin tarjeta · 14 días de Pro incluidos</p>
 
         <div class="hero-meta fade d6">
           <div class="stat">
@@ -849,75 +1120,33 @@
         </div>
       </div>
 
-      <!-- Right: phone with schematic UI -->
+      <!-- Right: phone real screenshot -->
       <div class="hero-right fade d3">
-        <span class="hero-tag t1">listo en <em style="color: var(--terracota); font-style: italic;">3 min</em></span>
-        <span class="hero-tag t2">sin pensar &nbsp;✺</span>
-        <div class="phone">
-          <div class="phone-screen">
-            <div class="statusbar">
-              <span>9:41</span>
-              <div class="statusbar-icons">
-                <span class="sb-bat"><span class="sb-bat-fill"></span></span>
-              </div>
-            </div>
-            <div class="app-menu">
-              <div class="app-menu-head">
-                <div>
-                  <div class="greet">Hola, <em>Lucía</em></div>
-                  <div class="week mono">Sem · 19 — 25 may</div>
-                </div>
-                <div class="app-avatar">L</div>
-              </div>
-              <div class="app-tabs">
-                <div class="app-tab active">Menú</div>
-                <div class="app-tab">Compra</div>
-                <div class="app-tab">Recetas</div>
-              </div>
-              <div class="app-day-nav">
-                <div class="app-day"><span class="d">L</span><span class="n">19</span></div>
-                <div class="app-day active"><span class="d">M</span><span class="n">20</span></div>
-                <div class="app-day"><span class="d">X</span><span class="n">21</span></div>
-                <div class="app-day"><span class="d">J</span><span class="n">22</span></div>
-                <div class="app-day"><span class="d">V</span><span class="n">23</span></div>
-              </div>
+        <div class="hero-phone-wrap">
+          <img
+            src="images/Home.jpg"
+            alt="Pantalla de inicio de Coquu con el menú del día"
+            class="hero-phone-img"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
 
-              <div class="meal-card">
-                <div class="meal-img veg"></div>
-                <div class="meal-info">
-                  <div class="meal-eyebrow">Comida · 25 min</div>
-                  <div class="meal-title">Crema de calabacín y menta</div>
-                  <div class="meal-meta">
-                    <span class="pill">veg</span><span class="pill">batch</span><span>4 pers</span>
-                  </div>
-                </div>
-              </div>
-              <div class="meal-card">
-                <div class="meal-img"></div>
-                <div class="meal-info">
-                  <div class="meal-eyebrow">Cena · 15 min</div>
-                  <div class="meal-title">Pollo al limón con cuscús</div>
-                  <div class="meal-meta">
-                    <span class="pill">ninja</span><span>4 pers</span>
-                  </div>
-                </div>
-              </div>
-              <div class="meal-card">
-                <div class="meal-img fish"></div>
-                <div class="meal-info">
-                  <div class="meal-eyebrow">Snack</div>
-                  <div class="meal-title">Hummus de remolacha</div>
-                  <div class="meal-meta">
-                    <span class="pill">batch</span><span>congelable</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="app-fab">
-              <span>Regenerar el día</span>
-              <span class="icn-circle">↻</span>
-            </div>
-          </div>
+  <!-- ─── ELECTRODOMÉSTICOS ─────────────────────── -->
+  <section class="s appliances" id="appliances">
+    <div class="s-inner">
+      <div class="appliances-inner">
+        <div class="appliances-text">
+          <div class="s-eyebrow mono">Compatibilidad</div>
+          <h2 class="s-title">Tu electrodoméstico,<br><em>tus recetas.</em></h2>
+          <p class="appliances-sub">Coquu adapta las recetas a tu cocina. Añades el modelo exacto de tu aparato y cada paso de la receta está escrito para él.</p>
+        </div>
+        <div class="appliances-list">
+          <div class="appliance-pill">Thermomix</div>
+          <div class="appliance-pill">Mambo</div>
+          <div class="appliance-pill">Ninja</div>
+          <div class="appliance-pill">Instant Pot</div>
         </div>
       </div>
     </div>
@@ -928,7 +1157,7 @@
     <div class="s-inner">
       <div class="s-head">
         <div>
-          <div class="s-eyebrow mono">Cómo funciona</div>
+          <div class="s-eyebrow mono">Cómo funciona &nbsp;·&nbsp; 01—03</div>
           <h2 class="s-title">Tu menú listo<br>en <em>tres pasos.</em></h2>
         </div>
         <div class="s-meta-mono mono">
@@ -937,7 +1166,7 @@
         </div>
       </div>
       <p class="s-sub" style="margin-bottom: 32px;">
-        Configuras una vez, generas un menú para ti.<br> Sin formularios eternos, sin elegir entre 400 recetas que no te pegan.
+        Una vez configurado, generar la semana es un gesto. Sin formularios eternos, sin elegir entre 400 recetas que no te pegan.
       </p>
 
       <div class="steps">
@@ -950,8 +1179,8 @@
               <path d="M22 11h-6"/><path d="M19 8v6"/>
             </svg>
           </div>
-          <h3>Cuéntanos tu cocina<br>una sola vez.</h3>
-          <p>Tipo de dieta, intolerancias, electrodomésticos, número de comensales, alimentos que no te gustan. Coquu lo recuerda para siempre.</p>
+          <h3>Cuéntale tu cocina<br>una sola vez.</h3>
+          <p>Dieta, intolerancias, electrodomésticos, número de comensales, alimentos que no te gustan. Coquu lo recuerda para siempre.</p>
           <div class="step-tag mono">~ 4 min · setup inicial</div>
         </div>
 
@@ -975,8 +1204,8 @@
             </svg>
           </div>
           <h3>Cocina<br>como te apetezca.</h3>
-          <p>Día a día o batch cooking. Lista de la compra automática. Temporizadores integrados.</p>
-          <div class="step-tag mono">2 modos · electrodomésticos personalizados</div>
+          <p>Daily o batch cooking. Lista de la compra automática. Temporizadores integrados. Modos para tu Thermomix, Ninja o Instant Pot.</p>
+          <div class="step-tag mono">2 modos · 12 electrodomésticos</div>
         </div>
       </div>
     </div>
@@ -1005,7 +1234,7 @@
             </div>
           </div>
           <h3>Personalización <em>real.</em></h3>
-          <p>Dinos tu dieta, intolerancias, alergias, alimentos que no te gustan. El menú es tuyo — no de una base de datos.</p>
+          <p>Dieta, intolerancias, alergias, alimentos que no te gustan, número de comensales. El menú es tuyo — no de una base de datos.</p>
         </div>
 
         <div class="feat">
@@ -1015,7 +1244,7 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             </div>
           </div>
-          <h3>Batch cooking <em>guiado.</em></h3>
+          <h3>Batch cooking guiado.</h3>
           <p>Cocina toda la semana en una sesión. Timeline con el orden óptimo, tiempos de conservación y trucos de batch.</p>
         </div>
 
@@ -1026,7 +1255,7 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
             </div>
           </div>
-          <h3>Tus <em>electrodomésticos.</em></h3>
+          <h3>Tus electrodomésticos.</h3>
           <p>Thermomix, Ninja, Instant Pot, Mambo, freidora de aire. Coquu adapta cada paso a tu modelo exacto, no de forma genérica.</p>
         </div>
 
@@ -1048,7 +1277,7 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 5h14l-1.5 11h-11z"/><circle cx="9" cy="20" r="1.5"/><circle cx="17" cy="20" r="1.5"/></svg>
             </div>
           </div>
-          <h3>Lista de la compra <em>automática.</em></h3>
+          <h3>Lista de la compra automática.</h3>
           <p>Generada desde el menú, organizada por categorías de supermercado. Marca lo que ya tienes, suma lo extra a mano.</p>
         </div>
 
@@ -1059,7 +1288,7 @@
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.5-1.5 3-3.3 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.8 0-3 .5-4.5 2-1.5-1.5-2.7-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.2 1.5 4 3 5.5l7 7Z"/></svg>
             </div>
           </div>
-          <h3>Tus recetas <em>favoritas.</em></h3>
+          <h3>Tus recetas favoritas.</h3>
           <p>Guarda las que más te gustan con notas personales. Pídele a Coquu que las incluya — o las evite — la próxima semana.</p>
         </div>
       </div>
@@ -1078,130 +1307,97 @@
       </div>
 
       <div class="screens-grid">
-
-        <!-- 1. Menú semanal -->
         <div class="ss-item">
-          <div class="ss-phone-wrap">
-            <div class="ss-phone">
-              <div class="ss-statusbar"><span>9:41</span><span>·</span></div>
-              <div class="ss-content">
-                <div class="ss-head">
-                  <div class="ss-title-d"><em>Mi</em> semana</div>
-                  <div class="ss-mono-tag">19—25</div>
-                </div>
-                <div class="ss-mono-tag">Lunes</div>
-                <div class="ss-row">
-                  <div class="swatch veg"></div>
-                  <div class="info"><div class="t">Crema de calabacín</div><div class="m">25 min · veg</div></div>
-                </div>
-                <div class="ss-row">
-                  <div class="swatch"></div>
-                  <div class="info"><div class="t">Pollo al limón</div><div class="m">15 min · ninja</div></div>
-                </div>
-                <div class="ss-mono-tag">Martes</div>
-                <div class="ss-row">
-                  <div class="swatch fish"></div>
-                  <div class="info"><div class="t">Salmón &amp; quinoa</div><div class="m">20 min · airfryer</div></div>
-                </div>
-                <div class="ss-row">
-                  <div class="swatch veg"></div>
-                  <div class="info"><div class="t">Salteado de tofu</div><div class="m">18 min · veg</div></div>
-                </div>
-                <div class="ss-mono-tag">Miércoles</div>
-                <div class="ss-row">
-                  <div class="swatch bread"></div>
-                  <div class="info"><div class="t">Tostadas de aguacate</div><div class="m">8 min · rápido</div></div>
-                </div>
-              </div>
-            </div>
+          <div class="ss-real-wrap">
+            <img src="images/Menu.jpg" alt="Vista del menú semanal en Coquu" class="ss-real-img" />
           </div>
           <div class="ss-label"><em>Tu semana</em> de un vistazo</div>
         </div>
-
-        <!-- 2. Receta -->
         <div class="ss-item">
-          <div class="ss-phone-wrap">
-            <div class="ss-phone">
-              <div class="ss-statusbar"><span>9:41</span><span>·</span></div>
-              <div class="ss-content">
-                <div class="ss-head">
-                  <div class="ss-title-d">Pollo al <em>limón</em></div>
-                  <div class="ss-mono-tag">♡</div>
-                </div>
-                <div class="ss-receta-img"><span class="timer">15:00</span></div>
-                <div class="ss-mono-tag">Pasos · 04</div>
-                <div class="ss-step"><span class="num">i</span><span>Marina el pollo con limón, ajo y aceite 10 min.</span></div>
-                <div class="ss-step"><span class="num">ii</span><span>Calienta la <em style="color: var(--terracota); font-style: italic; font-family: serif;">Ninja Foodi</em> en modo sear.</span></div>
-                <div class="ss-step"><span class="num">iii</span><span>Cocina 8 min, dale la vuelta y termina 4 min.</span></div>
-                <div class="ss-step"><span class="num">iv</span><span>Sirve sobre cuscús con perejil fresco.</span></div>
-              </div>
-            </div>
+          <div class="ss-real-wrap">
+            <img src="images/Receta.jpg" alt="Receta paso a paso en Coquu" class="ss-real-img" />
           </div>
           <div class="ss-label">Recetas <em>paso a paso</em></div>
         </div>
-
-        <!-- 3. Batch -->
         <div class="ss-item">
-          <div class="ss-phone-wrap">
-            <div class="ss-phone">
-              <div class="ss-statusbar"><span>9:41</span><span>·</span></div>
-              <div class="ss-content">
-                <div class="ss-head">
-                  <div class="ss-title-d"><em>Domingo</em> · batch</div>
-                  <div class="ss-mono-tag">2h 40</div>
-                </div>
-                <div class="ss-mono-tag" style="margin-top:6px;">Timeline</div>
-                <div class="ss-timeline">
-                  <div class="ss-tl-item active">
-                    <div class="time">11:00 — horno on</div>
-                    <div class="t">Asa <em>verduras</em> de la semana</div>
-                  </div>
-                  <div class="ss-tl-item active">
-                    <div class="time">11:25 — paralelo</div>
-                    <div class="t">Cuece quinoa &amp; lentejas</div>
-                  </div>
-                  <div class="ss-tl-item">
-                    <div class="time">12:10 — sartén</div>
-                    <div class="t">Marca pollo y guarda</div>
-                  </div>
-                  <div class="ss-tl-item">
-                    <div class="time">12:40 — frío</div>
-                    <div class="t">Reparte en táper</div>
-                  </div>
-                  <div class="ss-tl-item">
-                    <div class="time">13:30 — listo</div>
-                    <div class="t"><em>Toda la semana</em> resuelta</div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="ss-real-wrap">
+            <img src="images/Batch.jpg" alt="Timeline de batch cooking en Coquu" class="ss-real-img" />
           </div>
           <div class="ss-label">Timeline de <em>batch cooking</em></div>
         </div>
-
-        <!-- 4. Lista -->
         <div class="ss-item">
-          <div class="ss-phone-wrap">
-            <div class="ss-phone">
-              <div class="ss-statusbar"><span>9:41</span><span>·</span></div>
-              <div class="ss-content">
-                <div class="ss-head">
-                  <div class="ss-title-d">Lista <em>compra</em></div>
-                  <div class="ss-mono-tag">23 art.</div>
-                </div>
-                <div class="ss-cat">Frescos · 08</div>
-                <div class="ss-row"><div class="check on"></div><div class="info"><div class="t">Calabacín · 2 ud</div></div></div>
-                <div class="ss-row"><div class="check on"></div><div class="info"><div class="t">Pollo · 600 g</div></div></div>
-                <div class="ss-row"><div class="check"></div><div class="info"><div class="t">Limón · 3 ud</div></div></div>
-                <div class="ss-row"><div class="check"></div><div class="info"><div class="t">Salmón · 500 g</div></div></div>
-                <div class="ss-cat">Despensa · 06</div>
-                <div class="ss-row"><div class="check on"></div><div class="info"><div class="t">Quinoa · 250 g</div></div></div>
-                <div class="ss-row"><div class="check"></div><div class="info"><div class="t">Cuscús · 250 g</div></div></div>
-                <div class="ss-row"><div class="check"></div><div class="info"><div class="t">Aceite oliva</div></div></div>
-              </div>
-            </div>
+          <div class="ss-real-wrap">
+            <img src="images/Lista_Compra.jpg" alt="Lista de la compra automática en Coquu" class="ss-real-img" />
           </div>
           <div class="ss-label">Lista <em>automática</em>, por categorías</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FAQ ──────────────────────────────────── -->
+  <section class="s faq" id="faq">
+    <div class="s-inner">
+      <div class="s-head">
+        <div>
+          <div class="s-eyebrow mono">Preguntas frecuentes</div>
+          <h2 class="s-title">Todo lo que<br>necesitas <em>saber.</em></h2>
+        </div>
+      </div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            ¿Es gratis de verdad?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Sí. Hay un tier gratuito sin límite de tiempo. Al registrarte tienes 14 días de Pro incluidos para probarlo todo sin restricciones.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            ¿Necesito tarjeta para registrarme?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>No. Te registras con email y empiezas a usar Coquu sin introducir ningún dato de pago.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            ¿Funciona con mi Thermomix, Ninja o freidora de aire?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Sí. Añades el modelo exacto de tu electrodoméstico y Coquu adapta cada paso de las recetas a tu aparato — no de forma genérica.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            ¿Los menús se repiten?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>No. Cada menú se genera de nuevo con IA según tu perfil. No tiramos de una base de datos de recetas fijas.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            ¿Puedo cancelar cuando quiera?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Sí. Cancela desde la App Store o Google Play en cualquier momento. Tu suscripción activa se mantiene hasta el final del período pagado.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" aria-expanded="false">
+            ¿Qué pasa con mis menús si cancelo?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Pasas al tier gratuito y sigues usando Coquu con los límites del plan free. No pierdes tu perfil ni tus recetas favoritas.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1221,7 +1417,7 @@
       <div class="trust-grid">
         <div class="trust">
           <div class="trust-rule"></div>
-          <h3>Sin publicidad,<br><em>nunca.</em></h3>
+          <h3>Sin publicidad,<br>nunca.</h3>
           <p>Coquu no muestra anuncios ni acepta marcas patrocinando recetas. Lo que ves es lo que te conviene — no lo que se ha pagado para que veas.</p>
         </div>
         <div class="trust">
@@ -1231,8 +1427,8 @@
         </div>
         <div class="trust">
           <div class="trust-rule"></div>
-          <h3>Hecho en Madrid,<br><em>independiente.</em></h3>
-          <p>Si nos escribes, te respondemos nosotros.</p>
+          <h3>Hecho en España,<br>independiente.</h3>
+          <p>Proyecto sin inversores externos, pensado para la cocina española de verdad. Si nos escribes, te respondemos nosotros.</p>
         </div>
       </div>
     </div>
@@ -1241,13 +1437,16 @@
   <!-- ─── CTA ──────────────────────────────────── -->
   <section class="cta-strip" id="cta">
     <div class="cta-strip-inner">
-      <div class="mono" style="color: var(--terracota); margin-bottom: 26px;">— prueba pro 14 días</div>
+      <div class="mono" style="color: var(--terracota); margin-bottom: 26px;">— prueba gratuita · 14 días</div>
       <h2>Empieza esta semana —<br><em>cocina mejor la próxima.</em></h2>
-      <p>Configura tu perfil, genera tu primer menú, decide si Coquu es para ti. Es gratis. Además, te damos 14 dias de pro para que lo pruebes.</p>
-      <div class="btn-row">
-        <a href="#" class="btn btn-primary">Empezar gratis <span class="arr">→</span></a>
-        <a href="#" class="btn btn-ghost">Hablar con nosotros</a>
-      </div>
+      <p>Configura tu perfil, genera tu primer menú, decide si Coquu es para ti. Si no, lo cancelas en un toque.</p>
+      <form class="waitlist-form" id="waitlist-form-cta">
+        <input type="email" name="email" placeholder="tu@email.com" required autocomplete="email" class="waitlist-input" />
+        <input type="hidden" name="source" value="cta-strip" />
+        <input type="hidden" name="_subject" value="Nueva lista de espera — Coquu" />
+        <button type="submit" class="waitlist-btn">Apuntarme a la lista</button>
+      </form>
+      <p class="waitlist-confirm" id="waitlist-confirm-cta" aria-live="polite"></p>
     </div>
   </section>
 
@@ -1279,8 +1478,7 @@
         <h4 class="mono">Coquu</h4>
         <ul>
           <li><a href="#priv">Manifiesto</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="mailto:soporte@coquu.app">soporte@coquu.app</a></li>
+          <li><a href="mailto:hola@coquu.app">hola@coquu.app</a></li>
         </ul>
       </div>
       <div class="foot-col">
@@ -1288,15 +1486,100 @@
         <ul>
           <li><a href="privacy.html">Privacidad</a></li>
           <li><a href="terms.html">Términos</a></li>
-          <li><a href="#">Cookies</a></li>
         </ul>
       </div>
     </div>
     <div class="foot-bottom">
-      <span class="copy-italic">© 2026 Coquu — pensado y cocinado en Madrid.</span>
+      <span class="copy-italic">© 2026 Coquu — pensado y cocinado en España.</span>
       <span class="mono">v.2026 · build 03</span>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var ENDPOINT = 'https://formspree.io/f/mjgzalae';
+
+      function handleWaitlist(formEl, confirmEl) {
+        formEl.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var btn = formEl.querySelector('.waitlist-btn');
+          btn.disabled = true;
+          btn.textContent = 'Enviando…';
+          fetch(ENDPOINT, {
+            method: 'POST',
+            body: new FormData(formEl),
+            headers: { 'Accept': 'application/json' }
+          })
+          .then(function (res) {
+            if (res.ok) {
+              formEl.style.display = 'none';
+              confirmEl.textContent = '✓ Anotado. Te avisamos en cuanto esté disponible.';
+            } else {
+              btn.disabled = false;
+              btn.textContent = 'Apuntarme a la lista';
+              confirmEl.textContent = 'Algo fue mal. Prueba de nuevo.';
+            }
+          })
+          .catch(function () {
+            btn.disabled = false;
+            btn.textContent = 'Apuntarme a la lista';
+            confirmEl.textContent = 'Algo fue mal. Prueba de nuevo.';
+          });
+        });
+      }
+
+      handleWaitlist(
+        document.getElementById('waitlist-form-hero'),
+        document.getElementById('waitlist-confirm-hero')
+      );
+      handleWaitlist(
+        document.getElementById('waitlist-form-cta'),
+        document.getElementById('waitlist-confirm-cta')
+      );
+
+      // Cookie banner
+      document.addEventListener('DOMContentLoaded', function() {
+        var cookieBanner = document.getElementById('cookie-banner');
+        var cookieAccept = document.getElementById('cookie-accept');
+        if (!cookieBanner || !cookieAccept) return;
+        if (localStorage.getItem('cookieAccepted')) {
+          cookieBanner.classList.add('hidden');
+        }
+        cookieAccept.addEventListener('click', function() {
+          localStorage.setItem('cookieAccepted', 'true');
+          cookieBanner.classList.add('hidden');
+        });
+      });
+
+      // FAQ accordion
+      document.querySelectorAll('.faq-q').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var expanded = this.getAttribute('aria-expanded') === 'true';
+          document.querySelectorAll('.faq-q').forEach(function(b) {
+            b.setAttribute('aria-expanded', 'false');
+            b.nextElementSibling.classList.remove('open');
+          });
+          if (!expanded) {
+            this.setAttribute('aria-expanded', 'true');
+            this.nextElementSibling.classList.add('open');
+          }
+        });
+      });
+    })();
+  </script>
+
+  <!-- ─── COOKIE BANNER ─────────────────────────── -->
+  <div class="cookie-banner" id="cookie-banner">
+    <div class="cookie-inner">
+      <p class="cookie-text">
+        Esta web usa únicamente cookies técnicas necesarias para su funcionamiento.
+        No usamos cookies de seguimiento ni publicidad.
+        <a href="privacy.html" class="cookie-link">Más información</a>
+      </p>
+      <button class="cookie-btn" id="cookie-accept">Entendido</button>
+    </div>
+  </div>
+
 
 </body>
 </html>
