@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Solicita el borrado permanente de tu cuenta de Coquu y todos los datos asociados." />
+  <title>Borrar cuenta — Coquu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green:       #3F5C4E;
+      --green-deep:  #2A3D33;
+      --green-soft:  #6F8A7C;
+      --paper:       #F8F1E4;
+      --paper-warm:  #FBF6EC;
+      --cream:       #F2D9A8;
+      --terracota:   #C97B5A;
+      --ink:         #2A3D33;
+      --ink-soft:    #4A5C53;
+      --line:        rgba(42, 61, 51, 0.13);
+      --red:         #C0392B;
+      --red-light:   rgba(192, 57, 43, 0.07);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ──────────────────────────────────────────── */
+    .header {
+      background: var(--green-deep);
+      padding: 56px 48px 48px;
+    }
+    .header-eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--terracota); margin-bottom: 16px;
+    }
+    .header h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 42px; font-weight: 400;
+      color: var(--cream); line-height: 1.08;
+      margin-bottom: 12px;
+    }
+    .header h1 em { font-style: italic; color: var(--terracota); }
+    .header p {
+      font-size: 14px; color: rgba(242, 217, 168, 0.55);
+      max-width: 480px; line-height: 1.6;
+    }
+
+    /* ── CONTENT ─────────────────────────────────────────── */
+    .content-wrap {
+      max-width: 680px; margin: 0 auto;
+      padding: 52px 48px 96px;
+    }
+
+    /* ── INFO CARDS ──────────────────────────────────────── */
+    .info-section { margin-bottom: 44px; }
+    .info-section-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 22px; font-weight: 400; color: var(--ink);
+      margin-bottom: 16px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .info-section-title em { font-style: italic; color: var(--terracota); }
+
+    .info-card {
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 10px;
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .info-card-num {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px; letter-spacing: 0.1em;
+      color: var(--terracota); flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .info-card-body {}
+    .info-card-title {
+      font-size: 14px; font-weight: 600; color: var(--ink);
+      margin-bottom: 5px;
+    }
+    .info-card-text {
+      font-size: 13px; color: var(--ink-soft); line-height: 1.55;
+    }
+
+    .warning-card {
+      background: var(--red-light);
+      border: 1px solid rgba(192, 57, 43, 0.18);
+      border-left: 3px solid var(--red);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 10px;
+      font-size: 13px; color: var(--ink); line-height: 1.55;
+    }
+    .warning-card strong { color: var(--red); }
+
+    .privacy-link {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 13px; color: var(--green-soft);
+      text-decoration: underline; text-underline-offset: 3px;
+      transition: color .18s;
+    }
+    .privacy-link:hover { color: var(--terracota); }
+
+    /* ── FORM ────────────────────────────────────────────── */
+    .form-section { margin-bottom: 44px; }
+    .form-section-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 22px; font-weight: 400; color: var(--ink);
+      margin-bottom: 20px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .form-section-title em { font-style: italic; color: var(--terracota); }
+
+    .field { margin-bottom: 22px; }
+    .field label {
+      display: block;
+      font-size: 13px; font-weight: 500; color: var(--ink);
+      margin-bottom: 7px;
+    }
+    .field .hint {
+      font-size: 12px; color: var(--ink-soft);
+      margin-bottom: 8px; line-height: 1.5;
+    }
+    .field input[type="email"],
+    .field input[type="text"] {
+      width: 100%;
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px; color: var(--ink);
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color .18s;
+    }
+    .field input:focus { border-color: var(--green); }
+    .field input.error { border-color: var(--red); }
+
+    .field-error {
+      font-size: 12px; color: var(--red);
+      margin-top: 6px; display: none;
+    }
+    .field-error.visible { display: block; }
+
+    /* ── SUBMIT ──────────────────────────────────────────── */
+    .submit-wrap {
+      padding-top: 28px;
+      border-top: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 20px; flex-wrap: wrap;
+    }
+    .submit-note {
+      font-size: 12px; color: var(--ink-soft); line-height: 1.5; flex: 1;
+    }
+    .btn-submit {
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px; font-weight: 600;
+      padding: 14px 32px; border-radius: 999px;
+      background: var(--red); color: #fff;
+      border: none; cursor: pointer;
+      transition: background .18s, transform .18s;
+      white-space: nowrap;
+    }
+    .btn-submit:hover { background: #a93226; transform: translateY(-1px); }
+    .btn-submit:disabled { opacity: 0.6; cursor: default; transform: none; }
+
+    /* ── SUCCESS ─────────────────────────────────────────── */
+    .success-msg {
+      display: none;
+      text-align: center; padding: 56px 24px;
+    }
+    .success-msg.visible { display: block; }
+    .success-icon {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic; font-size: 64px;
+      color: var(--green); margin-bottom: 16px;
+    }
+    .success-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 32px; font-weight: 400; color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .success-sub {
+      font-size: 15px; color: var(--ink-soft); line-height: 1.6;
+      max-width: 420px; margin: 0 auto;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 16px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--ink-soft); text-decoration: none;
+    }
+    .footer-links {
+      display: flex; gap: 20px; list-style: none;
+    }
+    .footer-links a {
+      font-size: 12px; color: var(--ink-soft);
+      text-decoration: none; transition: color .18s;
+    }
+    .footer-links a:hover { color: var(--terracota); }
+
+    @media (max-width: 640px) {
+      .header { padding: 36px 24px 36px; }
+      .header h1 { font-size: 32px; }
+      .content-wrap { padding: 36px 24px 72px; }
+      .submit-wrap { flex-direction: column; align-items: stretch; }
+      .btn-submit { text-align: center; }
+      .footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── HEADER ──────────────────────────────────────────────────── -->
+<div class="header">
+  <div class="header-eyebrow">Coquu · Borrar cuenta</div>
+  <h1>Solicitar borrado <em>de cuenta</em></h1>
+  <p>Puedes pedir el borrado de tu cuenta y datos directamente desde aquí, sin necesidad de abrir la app.</p>
+</div>
+
+<!-- ── CONTENT ─────────────────────────────────────────────────── -->
+<div class="content-wrap">
+
+  <!-- Información sobre el borrado -->
+  <div class="info-section">
+    <div class="info-section-title">Qué implica <em>borrar tu cuenta</em></div>
+
+    <div class="info-card">
+      <div class="info-card-num">01</div>
+      <div class="info-card-body">
+        <div class="info-card-title">Qué se borra</div>
+        <div class="info-card-text">
+          Tu cuenta de usuario, dirección de email, nombre, preferencias dietéticas, intolerancias alimentarias, historial de menús generados, recetas favoritas, lista de la compra y configuración de electrodomésticos. Todos los datos que te identifican se eliminan de forma permanente de nuestros servidores.
+        </div>
+      </div>
+    </div>
+
+    <div class="info-card">
+      <div class="info-card-num">02</div>
+      <div class="info-card-body">
+        <div class="info-card-title">Qué se conserva (anonimizado)</div>
+        <div class="info-card-text">
+          Podemos conservar datos estadísticos agregados sin ningún vínculo a tu persona (por ejemplo, recuentos de uso de funcionalidades o métricas de rendimiento del servicio). Estos datos no permiten identificarte ni reidentificarte. Para más detalle, consulta nuestra <a href="/privacy.html" class="privacy-link">política de privacidad</a>.
+        </div>
+      </div>
+    </div>
+
+    <div class="warning-card">
+      <strong>El borrado es permanente y no puede deshacerse.</strong> Si tienes una suscripción activa a Coquu Pro, la facturación continúa a través de tu tienda (App Store o Google Play); <strong>cancela la suscripción por separado</strong> antes de borrar tu cuenta para evitar cargos adicionales.
+    </div>
+  </div>
+
+  <!-- Formulario de solicitud -->
+  <!-- TODO: reemplaza XXXXXXXX por el ID del formulario de Formspree vinculado a soporte@coquu.app -->
+  <form id="deleteForm" onsubmit="handleSubmit(event)">
+
+    <div class="form-section">
+      <div class="form-section-title">Solicitud de <em>borrado</em></div>
+
+      <div class="field">
+        <label for="email">Email de tu cuenta en Coquu</label>
+        <div class="hint">Usaremos este email para verificar tu identidad y confirmarte el borrado.</div>
+        <input type="email" id="email" name="email" placeholder="tu@email.com" required autocomplete="email" />
+        <div class="field-error" id="emailError">Introduce un email válido.</div>
+      </div>
+
+      <div class="field">
+        <label for="confirmacion">Escribe BORRAR para confirmar</label>
+        <div class="hint">Esto nos confirma que la solicitud es intencionada.</div>
+        <input type="text" id="confirmacion" name="confirmacion" placeholder="BORRAR" autocomplete="off" />
+        <div class="field-error" id="confirmError">Escribe exactamente la palabra BORRAR en mayúsculas.</div>
+      </div>
+
+      <!-- Campo oculto para identificar el tipo de solicitud -->
+      <input type="hidden" name="_subject" value="Solicitud de borrado de cuenta — Coquu" />
+    </div>
+
+    <div class="submit-wrap">
+      <p class="submit-note">
+        Procesamos las solicitudes manualmente en un plazo máximo de 7 días. Recibirás una confirmación en tu email cuando se complete el borrado.
+      </p>
+      <button type="submit" class="btn-submit" id="submitBtn">Solicitar borrado</button>
+    </div>
+
+  </form>
+
+  <!-- Mensaje de éxito -->
+  <div class="success-msg" id="successMsg">
+    <div class="success-icon">✓</div>
+    <div class="success-title">Solicitud recibida</div>
+    <p class="success-sub">Hemos recibido tu solicitud de borrado de cuenta. Te confirmaremos por email en un plazo máximo de 7 días.</p>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ───────────────────────────────────────────────────── -->
+<footer class="footer">
+  <a href="/" class="footer-logo">Coquu</a>
+  <ul class="footer-links">
+    <li><a href="/privacy.html">Privacidad</a></li>
+    <li><a href="/terms.html">Términos</a></li>
+  </ul>
+</footer>
+
+<script>
+  // TODO: reemplaza esta URL por el endpoint de Formspree vinculado a soporte@coquu.app
+  // Crea el formulario en https://formspree.io y sustituye XXXXXXXX por el ID generado.
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/XXXXXXXX';
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value.trim();
+    const confirmacion = document.getElementById('confirmacion').value.trim();
+    const emailError = document.getElementById('emailError');
+    const confirmError = document.getElementById('confirmError');
+    let valid = true;
+
+    // Validar email
+    emailError.classList.remove('visible');
+    document.getElementById('email').classList.remove('error');
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      emailError.classList.add('visible');
+      document.getElementById('email').classList.add('error');
+      valid = false;
+    }
+
+    // Validar confirmación
+    confirmError.classList.remove('visible');
+    document.getElementById('confirmacion').classList.remove('error');
+    if (confirmacion !== 'BORRAR') {
+      confirmError.classList.add('visible');
+      document.getElementById('confirmacion').classList.add('error');
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    try {
+      const formData = new FormData(document.getElementById('deleteForm'));
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' },
+      });
+
+      if (res.ok) {
+        document.getElementById('deleteForm').style.display = 'none';
+        document.getElementById('successMsg').classList.add('visible');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        btn.textContent = 'Error al enviar. Inténtalo de nuevo.';
+        btn.disabled = false;
+      }
+    } catch {
+      btn.textContent = 'Error al enviar. Inténtalo de nuevo.';
+      btn.disabled = false;
+    }
+  }
+</script>
+
+</body>
+</html>
