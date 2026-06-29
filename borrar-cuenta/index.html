@@ -85,7 +85,6 @@
       color: var(--terracota); flex-shrink: 0;
       padding-top: 2px;
     }
-    .info-card-body {}
     .info-card-title {
       font-size: 14px; font-weight: 600; color: var(--ink);
       margin-bottom: 5px;
@@ -93,6 +92,12 @@
     .info-card-text {
       font-size: 13px; color: var(--ink-soft); line-height: 1.55;
     }
+    .info-card-text a {
+      color: var(--green-soft);
+      text-decoration: underline; text-underline-offset: 3px;
+      transition: color .18s;
+    }
+    .info-card-text a:hover { color: var(--terracota); }
 
     .warning-card {
       background: var(--red-light);
@@ -104,15 +109,6 @@
       font-size: 13px; color: var(--ink); line-height: 1.55;
     }
     .warning-card strong { color: var(--red); }
-
-    .privacy-link {
-      display: inline-block;
-      margin-top: 14px;
-      font-size: 13px; color: var(--green-soft);
-      text-decoration: underline; text-underline-offset: 3px;
-      transition: color .18s;
-    }
-    .privacy-link:hover { color: var(--terracota); }
 
     /* ── FORM ────────────────────────────────────────────── */
     .form-section { margin-bottom: 44px; }
@@ -134,8 +130,7 @@
       font-size: 12px; color: var(--ink-soft);
       margin-bottom: 8px; line-height: 1.5;
     }
-    .field input[type="email"],
-    .field input[type="text"] {
+    .field input[type="email"] {
       width: 100%;
       font-family: "DM Sans", sans-serif;
       font-size: 14px; color: var(--ink);
@@ -146,14 +141,44 @@
       outline: none;
       transition: border-color .18s;
     }
-    .field input:focus { border-color: var(--green); }
-    .field input.error { border-color: var(--red); }
+    .field input[type="email"]:focus { border-color: var(--green); }
+    .field input[type="email"].error { border-color: var(--red); }
 
     .field-error {
       font-size: 12px; color: var(--red);
       margin-top: 6px; display: none;
     }
     .field-error.visible { display: block; }
+
+    /* ── CHECKBOX ────────────────────────────────────────── */
+    .checkbox-field {
+      display: flex; align-items: flex-start;
+      gap: 12px; padding: 6px 0 22px;
+      cursor: pointer;
+    }
+    .checkbox-field input[type="checkbox"] {
+      appearance: none; -webkit-appearance: none;
+      width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px;
+      border: 1.5px solid rgba(42, 61, 51, 0.3);
+      border-radius: 4px;
+      background: var(--paper-warm);
+      cursor: pointer;
+      transition: border-color .18s, background .18s;
+    }
+    .checkbox-field input[type="checkbox"]:checked {
+      background: var(--green); border-color: var(--green);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 9'%3E%3Cpath d='M1 4l3.5 3.5L11 1' stroke='white' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: center; background-size: 10px 8px;
+    }
+    .checkbox-field input[type="checkbox"].error { border-color: var(--red); }
+    .checkbox-label {
+      font-size: 13px; color: var(--ink); line-height: 1.55; cursor: pointer;
+    }
+    .checkbox-error {
+      font-size: 12px; color: var(--red);
+      margin-top: -14px; margin-bottom: 14px; display: none;
+    }
+    .checkbox-error.visible { display: block; }
 
     /* ── SUBMIT ──────────────────────────────────────────── */
     .submit-wrap {
@@ -180,22 +205,25 @@
     /* ── SUCCESS ─────────────────────────────────────────── */
     .success-msg {
       display: none;
-      text-align: center; padding: 56px 24px;
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--green);
+      border-radius: 12px;
+      padding: 28px 28px;
     }
     .success-msg.visible { display: block; }
-    .success-icon {
-      font-family: "Cormorant Garamond", serif;
-      font-style: italic; font-size: 64px;
-      color: var(--green); margin-bottom: 16px;
+    .success-eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 10px;
     }
     .success-title {
       font-family: "Cormorant Garamond", serif;
-      font-size: 32px; font-weight: 400; color: var(--ink);
-      margin-bottom: 12px;
+      font-size: 26px; font-weight: 400; color: var(--ink);
+      margin-bottom: 10px;
     }
     .success-sub {
-      font-size: 15px; color: var(--ink-soft); line-height: 1.6;
-      max-width: 420px; margin: 0 auto;
+      font-size: 14px; color: var(--ink-soft); line-height: 1.65;
     }
 
     /* ── FOOTER ──────────────────────────────────────────── */
@@ -231,17 +259,14 @@
 </head>
 <body>
 
-<!-- ── HEADER ──────────────────────────────────────────────────── -->
 <div class="header">
   <div class="header-eyebrow">Coquu · Borrar cuenta</div>
   <h1>Solicitar borrado <em>de cuenta</em></h1>
   <p>Puedes pedir el borrado de tu cuenta y datos directamente desde aquí, sin necesidad de abrir la app.</p>
 </div>
 
-<!-- ── CONTENT ─────────────────────────────────────────────────── -->
 <div class="content-wrap">
 
-  <!-- Información sobre el borrado -->
   <div class="info-section">
     <div class="info-section-title">Qué implica <em>borrar tu cuenta</em></div>
 
@@ -250,7 +275,7 @@
       <div class="info-card-body">
         <div class="info-card-title">Qué se borra</div>
         <div class="info-card-text">
-          Tu cuenta de usuario, dirección de email, nombre, preferencias dietéticas, intolerancias alimentarias, historial de menús generados, recetas favoritas, lista de la compra y configuración de electrodomésticos. Todos los datos que te identifican se eliminan de forma permanente de nuestros servidores.
+          Tu cuenta de usuario, dirección de email, preferencias dietéticas, intolerancias alimentarias, historial de menús generados, recetas favoritas, lista de la compra y configuración de electrodomésticos. Al confirmar desde el email el borrado es inmediato; las copias en copias de seguridad se eliminan dentro del plazo legal máximo de un mes.
         </div>
       </div>
     </div>
@@ -260,7 +285,7 @@
       <div class="info-card-body">
         <div class="info-card-title">Qué se conserva (anonimizado)</div>
         <div class="info-card-text">
-          Podemos conservar datos estadísticos agregados sin ningún vínculo a tu persona (por ejemplo, recuentos de uso de funcionalidades o métricas de rendimiento del servicio). Estos datos no permiten identificarte ni reidentificarte. Para más detalle, consulta nuestra <a href="/privacy.html" class="privacy-link">política de privacidad</a>.
+          Podemos conservar datos estadísticos agregados sin ningún vínculo a tu persona (por ejemplo, recuentos de uso de funcionalidades o métricas de rendimiento del servicio). Estos datos no permiten identificarte ni reidentificarte. Para más detalle, consulta nuestra <a href="/privacy.html">política de privacidad</a>.
         </div>
       </div>
     </div>
@@ -270,50 +295,40 @@
     </div>
   </div>
 
-  <!-- Formulario de solicitud -->
-  <!-- TODO: reemplaza XXXXXXXX por el ID del formulario de Formspree vinculado a soporte@coquu.app -->
   <form id="deleteForm" onsubmit="handleSubmit(event)">
-
     <div class="form-section">
       <div class="form-section-title">Solicitud de <em>borrado</em></div>
 
       <div class="field">
         <label for="email">Email de tu cuenta en Coquu</label>
-        <div class="hint">Usaremos este email para verificar tu identidad y confirmarte el borrado.</div>
-        <input type="email" id="email" name="email" placeholder="tu@email.com" required autocomplete="email" />
+        <div class="hint">Te enviaremos un enlace de confirmación a esta dirección.</div>
+        <input type="email" id="email" name="email" placeholder="tu@email.com" autocomplete="email" />
         <div class="field-error" id="emailError">Introduce un email válido.</div>
       </div>
 
-      <div class="field">
-        <label for="confirmacion">Escribe BORRAR para confirmar</label>
-        <div class="hint">Esto nos confirma que la solicitud es intencionada.</div>
-        <input type="text" id="confirmacion" name="confirmacion" placeholder="BORRAR" autocomplete="off" />
-        <div class="field-error" id="confirmError">Escribe exactamente la palabra BORRAR en mayúsculas.</div>
-      </div>
-
-      <!-- Campo oculto para identificar el tipo de solicitud -->
-      <input type="hidden" name="_subject" value="Solicitud de borrado de cuenta — Coquu" />
+      <label class="checkbox-field">
+        <input type="checkbox" id="confirm-check" />
+        <span class="checkbox-label">Entiendo que esta acción es permanente y que no se puede deshacer.</span>
+      </label>
+      <div class="checkbox-error" id="checkError">Debes marcar esta casilla para continuar.</div>
     </div>
 
     <div class="submit-wrap">
       <p class="submit-note">
-        Procesamos las solicitudes manualmente en un plazo máximo de 7 días. Recibirás una confirmación en tu email cuando se complete el borrado.
+        Recibirás un email con un enlace para confirmar el borrado. Solo se borrará la cuenta al pulsar ese enlace.
       </p>
       <button type="submit" class="btn-submit" id="submitBtn">Solicitar borrado</button>
     </div>
-
   </form>
 
-  <!-- Mensaje de éxito -->
   <div class="success-msg" id="successMsg">
-    <div class="success-icon">✓</div>
-    <div class="success-title">Solicitud recibida</div>
-    <p class="success-sub">Hemos recibido tu solicitud de borrado de cuenta. Te confirmaremos por email en un plazo máximo de 7 días.</p>
+    <div class="success-eyebrow">Solicitud enviada</div>
+    <div class="success-title">Revisa tu bandeja de entrada</div>
+    <p class="success-sub">Si existe una cuenta con ese correo, te hemos enviado un enlace de confirmación. Revisa tu bandeja de entrada y la carpeta de spam.</p>
   </div>
 
 </div>
 
-<!-- ── FOOTER ───────────────────────────────────────────────────── -->
 <footer class="footer">
   <a href="/" class="footer-logo">Coquu</a>
   <ul class="footer-links">
@@ -323,63 +338,55 @@
 </footer>
 
 <script>
-  // TODO: reemplaza esta URL por el endpoint de Formspree vinculado a soporte@coquu.app
-  // Crea el formulario en https://formspree.io y sustituye XXXXXXXX por el ID generado.
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/XXXXXXXX';
+  const SUPABASE_URL = 'https://gtznewhffyzwysilevrb.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0em5ld2hmZnl6d3lzaWxldnJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0NzIwNjgsImV4cCI6MjA5MTA0ODA2OH0.KOG676SdYztBKA-3GQQ_ehflhKEaoXfy-gZqMvTrL6I';
 
   async function handleSubmit(e) {
     e.preventDefault();
 
     const email = document.getElementById('email').value.trim();
-    const confirmacion = document.getElementById('confirmacion').value.trim();
-    const emailError = document.getElementById('emailError');
-    const confirmError = document.getElementById('confirmError');
+    const checked = document.getElementById('confirm-check').checked;
     let valid = true;
 
-    // Validar email
-    emailError.classList.remove('visible');
+    document.getElementById('emailError').classList.remove('visible');
     document.getElementById('email').classList.remove('error');
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      emailError.classList.add('visible');
+      document.getElementById('emailError').classList.add('visible');
       document.getElementById('email').classList.add('error');
       valid = false;
     }
 
-    // Validar confirmación
-    confirmError.classList.remove('visible');
-    document.getElementById('confirmacion').classList.remove('error');
-    if (confirmacion !== 'BORRAR') {
-      confirmError.classList.add('visible');
-      document.getElementById('confirmacion').classList.add('error');
+    document.getElementById('checkError').classList.remove('visible');
+    document.getElementById('confirm-check').classList.remove('error');
+    if (!checked) {
+      document.getElementById('checkError').classList.add('visible');
+      document.getElementById('confirm-check').classList.add('error');
       valid = false;
     }
 
     if (!valid) return;
 
     const btn = document.getElementById('submitBtn');
-    btn.textContent = 'Enviando...';
+    btn.textContent = 'Enviando…';
     btn.disabled = true;
 
     try {
-      const formData = new FormData(document.getElementById('deleteForm'));
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      await fetch(`${SUPABASE_URL}/functions/v1/request-account-deletion`, {
         method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({ email }),
       });
-
-      if (res.ok) {
-        document.getElementById('deleteForm').style.display = 'none';
-        document.getElementById('successMsg').classList.add('visible');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        btn.textContent = 'Error al enviar. Inténtalo de nuevo.';
-        btn.disabled = false;
-      }
-    } catch {
-      btn.textContent = 'Error al enviar. Inténtalo de nuevo.';
-      btn.disabled = false;
+    } catch (_) {
+      // Silenciar errores de red: el mensaje al usuario es siempre neutro (anti-enumeración)
     }
+
+    document.getElementById('deleteForm').style.display = 'none';
+    document.getElementById('successMsg').classList.add('visible');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
 

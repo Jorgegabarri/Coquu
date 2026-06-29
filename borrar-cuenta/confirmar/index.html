@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Confirmar borrado de cuenta — Coquu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green:       #3F5C4E;
+      --green-deep:  #2A3D33;
+      --green-soft:  #6F8A7C;
+      --paper:       #F8F1E4;
+      --paper-warm:  #FBF6EC;
+      --cream:       #F2D9A8;
+      --terracota:   #C97B5A;
+      --ink:         #2A3D33;
+      --ink-soft:    #4A5C53;
+      --line:        rgba(42, 61, 51, 0.13);
+      --red:         #C0392B;
+      --red-light:   rgba(192, 57, 43, 0.07);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "DM Sans", sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+    }
+
+    /* ── HEADER ──────────────────────────────────────────── */
+    .header {
+      background: var(--green-deep);
+      padding: 56px 48px 48px;
+    }
+    .header-eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--terracota); margin-bottom: 16px;
+    }
+    .header h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 42px; font-weight: 400;
+      color: var(--cream); line-height: 1.08;
+      margin-bottom: 12px;
+    }
+    .header h1 em { font-style: italic; color: var(--terracota); }
+    .header p {
+      font-size: 14px; color: rgba(242, 217, 168, 0.55);
+      max-width: 480px; line-height: 1.6;
+    }
+
+    /* ── CONTENT ─────────────────────────────────────────── */
+    .content-wrap {
+      max-width: 680px; margin: 0 auto;
+      padding: 52px 48px 96px;
+      flex: 1;
+    }
+
+    /* ── VIEWS (solo una visible a la vez) ───────────────── */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* ── WARNING CARD ────────────────────────────────────── */
+    .warning-card {
+      background: var(--red-light);
+      border: 1px solid rgba(192, 57, 43, 0.18);
+      border-left: 3px solid var(--red);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 32px;
+      font-size: 13px; color: var(--ink); line-height: 1.6;
+    }
+    .warning-card strong { color: var(--red); }
+
+    /* ── CONFIRM SECTION ─────────────────────────────────── */
+    .confirm-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 22px; font-weight: 400; color: var(--ink);
+      margin-bottom: 20px; padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+    .confirm-title em { font-style: italic; color: var(--terracota); }
+
+    .field { margin-bottom: 24px; }
+    .field label {
+      display: block;
+      font-size: 13px; font-weight: 500; color: var(--ink);
+      margin-bottom: 7px;
+    }
+    .field .hint {
+      font-size: 12px; color: var(--ink-soft);
+      margin-bottom: 8px; line-height: 1.5;
+    }
+    .field input[type="text"] {
+      width: 100%;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 15px; color: var(--ink);
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 13px 14px;
+      outline: none;
+      letter-spacing: 0.06em;
+      transition: border-color .18s;
+    }
+    .field input[type="text"]:focus { border-color: var(--green); }
+
+    .btn-confirm {
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px; font-weight: 600;
+      padding: 14px 36px; border-radius: 999px;
+      background: var(--red); color: #fff;
+      border: none; cursor: pointer;
+      transition: background .18s, transform .18s;
+      white-space: nowrap;
+    }
+    .btn-confirm:hover:not(:disabled) { background: #a93226; transform: translateY(-1px); }
+    .btn-confirm:disabled { opacity: 0.35; cursor: default; transform: none; }
+
+    /* ── RESULT CARDS ────────────────────────────────────── */
+    .result-card {
+      border-radius: 12px; padding: 32px 28px;
+    }
+    .result-card.success {
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--green);
+    }
+    .result-card.error {
+      background: var(--red-light);
+      border: 1px solid rgba(192, 57, 43, 0.18);
+      border-left: 3px solid var(--red);
+    }
+    .result-eyebrow {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .result-card.success .result-eyebrow { color: var(--green); }
+    .result-card.error .result-eyebrow { color: var(--red); }
+    .result-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 28px; font-weight: 400; color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .result-sub {
+      font-size: 14px; color: var(--ink-soft); line-height: 1.65;
+    }
+    .result-sub a {
+      color: var(--green-soft);
+      text-decoration: underline; text-underline-offset: 3px;
+      transition: color .18s;
+    }
+    .result-sub a:hover { color: var(--terracota); }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 24px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; flex-wrap: wrap;
+    }
+    .footer-logo {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 16px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--ink-soft); text-decoration: none;
+    }
+    .footer-links {
+      display: flex; gap: 20px; list-style: none;
+    }
+    .footer-links a {
+      font-size: 12px; color: var(--ink-soft);
+      text-decoration: none; transition: color .18s;
+    }
+    .footer-links a:hover { color: var(--terracota); }
+
+    @media (max-width: 640px) {
+      .header { padding: 36px 24px 36px; }
+      .header h1 { font-size: 32px; }
+      .content-wrap { padding: 36px 24px 72px; }
+      .footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-eyebrow">Coquu · Borrar cuenta</div>
+  <h1>Confirmar <em>borrado</em></h1>
+  <p>Este paso es definitivo. Tu cuenta se borrará en el momento en que confirmes.</p>
+</div>
+
+<div class="content-wrap">
+
+  <!-- Vista: confirmar (token presente) -->
+  <div class="view" id="view-confirm">
+    <div class="warning-card">
+      <strong>Atención: esta acción es irreversible.</strong> Al pulsar el botón se borrarán permanentemente tu cuenta y todos los datos personales asociados. Si tienes una suscripción activa, cancélala en la App Store o Google Play <strong>antes</strong> de continuar para evitar cargos adicionales.
+    </div>
+
+    <div class="confirm-title">Escribe <em>BORRAR</em> para confirmar</div>
+
+    <div class="field">
+      <label for="borrar-input">Escribe exactamente: BORRAR</label>
+      <div class="hint">En mayúsculas, sin espacios adicionales.</div>
+      <input
+        type="text"
+        id="borrar-input"
+        placeholder="BORRAR"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="characters"
+        spellcheck="false"
+        oninput="syncButton()"
+      />
+    </div>
+
+    <button class="btn-confirm" id="confirm-btn" disabled onclick="handleConfirm()">
+      Borrar mi cuenta definitivamente
+    </button>
+  </div>
+
+  <!-- Vista: enlace inválido o caducado -->
+  <div class="view" id="view-invalid">
+    <div class="result-card error">
+      <div class="result-eyebrow">Enlace no válido</div>
+      <div class="result-title">El enlace ha caducado o no es válido</div>
+      <p class="result-sub">
+        Los enlaces de confirmación de borrado son de un solo uso y tienen una validez limitada.
+        <br /><br />
+        Puedes <a href="/borrar-cuenta">solicitar un nuevo enlace</a> desde la página de borrado de cuenta.
+      </p>
+    </div>
+  </div>
+
+  <!-- Vista: éxito -->
+  <div class="view" id="view-success">
+    <div class="result-card success">
+      <div class="result-eyebrow">Borrado completado</div>
+      <div class="result-title">Tu cuenta ha sido eliminada</div>
+      <p class="result-sub">
+        Tu cuenta y tus datos personales se han borrado. Las copias en copias de seguridad se eliminarán dentro del plazo legal máximo de un mes.
+        <br /><br />
+        Gracias por haber usado Coquu.
+      </p>
+    </div>
+  </div>
+
+  <!-- Vista: error del servidor -->
+  <div class="view" id="view-error">
+    <div class="result-card error">
+      <div class="result-eyebrow">Error</div>
+      <div class="result-title">No se ha podido completar el borrado</div>
+      <p class="result-sub" id="error-detail">
+        Ha ocurrido un error al procesar tu solicitud.
+        <br /><br />
+        Puedes <a href="/borrar-cuenta">solicitar un nuevo enlace</a> o contactar con <a href="mailto:soporte@coquu.app">soporte@coquu.app</a> si el problema persiste.
+      </p>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  <a href="/" class="footer-logo">Coquu</a>
+  <ul class="footer-links">
+    <li><a href="/privacy.html">Privacidad</a></li>
+    <li><a href="/terms.html">Términos</a></li>
+  </ul>
+</footer>
+
+<script>
+  const SUPABASE_URL = 'https://gtznewhffyzwysilevrb.supabase.co';
+  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0em5ld2hmZnl6d3lzaWxldnJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0NzIwNjgsImV4cCI6MjA5MTA0ODA2OH0.KOG676SdYztBKA-3GQQ_ehflhKEaoXfy-gZqMvTrL6I';
+
+  let token = null;
+
+  function showView(id) {
+    document.querySelectorAll('.view').forEach(function(v) { v.classList.remove('active'); });
+    document.getElementById(id).classList.add('active');
+  }
+
+  function syncButton() {
+    const val = document.getElementById('borrar-input').value;
+    document.getElementById('confirm-btn').disabled = (val !== 'BORRAR');
+  }
+
+  async function handleConfirm() {
+    const btn = document.getElementById('confirm-btn');
+    btn.textContent = 'Borrando…';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/confirm-account-deletion`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify({ token }),
+      });
+
+      if (res.ok) {
+        showView('view-success');
+      } else {
+        const data = await res.json().catch(function() { return {}; });
+        if (res.status === 400 || res.status === 404 || res.status === 410) {
+          showView('view-invalid');
+        } else {
+          const detail = document.getElementById('error-detail');
+          if (data && data.error) {
+            detail.innerHTML = data.error + '<br /><br />Puedes <a href="/borrar-cuenta">solicitar un nuevo enlace</a> o contactar con <a href="mailto:soporte@coquu.app">soporte@coquu.app</a>.';
+          }
+          showView('view-error');
+        }
+      }
+    } catch (_) {
+      showView('view-error');
+    }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Inicializar: leer el token de la query string al cargar la página
+  (function init() {
+    const params = new URLSearchParams(window.location.search);
+    token = params.get('token');
+    if (token && token.length > 0) {
+      showView('view-confirm');
+    } else {
+      showView('view-invalid');
+    }
+  })();
+</script>
+
+</body>
+</html>
