@@ -1,0 +1,7 @@
+{
+  "redirects": [
+    { "source": "/beta", "destination": "/", "permanent": true },
+    { "source": "/beta/(.*)", "destination": "/", "permanent": true },
+    { "source": "/feedback-testers.html", "destination": "/", "permanent": true }
+  ]
+}
