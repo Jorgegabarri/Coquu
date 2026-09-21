@@ -830,6 +830,15 @@
       .waitlist-input { min-width: unset; width: 100%; }
       .waitlist-btn { width: 100%; text-align: center; }
     }
+    .waitlist-consent {
+      font-size: 12px;
+      color: var(--ink-soft);
+      line-height: 1.4;
+      margin-top: 10px;
+      width: 100%;
+      opacity: 0.7;
+    }
+    .waitlist-consent a { color: var(--green); text-decoration: underline; }
 
     /* ─── APPLIANCES ────────────────────────────── */
     .appliances { background: var(--paper-cool); }
@@ -1092,6 +1101,7 @@
             <input type="hidden" name="source" value="hero" />
             <input type="hidden" name="_subject" value="Nueva lista de espera — Coquu" />
             <button type="submit" class="waitlist-btn">Apuntarme a la lista</button>
+            <p class="waitlist-consent">Al apuntarte te unes a la lista de espera de Coquu: te avisamos del lanzamiento y te enviamos novedades. Puedes darte de baja cuando quieras. Consulta la <a href="privacy.html">política de privacidad</a>.</p>
           </form>
           <p class="waitlist-confirm" id="waitlist-confirm-hero" aria-live="polite"></p>
         </div>
@@ -1445,6 +1455,7 @@
         <input type="hidden" name="source" value="cta-strip" />
         <input type="hidden" name="_subject" value="Nueva lista de espera — Coquu" />
         <button type="submit" class="waitlist-btn">Apuntarme a la lista</button>
+        <p class="waitlist-consent">Al apuntarte te unes a la lista de espera de Coquu: te avisamos del lanzamiento y te enviamos novedades. Puedes darte de baja cuando quieras. Consulta la <a href="privacy.html">política de privacidad</a>.</p>
       </form>
       <p class="waitlist-confirm" id="waitlist-confirm-cta" aria-live="polite"></p>
     </div>
