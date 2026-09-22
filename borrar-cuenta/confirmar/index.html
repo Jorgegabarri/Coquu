@@ -199,10 +199,19 @@
 
 <div class="content-wrap">
 
+  <!-- Vista: comprobando el enlace -->
+  <div class="view" id="view-loading">
+    <p class="result-sub">Comprobando el enlace…</p>
+  </div>
+
   <!-- Vista: confirmar (token presente) -->
   <div class="view" id="view-confirm">
     <div class="warning-card">
       <strong>Atención: esta acción es irreversible.</strong> Al pulsar el botón se borrarán permanentemente tu cuenta y todos los datos personales asociados. Si tienes una suscripción activa, cancélala en la App Store o Google Play <strong>antes</strong> de continuar para evitar cargos adicionales.
+      <br /><br />
+      <a href="https://apps.apple.com/account/subscriptions" target="_blank" rel="noopener" style="color: var(--green-soft); text-decoration: underline; text-underline-offset: 3px;">Gestionar en App Store</a>
+      ·
+      <a href="https://play.google.com/store/account/subscriptions?package=com.coquu.app" target="_blank" rel="noopener" style="color: var(--green-soft); text-decoration: underline; text-underline-offset: 3px;">Gestionar en Google Play</a>
     </div>
 
     <div class="confirm-title">Escribe <em>BORRAR</em> para confirmar</div>
@@ -326,14 +335,41 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // Inicializar: leer el token de la query string al cargar la página
-  (function init() {
+  // Inicializar: leer el token de la query string y comprobarlo antes de mostrar el formulario
+  (async function init() {
     const params = new URLSearchParams(window.location.search);
     token = params.get('token');
-    if (token && token.length > 0) {
-      showView('view-confirm');
-    } else {
+
+    if (!token || token.length === 0) {
       showView('view-invalid');
+      return;
+    }
+
+    showView('view-loading');
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(function() { controller.abort(); }, 8000);
+
+    try {
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/confirm-account-deletion`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token, check: true }),
+        signal: controller.signal,
+      });
+      clearTimeout(timeoutId);
+
+      if (res.status === 400 || res.status === 404 || res.status === 410) {
+        showView('view-invalid');
+        return;
+      }
+
+      showView('view-confirm');
+    } catch (_) {
+      clearTimeout(timeoutId);
+      showView('view-confirm');
     }
   })();
 </script>
