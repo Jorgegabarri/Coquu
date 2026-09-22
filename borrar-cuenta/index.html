@@ -275,17 +275,7 @@
       <div class="info-card-body">
         <div class="info-card-title">Qué se borra</div>
         <div class="info-card-text">
-          Tu cuenta de usuario, dirección de email, preferencias dietéticas, intolerancias alimentarias, historial de menús generados, recetas favoritas, lista de la compra y configuración de electrodomésticos. Al confirmar desde el email el borrado es inmediato; las copias en copias de seguridad se eliminan dentro del plazo legal máximo de un mes.
-        </div>
-      </div>
-    </div>
-
-    <div class="info-card">
-      <div class="info-card-num">02</div>
-      <div class="info-card-body">
-        <div class="info-card-title">Qué se conserva (anonimizado)</div>
-        <div class="info-card-text">
-          Podemos conservar datos estadísticos agregados sin ningún vínculo a tu persona (por ejemplo, recuentos de uso de funcionalidades o métricas de rendimiento del servicio). Estos datos no permiten identificarte ni reidentificarte. Para más detalle, consulta nuestra <a href="/privacy.html">política de privacidad</a>.
+          Tu cuenta de usuario, dirección de email, preferencias dietéticas, intolerancias alimentarias, historial de menús generados, recetas favoritas, lista de la compra, configuración de electrodomésticos y el resto de datos asociados a tu cuenta. Al confirmar desde el email, el borrado es inmediato y definitivo.
         </div>
       </div>
     </div>
@@ -339,7 +329,6 @@
 
 <script>
   const SUPABASE_URL = 'https://gtznewhffyzwysilevrb.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0em5ld2hmZnl6d3lzaWxldnJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0NzIwNjgsImV4cCI6MjA5MTA0ODA2OH0.KOG676SdYztBKA-3GQQ_ehflhKEaoXfy-gZqMvTrL6I';
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -375,8 +364,6 @@
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({ email }),
       });

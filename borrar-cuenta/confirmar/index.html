@@ -246,7 +246,7 @@
       <div class="result-eyebrow">Borrado completado</div>
       <div class="result-title">Tu cuenta ha sido eliminada</div>
       <p class="result-sub">
-        Tu cuenta y tus datos personales se han borrado. Las copias en copias de seguridad se eliminarán dentro del plazo legal máximo de un mes.
+        Tu cuenta y tus datos personales se han borrado.
         <br /><br />
         Gracias por haber usado Coquu.
       </p>
@@ -278,7 +278,6 @@
 
 <script>
   const SUPABASE_URL = 'https://gtznewhffyzwysilevrb.supabase.co';
-  const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0em5ld2hmZnl6d3lzaWxldnJiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU0NzIwNjgsImV4cCI6MjA5MTA0ODA2OH0.KOG676SdYztBKA-3GQQ_ehflhKEaoXfy-gZqMvTrL6I';
 
   let token = null;
 
@@ -302,8 +301,6 @@
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'apikey': SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({ token }),
       });
