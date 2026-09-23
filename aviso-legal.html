@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aviso Legal — Coquu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green:        #3F5C4E;
+      --green-deep:   #2A3D33;
+      --green-soft:   #6F8A7C;
+      --paper:        #F8F1E4;
+      --paper-warm:   #FBF6EC;
+      --cream:        #F2D9A8;
+      --terracota:    #C97B5A;
+      --ink:          #2A3D33;
+      --ink-soft:     #4A5C53;
+      --line:         rgba(42, 61, 51, 0.14);
+      --maxw:         780px;
+      --pad-x:        clamp(24px, 6vw, 80px);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "DM Sans", system-ui, sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(14px);
+      background: rgba(248, 241, 228, 0.96);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 var(--pad-x);
+      height: 70px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; color: var(--ink); border-bottom: none; }
+    .nav-logo .mark { width: 44px; height: 44px; border-radius: 10px; overflow: hidden; }
+    .nav-logo .word {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 400; font-size: 20px;
+      letter-spacing: 0.32em; text-transform: uppercase;
+    }
+    .hero {
+      padding: 120px var(--pad-x) 60px;
+      background: var(--green-deep);
+      text-align: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 11px; color: var(--cream);
+      opacity: 0.6; margin-bottom: 20px;
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .hero h1 {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 400; font-size: clamp(36px, 6vw, 56px);
+      color: var(--cream); line-height: 1.1;
+      letter-spacing: -0.01em; margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: 15px; color: rgba(242, 217, 168, 0.6);
+      max-width: 480px; margin: 0 auto; line-height: 1.6;
+    }
+    .content {
+      max-width: var(--maxw); margin: 0 auto;
+      padding: 64px var(--pad-x) 96px;
+    }
+    .last-updated {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; color: var(--green-soft);
+      margin-bottom: 48px;
+      padding: 6px 14px;
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+    }
+    .last-updated::before {
+      content: ""; width: 6px; height: 6px;
+      border-radius: 50%; background: var(--terracota);
+    }
+    h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 500; font-size: 26px;
+      color: var(--ink); line-height: 1.2;
+      margin: 48px 0 16px;
+      padding-top: 48px;
+      border-top: 1px solid var(--line);
+    }
+    h2:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+    h3 {
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-weight: 600; font-size: 16px;
+      color: var(--ink); margin: 28px 0 8px;
+    }
+    p {
+      font-size: 15px; line-height: 1.75;
+      color: var(--ink-soft); margin-bottom: 16px;
+    }
+    ul { margin: 12px 0 20px 0; padding-left: 0; list-style: none; }
+    ul li {
+      font-size: 15px; line-height: 1.75;
+      color: var(--ink-soft);
+      padding: 8px 0 8px 20px;
+      position: relative;
+      border-bottom: 1px solid var(--line);
+    }
+    ul li:last-child { border-bottom: none; }
+    ul li::before {
+      content: "";
+      position: absolute; left: 0; top: 18px;
+      width: 6px; height: 1px;
+      background: var(--terracota);
+    }
+    strong { color: var(--ink); font-weight: 600; }
+    a { color: var(--green); text-decoration: none; border-bottom: 1px solid var(--line); transition: color .18s, border-color .18s; }
+    a:hover { color: var(--terracota); border-color: var(--terracota); }
+    a:focus-visible { outline: 2px solid var(--terracota); outline-offset: 2px; }
+    .highlight-box {
+      background: var(--paper-warm);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--terracota);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 24px 0;
+    }
+    .highlight-box p { margin: 0; font-size: 14px; }
+    .table-wrap { overflow-x: auto; margin: 16px 0 24px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 560px; }
+    th, td {
+      text-align: left; vertical-align: top;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-soft); line-height: 1.55;
+    }
+    th { color: var(--ink); font-weight: 600; background: var(--paper-warm); }
+    dl { margin: 12px 0 20px; }
+    dl div { display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.6; }
+    dl div:last-child { border-bottom: none; }
+    dt { color: var(--ink); font-weight: 600; }
+    dd { color: var(--ink-soft); }
+    footer {
+      background: var(--green-deep);
+      padding: 40px var(--pad-x);
+      text-align: center;
+    }
+    footer p { font-size: 12px; color: rgba(242, 217, 168, 0.4); margin: 0; }
+    footer a { color: rgba(242, 217, 168, 0.6); border-bottom: none; }
+    footer a:hover { color: var(--cream); }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+<!-- Vercel Web Analytics -->
+<script>
+  window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <img src="/images/logo.png" class="mark" alt="Coquu" />
+        <span class="word">Coquu</span>
+      </a>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <div class="hero-eyebrow">Documento legal</div>
+    <h1>Aviso Legal</h1>
+    <p>Datos identificativos del titular de Coquu</p>
+  </div>
+
+  <div class="content">
+    <div class="last-updated">Última actualización: septiembre de 2026</div>
+
+    <p>En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), se facilitan los datos identificativos del titular de este sitio web y de la aplicación Coquu.</p>
+
+    <h2>1. Titular</h2>
+    <dl>
+      <div><dt>Denominación social:</dt><dd>Naranjo Sosa S.L.</dd></div>
+      <div><dt>NIF:</dt><dd>B24763294</dd></div>
+      <div><dt>Domicilio social:</dt><dd>Bravo Murillo 294, 3.º Izda., 28020 Madrid</dd></div>
+      <div><dt>Correo electrónico:</dt><dd><a href="mailto:soporte@coquu.app">soporte@coquu.app</a></dd></div>
+      <div><dt>Actividad:</dt><dd>Coquu es un servicio digital para planificar la semana en la cocina: menú semanal, lista de la compra y cocina guiada.</dd></div>
+    </dl>
+
+    <h2>2. Datos registrales</h2>
+    <dl>
+      <div><dt>Registro:</dt><dd>Registro Mercantil de Madrid</dd></div>
+      <div><dt>Fecha de inscripción:</dt><dd>05/11/2025</dd></div>
+      <div><dt>Diario:</dt><dd>2025</dd></div>
+      <div><dt>Asiento:</dt><dd>24012</dd></div>
+      <div><dt>Hoja:</dt><dd>M-868378</dd></div>
+      <div><dt>Folio electrónico (IRUS):</dt><dd>1000460555561</dd></div>
+    </dl>
+
+    <h2>3. Documentos relacionados</h2>
+    <p>El uso de Coquu se rige por los <a href="/terms">términos de uso</a>, y el tratamiento de datos personales, por la <a href="/privacy">política de privacidad</a>.</p>
+  </div>
+
+  <footer>
+    <p>© 2026 Coquu · <a href="/">Inicio</a> · <a href="/privacy">Privacidad</a> · <a href="/terms">Términos de uso</a> · <a href="/aviso-legal">Aviso legal</a> · <a href="mailto:soporte@coquu.app">soporte@coquu.app</a></p>
+  </footer>
+
+</body>
+</html>

@@ -30,8 +30,6 @@
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
-
-    /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       backdrop-filter: blur(14px);
@@ -45,18 +43,13 @@
       height: 70px;
       display: flex; align-items: center; justify-content: center;
     }
-    .nav-logo {
-      display: flex; align-items: center; gap: 12px;
-      color: var(--ink);
-    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; color: var(--ink); border-bottom: none; }
     .nav-logo .mark { width: 44px; height: 44px; border-radius: 10px; overflow: hidden; }
     .nav-logo .word {
       font-family: "Cormorant Garamond", serif;
       font-weight: 400; font-size: 20px;
       letter-spacing: 0.32em; text-transform: uppercase;
     }
-
-    /* HERO */
     .hero {
       padding: 120px var(--pad-x) 60px;
       background: var(--green-deep);
@@ -76,11 +69,8 @@
     }
     .hero p {
       font-size: 15px; color: rgba(242, 217, 168, 0.6);
-      max-width: 480px; margin: 0 auto;
-      line-height: 1.6;
+      max-width: 480px; margin: 0 auto; line-height: 1.6;
     }
-
-    /* CONTENT */
     .content {
       max-width: var(--maxw); margin: 0 auto;
       padding: 64px var(--pad-x) 96px;
@@ -98,7 +88,6 @@
       content: ""; width: 6px; height: 6px;
       border-radius: 50%; background: var(--terracota);
     }
-
     h2 {
       font-family: "Cormorant Garamond", serif;
       font-weight: 500; font-size: 26px;
@@ -108,16 +97,16 @@
       border-top: 1px solid var(--line);
     }
     h2:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
-
+    h3 {
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-weight: 600; font-size: 16px;
+      color: var(--ink); margin: 28px 0 8px;
+    }
     p {
       font-size: 15px; line-height: 1.75;
       color: var(--ink-soft); margin-bottom: 16px;
     }
-    ul {
-      margin: 12px 0 20px 0;
-      padding-left: 0;
-      list-style: none;
-    }
+    ul { margin: 12px 0 20px 0; padding-left: 0; list-style: none; }
     ul li {
       font-size: 15px; line-height: 1.75;
       color: var(--ink-soft);
@@ -135,7 +124,7 @@
     strong { color: var(--ink); font-weight: 600; }
     a { color: var(--green); text-decoration: none; border-bottom: 1px solid var(--line); transition: color .18s, border-color .18s; }
     a:hover { color: var(--terracota); border-color: var(--terracota); }
-
+    a:focus-visible { outline: 2px solid var(--terracota); outline-offset: 2px; }
     .highlight-box {
       background: var(--paper-warm);
       border: 1px solid var(--line);
@@ -145,19 +134,29 @@
       margin: 24px 0;
     }
     .highlight-box p { margin: 0; font-size: 14px; }
-
-    /* FOOTER */
+    .table-wrap { overflow-x: auto; margin: 16px 0 24px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 560px; }
+    th, td {
+      text-align: left; vertical-align: top;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-soft); line-height: 1.55;
+    }
+    th { color: var(--ink); font-weight: 600; background: var(--paper-warm); }
+    dl { margin: 12px 0 20px; }
+    dl div { display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.6; }
+    dl div:last-child { border-bottom: none; }
+    dt { color: var(--ink); font-weight: 600; }
+    dd { color: var(--ink-soft); }
     footer {
       background: var(--green-deep);
       padding: 40px var(--pad-x);
       text-align: center;
     }
-    footer p {
-      font-size: 12px; color: rgba(242, 217, 168, 0.4);
-      margin: 0;
-    }
+    footer p { font-size: 12px; color: rgba(242, 217, 168, 0.4); margin: 0; }
     footer a { color: rgba(242, 217, 168, 0.6); border-bottom: none; }
     footer a:hover { color: var(--cream); }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   </style>
 <!-- Vercel Web Analytics -->
 <script>
@@ -169,103 +168,167 @@
 
   <nav>
     <div class="nav-inner">
-      <div class="nav-logo">
-        <img src="images/logo.png" class="mark" alt="Coquu" />
+      <a href="/" class="nav-logo">
+        <img src="/images/logo.png" class="mark" alt="Coquu" />
         <span class="word">Coquu</span>
-      </div>
+      </a>
     </div>
   </nav>
 
   <div class="hero">
     <div class="hero-eyebrow">Documento legal</div>
     <h1>Política de Privacidad</h1>
-    <p>Cómo recogemos, usamos y protegemos tu información personal</p>
+    <p>Qué datos tratamos, para qué y cómo puedes controlarlos</p>
   </div>
 
   <div class="content">
-    <div class="last-updated">Última actualización: mayo de 2026</div>
+    <div class="last-updated">Última actualización: septiembre de 2026</div>
+
+    <p>En Coquu tratamos tus datos personales con transparencia y conforme al <strong>Reglamento (UE) 2016/679 General de Protección de Datos (RGPD)</strong> y a la Ley Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales. Si tienes cualquier duda, escríbenos a <a href="mailto:soporte@coquu.app">soporte@coquu.app</a>.</p>
 
     <h2>1. Responsable del tratamiento</h2>
-    <p>El responsable del tratamiento de tus datos personales es:</p>
+    <dl>
+      <div><dt>Denominación social:</dt><dd>Naranjo Sosa S.L.</dd></div>
+      <div><dt>CIF:</dt><dd>B24763294</dd></div>
+      <div><dt>Domicilio social:</dt><dd>Bravo Murillo 294, 3.º Izda., 28020 Madrid</dd></div>
+      <div><dt>Correo electrónico:</dt><dd><a href="mailto:soporte@coquu.app">soporte@coquu.app</a></dd></div>
+      <div><dt>Aplicación:</dt><dd>Coquu, app para planificar la semana en la cocina: menú, lista de la compra y cocina guiada</dd></div>
+    </dl>
+
+    <h2>2. Datos que tratamos</h2>
+    <p>Solo tratamos los datos necesarios para prestarte el servicio.</p>
+
+    <h3>2.1 Datos de cuenta</h3>
     <ul>
-      <li><strong>Nombre:</strong> Jorge Gabarri</li>
-      <li><strong>Email de contacto:</strong> <a href="mailto:soporte@coquu.app">soporte@coquu.app</a></li>
-      <li><strong>Aplicación:</strong> Coquu — Planificador de menús con inteligencia artificial</li>
+      <li><strong>Correo electrónico:</strong> para crear tu cuenta, iniciar sesión y enviarte los emails del servicio.</li>
+      <li><strong>Contraseña:</strong> guardada únicamente como hash seguro. Nunca tenemos acceso a ella en texto plano.</li>
+      <li><strong>Nombre (opcional):</strong> para dirigirnos a ti dentro de la app.</li>
     </ul>
 
-    <h2>2. Datos que recogemos</h2>
-    <p>Para ofrecerte el servicio de planificación de menús personalizados, recogemos los siguientes datos:</p>
+    <h3>2.2 Perfil de cocina</h3>
     <ul>
-      <li><strong>Datos de cuenta:</strong> dirección de email y contraseña cifrada, necesarios para crear y acceder a tu cuenta.</li>
-      <li><strong>Perfil culinario:</strong> tipo de dieta, intolerancias alimentarias, alimentos que no te gustan, número de comensales y electrodomésticos disponibles.</li>
-      <li><strong>Preferencias de cocina:</strong> modo de cocina (daily o batch cooking), tiempos disponibles y día de sesión batch.</li>
-      <li><strong>Contenido generado:</strong> los menús semanales, recetas favoritas y notas personales que guardas en la app.</li>
-      <li><strong>Datos de uso:</strong> registros técnicos de las llamadas a la IA para mejorar el servicio y detectar errores.</li>
-      <li><strong>Datos de suscripción:</strong> tier de uso (free, trial o Pro) y fechas de activación.</li>
+      <li>Tipo de dieta, intolerancias alimentarias y alimentos que no te gustan.</li>
+      <li>Número de comensales, comidas del día y tiempo disponible para cocinar.</li>
+      <li>Modo de cocina (diario o batch cooking), día y horas de la sesión de batch y presupuesto semanal.</li>
+      <li>Electrodomésticos que tienes y, si lo indicas, su modelo concreto.</li>
+    </ul>
+
+    <h3>2.3 Contenido y uso de la app</h3>
+    <ul>
+      <li>Los menús y recetas generados para ti, tu lista de la compra, los platos que excluyes y los básicos de despensa que marcas como disponibles.</li>
+      <li>Tus recetas favoritas y las notas que añades.</li>
+      <li>Los platos que marcas como cocinados y los platos que nos reportas como incorrectos, con los motivos y la nota que escribas.</li>
+      <li>Las indicaciones que escribes al cambiar un plato (por ejemplo, "algo más ligero").</li>
+      <li>Las solicitudes de modelos de electrodoméstico que nos envías (marca y modelo).</li>
+    </ul>
+
+    <h3>2.4 Datos de suscripción y compras</h3>
+    <ul>
+      <li>Tu plan (gratuito, prueba o Pro), sus fechas, los menús generados en cada periodo y los créditos disponibles o usados.</li>
+      <li>El historial de compras dentro de la app, asociado a un identificador interno de tu cuenta.</li>
+    </ul>
+
+    <h3>2.5 Preferencias de comunicación</h3>
+    <ul>
+      <li>Si aceptas recibir comunicaciones comerciales, y la fecha en que lo aceptaste.</li>
+    </ul>
+
+    <h3>2.6 Registros técnicos</h3>
+    <ul>
+      <li>Registros de cada generación y cambio de plato: fecha, resultado, duración, coste y el texto enviado al modelo de inteligencia artificial. Sirven para detectar errores, controlar costes y mejorar la calidad de los menús.</li>
+    </ul>
+
+    <h3>2.7 Datos de la web coquu.app</h3>
+    <ul>
+      <li><strong>Lista de espera:</strong> si te apuntas, tu email, la página desde la que lo hiciste y la fecha.</li>
+      <li><strong>Analítica web:</strong> estadísticas agregadas de visitas, sin cookies y sin identificarte.</li>
     </ul>
 
     <div class="highlight-box">
-      <p>Coquu <strong>no recoge datos de localización, datos biométricos, ni información financiera</strong>. Los pagos se procesan a través de las tiendas de apps (App Store y Google Play) y RevenueCat, que tienen sus propias políticas de privacidad.</p>
+      <p>Coquu <strong>no recoge tu ubicación, tus contactos, tus fotos, datos biométricos ni datos de pago</strong>. Los pagos los procesan Apple (App Store) y Google (Google Play): nunca recibimos los datos de tu tarjeta.</p>
     </div>
 
-    <h2>3. Finalidad del tratamiento</h2>
-    <p>Usamos tus datos exclusivamente para:</p>
+    <h2>3. Finalidades y base legal</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Finalidad</th><th>Datos implicados</th><th>Base legal (RGPD)</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Gestionar tu cuenta y el inicio de sesión</td><td>Email, contraseña, nombre</td><td>Ejecución del contrato (art. 6.1.b)</td></tr>
+          <tr><td>Preparar tus menús, recetas, lista de la compra y cocina guiada</td><td>Perfil de cocina, electrodomésticos, contenido de la app</td><td>Ejecución del contrato (art. 6.1.b)</td></tr>
+          <tr><td>Gestionar tu plan, la prueba gratuita, las suscripciones y los créditos</td><td>Datos de suscripción y compras</td><td>Ejecución del contrato (art. 6.1.b)</td></tr>
+          <tr><td>Enviarte los emails del servicio (confirmación de cuenta, recuperación de contraseña, borrado de cuenta, respuesta a solicitudes de electrodomésticos)</td><td>Email</td><td>Ejecución del contrato (art. 6.1.b)</td></tr>
+          <tr><td>Detectar errores, controlar costes y mejorar la calidad de las recetas</td><td>Registros técnicos, platos reportados</td><td>Interés legítimo (art. 6.1.f)</td></tr>
+          <tr><td>Enviarte novedades y comunicaciones comerciales</td><td>Email</td><td>Consentimiento (art. 6.1.a)</td></tr>
+          <tr><td>Avisarte del lanzamiento y de novedades si te apuntas a la lista de espera</td><td>Email, página de origen</td><td>Consentimiento (art. 6.1.a)</td></tr>
+          <tr><td>Medir las visitas a la web</td><td>Estadísticas agregadas, sin cookies</td><td>Interés legítimo (art. 6.1.f)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Coquu adapta automáticamente los menús a tu perfil. Esta personalización no produce efectos jurídicos sobre ti ni te afecta de forma significativa: si un menú no te convence, puedes cambiar sus platos o generar otro.</p>
+
+    <h2>4. Conservación de los datos</h2>
     <ul>
-      <li>Generar menús semanales personalizados adaptados a tu perfil.</li>
-      <li>Gestionar tu cuenta y suscripción.</li>
-      <li>Enviarte emails transaccionales necesarios para el servicio (confirmación de cuenta, recuperación de contraseña).</li>
-      <li>Mejorar la calidad de los menús generados y detectar errores técnicos.</li>
+      <li><strong>Datos de la cuenta, perfil y contenido:</strong> mientras tu cuenta esté activa.</li>
+      <li><strong>Borrado de cuenta:</strong> puedes borrar tu cuenta desde la app (Perfil → Borrar cuenta) o desde <a href="/borrar-cuenta">coquu.app/borrar-cuenta</a>. El borrado es inmediato y definitivo: elimina tu cuenta, tu perfil, tus menús, tus favoritos y tus registros técnicos, y no se puede deshacer.</li>
+      <li><strong>Lista de espera:</strong> hasta que te des de baja con el enlace incluido en nuestros emails o nos lo pidas.</li>
+      <li><strong>Consentimiento comercial:</strong> guardamos la fecha en que lo diste mientras tengas cuenta, para poder acreditarlo.</li>
+    </ul>
+    <div class="highlight-box">
+      <p>Borrar tu cuenta <strong>no cancela una suscripción activa</strong>. Las suscripciones se gestionan en App Store o Google Play: cancélala allí para que no se renueve.</p>
+    </div>
+
+    <h2>5. Destinatarios y transferencias internacionales</h2>
+    <p>Coquu <strong>no vende ni cede tus datos</strong>. Para prestar el servicio trabajamos con proveedores que actúan como encargados del tratamiento y solo tratan los datos necesarios para su función:</p>
+    <ul>
+      <li><strong>Supabase:</strong> base de datos, autenticación y servidor de la app. Datos alojados en la Unión Europea (Irlanda).</li>
+      <li><strong>DeepSeek:</strong> modelo de inteligencia artificial que prepara los menús y las recetas. Solo recibe tu perfil de cocina, tus favoritos y las indicaciones que escribes al cambiar un plato. <strong>No recibe tu nombre, tu email ni ningún identificador de tu cuenta.</strong></li>
+      <li><strong>RevenueCat:</strong> gestión de suscripciones y compras dentro de la app, con un identificador interno de tu cuenta.</li>
+      <li><strong>Resend:</strong> envío de los emails del servicio.</li>
+      <li><strong>Vercel:</strong> alojamiento de la web coquu.app y analítica web sin cookies.</li>
+      <li><strong>Formspree:</strong> gestión de la lista de espera de la web.</li>
+      <li><strong>ImprovMX y Google (Gmail):</strong> recepción de los correos que envías a soporte@coquu.app.</li>
+    </ul>
+    <p>Algunos de estos proveedores están situados fuera del Espacio Económico Europeo, principalmente en Estados Unidos, y DeepSeek en China. Cuando hay una transferencia internacional, se realiza con las garantías previstas en el RGPD, como las decisiones de adecuación (incluido el Marco de Privacidad de Datos UE-EE. UU.) o las cláusulas contractuales tipo aprobadas por la Comisión Europea. En el caso de DeepSeek, además, solo enviamos datos de cocina sin ningún identificador personal.</p>
+    <p><strong>Apple y Google</strong> tratan los datos de tus compras como responsables independientes, conforme a sus propias políticas de privacidad.</p>
+
+    <h2>6. Tus derechos</h2>
+    <p>Puedes ejercer en cualquier momento los siguientes derechos:</p>
+    <ul>
+      <li><strong>Acceso:</strong> saber si tratamos tus datos y obtener una copia.</li>
+      <li><strong>Rectificación:</strong> corregir datos inexactos o incompletos. La mayoría puedes cambiarlos tú mismo en Perfil.</li>
+      <li><strong>Supresión:</strong> borrar tus datos. Puedes hacerlo directamente desde la app o desde <a href="/borrar-cuenta">coquu.app/borrar-cuenta</a>.</li>
+      <li><strong>Limitación:</strong> pedir que suspendamos el tratamiento en determinadas circunstancias.</li>
+      <li><strong>Portabilidad:</strong> recibir tus datos en un formato estructurado y de lectura mecánica.</li>
+      <li><strong>Oposición:</strong> oponerte a los tratamientos basados en interés legítimo.</li>
+      <li><strong>Retirada del consentimiento:</strong> cuando el tratamiento se base en tu consentimiento, puedes retirarlo en cualquier momento, sin que afecte a la licitud del tratamiento anterior.</li>
+    </ul>
+    <p>Para ejercerlos, escribe a <a href="mailto:soporte@coquu.app">soporte@coquu.app</a> desde el email de tu cuenta, con el asunto "Protección de datos" e indicando el derecho que quieres ejercer. Si no podemos verificar tu identidad, te pediremos un documento que la acredite. Responderemos en un plazo máximo de un mes.</p>
+    <p>También puedes presentar una reclamación ante la <a href="https://www.aepd.es" target="_blank" rel="noopener">Agencia Española de Protección de Datos (AEPD)</a>.</p>
+
+    <h2>7. Seguridad</h2>
+    <p>Aplicamos medidas técnicas y organizativas para proteger tus datos frente a accesos no autorizados, pérdida o destrucción, entre ellas:</p>
+    <ul>
+      <li>Comunicaciones cifradas mediante HTTPS/TLS.</li>
+      <li>Contraseñas guardadas como hash seguro.</li>
+      <li>Sesiones con tokens que caducan.</li>
+      <li>Reglas de acceso en la base de datos que impiden que un usuario vea o modifique los datos de otro.</li>
+      <li>Claves de acceso a los servicios guardadas en entornos seguros, nunca en el código de la app.</li>
     </ul>
 
-    <h2>4. Base legal</h2>
-    <p>El tratamiento de tus datos se basa en:</p>
-    <ul>
-      <li><strong>Ejecución del contrato:</strong> para prestarte el servicio de planificación de menús que has solicitado.</li>
-      <li><strong>Interés legítimo:</strong> para mejorar el servicio y garantizar su correcto funcionamiento técnico.</li>
-      <li><strong>Consentimiento:</strong> para cualquier comunicación de marketing, que siempre será opt-in.</li>
-    </ul>
+    <h2>8. Menores de edad</h2>
+    <p>Coquu no está dirigida a menores de 16 años. Si eres menor de 16 años, necesitas el consentimiento de tu padre, madre o tutor legal para usar la app. Si sabemos que hemos recogido datos de un menor sin ese consentimiento, los eliminaremos.</p>
 
-    <h2>5. Proveedores de servicios</h2>
-    <p>Para prestarte el servicio, trabajamos con los siguientes proveedores que pueden acceder a tus datos:</p>
-    <ul>
-      <li><strong>Supabase</strong> — base de datos y autenticación. Datos almacenados en la Unión Europea.</li>
-      <li><strong>DeepSeek</strong> — modelo de inteligencia artificial que genera los menús. Los datos del perfil se envían a su API para generar las recetas.</li>
-      <li><strong>Resend</strong> — envío de emails transaccionales.</li>
-      <li><strong>RevenueCat</strong> — gestión de suscripciones y compras in-app.</li>
-    </ul>
-    <p>Todos los proveedores están sujetos a acuerdos de tratamiento de datos y solo procesan la información necesaria para prestar su servicio.</p>
+    <h2>9. Cambios en esta política</h2>
+    <p>Podemos actualizar esta política cuando sea necesario. Te avisaremos de los cambios relevantes en la app o por email. La fecha de la última actualización, al inicio del documento, indica la versión vigente.</p>
 
-    <h2>6. Conservación de datos</h2>
-    <p>Conservamos tus datos mientras mantengas una cuenta activa en Coquu. Si eliminas tu cuenta, borraremos tus datos personales en un plazo máximo de 30 días, salvo que exista una obligación legal de conservarlos por más tiempo. Puedes borrar tu cuenta desde la app (Perfil → Borrar cuenta) o desde <a href="/borrar-cuenta">coquu.app/borrar-cuenta</a>.</p>
-
-    <h2>7. Tus derechos</h2>
-    <p>De acuerdo con el Reglamento General de Protección de Datos (RGPD), tienes derecho a:</p>
-    <ul>
-      <li><strong>Acceso:</strong> solicitar una copia de los datos que tenemos sobre ti.</li>
-      <li><strong>Rectificación:</strong> corregir datos incorrectos o incompletos.</li>
-      <li><strong>Supresión:</strong> solicitar el borrado de tus datos ("derecho al olvido").</li>
-      <li><strong>Portabilidad:</strong> recibir tus datos en un formato estructurado y legible por máquina.</li>
-      <li><strong>Oposición:</strong> oponerte al tratamiento de tus datos en determinadas circunstancias.</li>
-      <li><strong>Limitación:</strong> solicitar que limitemos el tratamiento de tus datos.</li>
-    </ul>
-    <p>Para ejercer cualquiera de estos derechos, escríbenos a <a href="mailto:soporte@coquu.app">soporte@coquu.app</a>. Responderemos en un plazo máximo de 30 días.</p>
-    <p>También tienes derecho a presentar una reclamación ante la <a href="https://www.aepd.es" target="_blank">Agencia Española de Protección de Datos (AEPD)</a>.</p>
-
-    <h2>8. Seguridad</h2>
-    <p>Aplicamos medidas técnicas y organizativas para proteger tus datos frente a accesos no autorizados, pérdida o destrucción. Las contraseñas se almacenan cifradas y las comunicaciones se realizan siempre a través de conexiones seguras (HTTPS).</p>
-
-    <h2>9. Menores de edad</h2>
-    <p>Coquu no está dirigido a menores de 16 años. Si eres menor de esa edad, no debes crear una cuenta. Si tenemos conocimiento de que hemos recogido datos de un menor sin el consentimiento de sus tutores legales, los eliminaremos.</p>
-
-    <h2>10. Cambios en esta política</h2>
-    <p>Podemos actualizar esta política de privacidad cuando sea necesario. Te notificaremos cualquier cambio relevante a través de la app o por email. La fecha de la última actualización siempre estará visible al inicio de este documento.</p>
-
-    <h2>11. Contacto</h2>
-    <p>Para cualquier consulta sobre privacidad o para ejercer tus derechos, contacta con nosotros en <a href="mailto:soporte@coquu.app">soporte@coquu.app</a>.</p>
+    <h2>10. Contacto</h2>
+    <p>Para cualquier consulta sobre esta política o sobre tus datos, escríbenos a <a href="mailto:soporte@coquu.app">soporte@coquu.app</a> con el asunto "Protección de datos".</p>
   </div>
 
   <footer>
-    <p>© 2026 Coquu · <a href="index.html">Inicio</a> · <a href="terms.html">Términos de uso</a> · <a href="mailto:soporte@coquu.app">soporte@coquu.app</a></p>
+    <p>© 2026 Coquu · <a href="/">Inicio</a> · <a href="/privacy">Privacidad</a> · <a href="/terms">Términos de uso</a> · <a href="/aviso-legal">Aviso legal</a> · <a href="mailto:soporte@coquu.app">soporte@coquu.app</a></p>
   </footer>
 
 </body>

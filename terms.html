@@ -43,10 +43,7 @@
       height: 70px;
       display: flex; align-items: center; justify-content: center;
     }
-    .nav-logo {
-      display: flex; align-items: center; gap: 12px;
-      color: var(--ink);
-    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; color: var(--ink); border-bottom: none; }
     .nav-logo .mark { width: 44px; height: 44px; border-radius: 10px; overflow: hidden; }
     .nav-logo .word {
       font-family: "Cormorant Garamond", serif;
@@ -100,14 +97,16 @@
       border-top: 1px solid var(--line);
     }
     h2:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+    h3 {
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-weight: 600; font-size: 16px;
+      color: var(--ink); margin: 28px 0 8px;
+    }
     p {
       font-size: 15px; line-height: 1.75;
       color: var(--ink-soft); margin-bottom: 16px;
     }
-    ul {
-      margin: 12px 0 20px 0;
-      padding-left: 0; list-style: none;
-    }
+    ul { margin: 12px 0 20px 0; padding-left: 0; list-style: none; }
     ul li {
       font-size: 15px; line-height: 1.75;
       color: var(--ink-soft);
@@ -125,6 +124,7 @@
     strong { color: var(--ink); font-weight: 600; }
     a { color: var(--green); text-decoration: none; border-bottom: 1px solid var(--line); transition: color .18s, border-color .18s; }
     a:hover { color: var(--terracota); border-color: var(--terracota); }
+    a:focus-visible { outline: 2px solid var(--terracota); outline-offset: 2px; }
     .highlight-box {
       background: var(--paper-warm);
       border: 1px solid var(--line);
@@ -134,6 +134,20 @@
       margin: 24px 0;
     }
     .highlight-box p { margin: 0; font-size: 14px; }
+    .table-wrap { overflow-x: auto; margin: 16px 0 24px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 560px; }
+    th, td {
+      text-align: left; vertical-align: top;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink-soft); line-height: 1.55;
+    }
+    th { color: var(--ink); font-weight: 600; background: var(--paper-warm); }
+    dl { margin: 12px 0 20px; }
+    dl div { display: flex; flex-wrap: wrap; gap: 4px 8px; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 15px; line-height: 1.6; }
+    dl div:last-child { border-bottom: none; }
+    dt { color: var(--ink); font-weight: 600; }
+    dd { color: var(--ink-soft); }
     footer {
       background: var(--green-deep);
       padding: 40px var(--pad-x);
@@ -142,6 +156,7 @@
     footer p { font-size: 12px; color: rgba(242, 217, 168, 0.4); margin: 0; }
     footer a { color: rgba(242, 217, 168, 0.6); border-bottom: none; }
     footer a:hover { color: var(--cream); }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   </style>
 <!-- Vercel Web Analytics -->
 <script>
@@ -153,10 +168,10 @@
 
   <nav>
     <div class="nav-inner">
-      <div class="nav-logo">
-        <img src="images/logo.png" class="mark" alt="Coquu" />
+      <a href="/" class="nav-logo">
+        <img src="/images/logo.png" class="mark" alt="Coquu" />
         <span class="word">Coquu</span>
-      </div>
+      </a>
     </div>
   </nav>
 
@@ -167,93 +182,102 @@
   </div>
 
   <div class="content">
-    <div class="last-updated">Última actualización: mayo de 2026</div>
+    <div class="last-updated">Última actualización: septiembre de 2026</div>
 
-    <h2>1. Aceptación de los términos</h2>
-    <p>Al registrarte y usar Coquu, aceptas estos términos de uso en su totalidad. Si no estás de acuerdo con alguna parte, no debes usar la aplicación.</p>
-    <p>Estos términos constituyen un acuerdo legal entre tú y Jorge Gabarri, responsable de Coquu (<a href="mailto:soporte@coquu.app">soporte@coquu.app</a>).</p>
+    <h2>1. Titular y aceptación</h2>
+    <p>Coquu es un servicio de <strong>Naranjo Sosa S.L.</strong> (CIF B24763294, domicilio social en Bravo Murillo 294, 3.º Izda., 28020 Madrid, <a href="mailto:soporte@coquu.app">soporte@coquu.app</a>). Sus datos registrales están en el <a href="/aviso-legal">aviso legal</a>.</p>
+    <p>Al crear una cuenta y usar Coquu aceptas estos términos. Si no estás de acuerdo con ellos, no uses la aplicación. El tratamiento de tus datos se explica en la <a href="/privacy">política de privacidad</a>.</p>
 
-    <h2>2. Descripción del servicio</h2>
-    <p>Coquu es una aplicación móvil que genera menús semanales personalizados mediante inteligencia artificial. El servicio incluye:</p>
+    <h2>2. El servicio</h2>
+    <p>Coquu resuelve tu semana en la cocina: prepara cada semana un menú adaptado a tu perfil y a tus electrodomésticos, con recetas detalladas, lista de la compra automática y cocina guiada. Incluye, según tu plan:</p>
     <ul>
-      <li>Generación de menús semanales adaptados al perfil del usuario.</li>
-      <li>Recetas detalladas con ingredientes, pasos y temporizadores.</li>
-      <li>Lista de la compra automática basada en el menú generado.</li>
-      <li>Modo de cocina guiado (daily y batch cooking).</li>
-      <li>Regeneración individual de platos del menú.</li>
+      <li>Menús semanales personalizados, en modo diario o batch cooking.</li>
+      <li>Recetas con ingredientes, pasos, tiempos y temporizador.</li>
+      <li>Lista de la compra automática, con exclusión de platos y básicos de despensa.</li>
+      <li>Cambio individual de platos, recetas favoritas e historial de menús.</li>
     </ul>
 
-    <h2>3. Registro y cuenta</h2>
-    <p>Para usar Coquu necesitas crear una cuenta con una dirección de email válida. Eres responsable de:</p>
+    <h2>3. Cuenta</h2>
+    <p>Para usar Coquu necesitas una cuenta con un email válido. Debes tener al menos 16 años, o contar con el consentimiento de tu padre, madre o tutor legal. Eres responsable de:</p>
     <ul>
       <li>Mantener la confidencialidad de tu contraseña.</li>
-      <li>Toda la actividad que ocurra en tu cuenta.</li>
-      <li>Notificarnos inmediatamente si sospechas un acceso no autorizado.</li>
+      <li>La actividad que se realice desde tu cuenta.</li>
+      <li>Avisarnos cuanto antes si sospechas de un acceso no autorizado.</li>
     </ul>
     <p>No puedes crear cuentas de forma automatizada ni usar la cuenta de otra persona sin su permiso.</p>
 
-    <h2>4. Planes y suscripciones</h2>
-    <p>Coquu ofrece los siguientes planes:</p>
+    <h2>4. Planes</h2>
     <ul>
-      <li><strong>Plan Free:</strong> acceso gratuito con funcionalidades limitadas.</li>
-      <li><strong>Trial de 14 días:</strong> acceso completo a todas las funcionalidades Pro, sin coste y sin tarjeta de crédito.</li>
-      <li><strong>Plan Pro:</strong> acceso completo por 3,99€/mes o 29,99€/año.</li>
+      <li><strong>Plan gratuito:</strong> acceso sin coste con funciones y número de menús limitados. Los límites vigentes se muestran en la app.</li>
+      <li><strong>Prueba gratuita de 14 días:</strong> al registrarte tienes acceso a las funciones Pro durante 14 días, sin coste y sin introducir ningún medio de pago. Al terminar, pasas automáticamente al plan gratuito, <strong>sin ningún cobro</strong>.</li>
+      <li><strong>Plan Pro:</strong> acceso completo mediante suscripción mensual (3,99 €) o anual (29,99 €). El precio final, con impuestos, se muestra en la tienda antes de comprar y puede variar según el país.</li>
     </ul>
 
+    <h2>5. Suscripciones</h2>
+    <p>Las suscripciones se compran y se pagan a través de App Store (Apple) o Google Play (Google), y se rigen también por sus condiciones.</p>
+    <ul>
+      <li>La suscripción se <strong>renueva automáticamente</strong> al final de cada periodo, salvo que la canceles al menos 24 horas antes de que termine.</li>
+      <li>Puedes gestionarla o cancelarla en cualquier momento desde los ajustes de tu cuenta de App Store o Google Play, o desde Perfil → Gestionar suscripción en la app. Si la cancelas, mantienes el acceso Pro hasta el final del periodo ya pagado.</li>
+      <li>Si cambias de dispositivo o reinstalas la app, puedes restaurar tus compras con la misma cuenta de la tienda.</li>
+    </ul>
     <div class="highlight-box">
-      <p>Los pagos se gestionan a través de App Store (Apple) y Google Play (Google). Las condiciones de facturación, renovación y cancelación están sujetas a las políticas de cada tienda.</p>
+      <p>Borrar tu cuenta de Coquu <strong>no cancela tu suscripción</strong>. Cancélala en App Store o Google Play para que no se renueve.</p>
     </div>
 
-    <p>Las suscripciones se renuevan automáticamente salvo que las canceles antes del fin del periodo de facturación. Puedes cancelar en cualquier momento desde los ajustes de tu cuenta en App Store o Google Play.</p>
+    <h2>6. Créditos de menú</h2>
+    <p>Además de la suscripción, puedes comprar packs de créditos. Cada crédito permite generar un menú adicional y solo se usa cuando has agotado los menús incluidos en tu plan. Las condiciones de cada pack, incluida su caducidad si la tiene, se muestran antes de la compra. Los créditos son personales y no se pueden transferir a otra cuenta.</p>
 
-    <h2>5. Uso aceptable</h2>
-    <p>Te comprometes a usar Coquu de forma lícita y respetuosa. Está prohibido:</p>
+    <h2>7. Desistimiento y reembolsos</h2>
+    <p>Las compras se realizan en App Store o Google Play. Las solicitudes de reembolso y el ejercicio del derecho de desistimiento se gestionan con la tienda correspondiente, conforme a sus políticas y a la normativa de consumidores aplicable.</p>
+
+    <h2>8. Uso aceptable</h2>
+    <p>Te comprometes a usar Coquu de forma lícita. Está prohibido:</p>
     <ul>
       <li>Usar el servicio para fines ilegales o fraudulentos.</li>
-      <li>Intentar acceder a sistemas o datos de otros usuarios.</li>
+      <li>Intentar acceder a sistemas o datos de otros usuarios, o eludir los límites de tu plan.</li>
       <li>Realizar ingeniería inversa, descompilar o modificar la aplicación.</li>
       <li>Usar herramientas automatizadas para acceder al servicio de forma masiva.</li>
       <li>Revender o explotar comercialmente el servicio sin autorización.</li>
     </ul>
 
-    <h2>6. Contenido generado por IA</h2>
-    <p>Los menús y recetas que genera Coquu son creados por inteligencia artificial y tienen carácter informativo. Ten en cuenta que:</p>
+    <h2>9. Recetas generadas por inteligencia artificial</h2>
+    <p>Los menús y recetas de Coquu se generan con inteligencia artificial a partir de tu perfil. Antes de entregártelos, Coquu comprueba que respetan tus intolerancias, tu dieta y tus electrodomésticos, pero esa comprobación automática puede fallar. Ten en cuenta que:</p>
     <ul>
-      <li>Los valores nutricionales son aproximados y no deben usarse como referencia médica.</li>
-      <li>Las recetas están diseñadas para cocineros domésticos de nivel medio.</li>
-      <li>Aunque el sistema valida las intolerancias automáticamente, <strong>siempre debes revisar los ingredientes</strong> si tienes alergias alimentarias graves.</li>
-      <li>Coquu no es un servicio de nutrición ni dietética profesional.</li>
+      <li><strong>Revisa siempre los ingredientes</strong> antes de cocinar, sobre todo si tienes alergias o intolerancias.</li>
+      <li>Sigue las prácticas habituales de seguridad alimentaria: cocina bien carnes, aves y huevos, y conserva y recalienta los alimentos correctamente.</li>
+      <li>Los valores nutricionales son aproximados y no sirven como referencia médica.</li>
+      <li>Coquu no es un servicio de nutrición ni de dietética profesional.</li>
     </ul>
-
+    <p>Si una receta tiene un error, repórtalo desde la app: nos ayuda a mejorar.</p>
     <div class="highlight-box">
-      <p>Si tienes condiciones médicas que requieren una dieta específica, consulta siempre con un profesional sanitario antes de seguir los menús generados por Coquu.</p>
+      <p>Si tienes una condición médica que requiere una dieta específica, consulta con un profesional sanitario antes de seguir los menús de Coquu.</p>
     </div>
 
-    <h2>7. Propiedad intelectual</h2>
-    <p>Coquu y todos sus elementos (diseño, código, marca, textos) son propiedad de Jorge Gabarri. Queda prohibida su reproducción o uso sin autorización expresa.</p>
-    <p>Los menús y recetas generados para ti son de tu uso personal. No puedes reproducirlos ni distribuirlos comercialmente.</p>
+    <h2>10. Propiedad intelectual</h2>
+    <p>Coquu y sus elementos (diseño, código, marca y textos) pertenecen a Naranjo Sosa S.L. Queda prohibida su reproducción o uso sin autorización expresa.</p>
+    <p>Los menús y recetas generados para ti son para tu uso personal. No puedes distribuirlos ni explotarlos comercialmente.</p>
 
-    <h2>8. Disponibilidad del servicio</h2>
-    <p>Nos esforzamos por mantener Coquu disponible en todo momento, pero no garantizamos una disponibilidad del 100%. Podemos interrumpir el servicio temporalmente por mantenimiento, actualizaciones o causas fuera de nuestro control.</p>
+    <h2>11. Disponibilidad del servicio</h2>
+    <p>Trabajamos para que Coquu esté siempre disponible, pero no podemos garantizarlo al 100 %. El servicio puede interrumpirse temporalmente por mantenimiento, actualizaciones o causas ajenas a nuestro control.</p>
 
-    <h2>9. Limitación de responsabilidad</h2>
-    <p>En la medida permitida por la ley aplicable, Jorge Gabarri no será responsable de daños indirectos, incidentales o consecuentes derivados del uso de Coquu, incluyendo pero no limitado a reacciones alérgicas derivadas del seguimiento de recetas generadas por la IA.</p>
+    <h2>12. Responsabilidad</h2>
+    <p>Naranjo Sosa S.L. responde del servicio conforme a la ley. No responde de los daños derivados de un uso contrario a estos términos, como cocinar una receta sin revisar sus ingredientes teniendo una alergia conocida. Nada en estos términos limita la responsabilidad que, conforme a la normativa aplicable, no pueda limitarse, en particular frente a consumidores.</p>
 
-    <h2>10. Modificaciones del servicio y los términos</h2>
-    <p>Nos reservamos el derecho de modificar estos términos o el servicio en cualquier momento. Te notificaremos los cambios relevantes con al menos 14 días de antelación a través de la app o por email. El uso continuado del servicio tras la notificación implica la aceptación de los nuevos términos.</p>
+    <h2>13. Baja y terminación</h2>
+    <p>Puedes borrar tu cuenta en cualquier momento desde la app (Perfil → Borrar cuenta) o desde <a href="/borrar-cuenta">coquu.app/borrar-cuenta</a>. Podemos suspender o cancelar las cuentas que incumplan estos términos.</p>
 
-    <h2>11. Cancelación y terminación</h2>
-    <p>Puedes cancelar tu cuenta en cualquier momento contactando con nosotros en <a href="mailto:soporte@coquu.app">soporte@coquu.app</a>. Nos reservamos el derecho de suspender o cancelar cuentas que incumplan estos términos.</p>
+    <h2>14. Cambios en el servicio y en los términos</h2>
+    <p>Podemos modificar estos términos o el servicio. Te avisaremos de los cambios relevantes con al menos 14 días de antelación, en la app o por email. Si no estás de acuerdo con los nuevos términos, puedes dejar de usar Coquu y borrar tu cuenta.</p>
 
-    <h2>12. Ley aplicable</h2>
-    <p>Estos términos se rigen por la legislación española. Para cualquier disputa, las partes se someten a los juzgados y tribunales de España.</p>
+    <h2>15. Ley aplicable y jurisdicción</h2>
+    <p>Estos términos se rigen por la legislación española. Si eres consumidor, puedes acudir a los juzgados y tribunales de tu domicilio.</p>
 
-    <h2>13. Contacto</h2>
-    <p>Para cualquier consulta sobre estos términos, contacta con nosotros en <a href="mailto:soporte@coquu.app">soporte@coquu.app</a>.</p>
+    <h2>16. Contacto</h2>
+    <p>Para cualquier consulta sobre estos términos, escríbenos a <a href="mailto:soporte@coquu.app">soporte@coquu.app</a>.</p>
   </div>
 
   <footer>
-    <p>© 2026 Coquu · <a href="index.html">Inicio</a> · <a href="privacy.html">Política de privacidad</a> · <a href="mailto:soporte@coquu.app">soporte@coquu.app</a></p>
+    <p>© 2026 Coquu · <a href="/">Inicio</a> · <a href="/privacy">Privacidad</a> · <a href="/terms">Términos de uso</a> · <a href="/aviso-legal">Aviso legal</a> · <a href="mailto:soporte@coquu.app">soporte@coquu.app</a></p>
   </footer>
 
 </body>
