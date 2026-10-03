@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["9HZRNR8LJ3.app.coquu"],
+        "components": [{ "/": "/auth/callback*" }]
+      }
+    ]
+  }
+}

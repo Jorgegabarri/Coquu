@@ -4,5 +4,11 @@
     { "source": "/beta", "destination": "/", "permanent": true },
     { "source": "/beta/(.*)", "destination": "/", "permanent": true },
     { "source": "/feedback-testers.html", "destination": "/", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/.well-known/apple-app-site-association",
+      "headers": [{ "key": "Content-Type", "value": "application/json" }]
+    }
   ]
 }

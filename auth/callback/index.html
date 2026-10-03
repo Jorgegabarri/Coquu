@@ -99,23 +99,70 @@
   }
 
   var params = getParams();
-
-  // Construir la URL del deep link con todos los parámetros
   var deepLink = 'coquu://auth/callback';
-  var paramStr = Object.keys(params).map(function(k) {
-    return encodeURIComponent(k) + '=' + encodeURIComponent(params[k]);
-  }).join('&');
-  if (paramStr) deepLink += '?' + paramStr;
 
-  // Intentar redirect automático
-  window.location.href = deepLink;
+  function buildDeepLink(p) {
+    var link = 'coquu://auth/callback';
+    var paramStr = Object.keys(p).map(function(k) {
+      return encodeURIComponent(k) + '=' + encodeURIComponent(p[k]);
+    }).join('&');
+    if (paramStr) link += '?' + paramStr;
+    return link;
+  }
 
-  // Chrome puede bloquear el redirect automático sin gesto del usuario —
-  // mostrar botón de fallback si el usuario sigue en la página tras 1.5s
-  setTimeout(function() {
-    var btn = document.getElementById('btnOpen');
-    if (btn) btn.style.display = 'inline-block';
-  }, 1500);
+  function openApp(link) {
+    deepLink = link;
+
+    // Intentar redirect automático
+    window.location.href = deepLink;
+
+    // Chrome puede bloquear el redirect automático sin gesto del usuario —
+    // mostrar botón de fallback si el usuario sigue en la página tras 1.5s
+    setTimeout(function() {
+      var btn = document.getElementById('btnOpen');
+      if (btn) btn.style.display = 'inline-block';
+    }, 1500);
+  }
+
+  function openAppWithError(code) {
+    openApp(buildDeepLink({ error: code, error_code: code }));
+  }
+
+  // Enlace con token_hash: verificarlo aquí y pasar a la app la sesión resultante
+  function verifyTokenHash(tokenHash, type) {
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2';
+    script.onerror = function() { openAppWithError('unexpected_failure'); };
+    script.onload = function() {
+      var client = window.supabase.createClient(
+        'https://gtznewhffyzwysilevrb.supabase.co',
+        'sb_publishable_sJzlm3qkVXVt1jpnegmrGg_MA1uLf3b',
+        { auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false } }
+      );
+      client.auth.verifyOtp({ token_hash: tokenHash, type: type })
+        .then(function(res) {
+          var session = res.data && res.data.session;
+          if (res.error || !session) {
+            openAppWithError((res.error && res.error.code) || 'access_denied');
+            return;
+          }
+          openApp(buildDeepLink({
+            access_token:  session.access_token,
+            refresh_token: session.refresh_token,
+            type:          type,
+          }));
+        })
+        .catch(function() { openAppWithError('unexpected_failure'); });
+    };
+    document.head.appendChild(script);
+  }
+
+  if (params.token_hash && params.type) {
+    verifyTokenHash(params.token_hash, params.type);
+  } else {
+    // Construir la URL del deep link con todos los parámetros
+    openApp(buildDeepLink(params));
+  }
 </script>
 </body>
 </html>
